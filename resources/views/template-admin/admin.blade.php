@@ -67,8 +67,8 @@
                             <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar"
                                 class="mr-3 img-circle" style="width: 40px; height:40px">
                             <div class="d-flex flex-column justify-content-center">
-                                <div class="admin-name">Username</div>
-                                <div class="admin-role">Rolenya bisa panajng</div>
+                                <div class="admin-name">{{ Auth::user()->fullname }}</div>
+                                <div class="admin-role">{{ Auth::user()->role }}</div>
                             </div>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                             <!-- Message End -->
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                        <a href="/logout" class="dropdown-item dropdown-footer">Logout</a>
                     </div>
                 </li>
                 {{-- <li class="nav-item">
@@ -112,8 +112,8 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
-                            <a href="pages/gallery.html" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
+                            <a href="/admin/user" class="nav-link">
+                                <i class="nav-icon far fa-user-circle"></i>
                                 <p>
                                     User
                                 </p>

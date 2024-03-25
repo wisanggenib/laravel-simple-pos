@@ -20,11 +20,13 @@
                     <h3>Masuk Ke Megamart</h3>
                     <span>Masukkan kredensial Anda untuk masuk ke akun Anda</span>
                     <hr>
-                    <form class="d-flex flex-grow-1 flex-column">
+                    <form action="/login-action" method="POST" class="d-flex flex-grow-1 flex-column">
+                        @csrf
                         <div class="containerform d-flex flex-column flex-grow-1 g-3">
                             <div class=" col-12 col-md-12 col-sm-12 mb-3">
-                                <label for="formFile" class="form-label">Nama Akun</label>
-                                <input class="form-control" type="text" id="formFile">
+                                <label for="formFile" class="form-label">Username</label>
+                                <input class="form-control" type="text" id="formFile" name="username"
+                                    placeholder="Masukan username">
                             </div>
                             <div>
                                 <label for="formFile" class="form-label">Nama Akun</label>
@@ -45,8 +47,13 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn"
-                            style="margin-top: 3rem; background:#00B517; color:white">Danger</button>
+                        @if($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                            {{$errors->first()}}
+                        </div>
+                        @endif
+                        <button type="submit" class="btn"
+                            style="margin-top: 3rem; background:#00B517; color:white">Masuk</button>
                     </form>
                 </div>
                 <div class="col-md-6 prevent-select d-none d-md-block d-xl-block d-lg-block"
