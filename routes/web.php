@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\CutOffController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\isAdmin;
@@ -20,6 +21,9 @@ Route::prefix('admin')->middleware([isAdmin::class])->group(function () {
     });
     Route::get('/product-category', function () {
         return view('/admin/product-category');
+    });
+    Route::get('/cut-off', function () {
+        return view('/admin/cut-off');
     });
 });
 
@@ -45,6 +49,13 @@ Route::post('/pc-store', [ProductCategoryController::class, 'store']);
 Route::post('/pc-update/{id}', [ProductCategoryController::class, 'updateData']);
 Route::delete('/pc-delete/{id}', [ProductCategoryController::class, 'deleteData']);
 Route::get('/pc-fetch/{id}', [ProductCategoryController::class, 'fetchDetail']);
+
+//cut off
+Route::get('/cutoff-fetch', [CutOffController::class, 'fetchData']);
+Route::post('/cutoff-store', [CutOffController::class, 'store']);
+Route::get('/cutoff-fetch/{id}', [CutOffController::class, 'fetchDetail']);
+Route::delete('/cutoff-delete/{id}', [CutOffController::class, 'deleteData']);
+Route::put('/cutoff-update/{id}', [CutOffController::class, 'updateData']);
 
 //auth
 Route::post('/login-action', [UserController::class, 'login']);
