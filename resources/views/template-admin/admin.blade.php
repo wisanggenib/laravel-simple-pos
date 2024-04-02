@@ -121,7 +121,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-table"></i>
+                                <i class="nav-icon fas fa-box"></i>
                                 <p>
                                     Produk
                                     <i class="fas fa-angle-left right"></i>
@@ -135,7 +135,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/tables/data.html" class="nav-link">
+                                    <a href="/admin/product-category" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Kategori Produk</p>
                                     </a>
@@ -161,7 +161,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="pages/gallery.html" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
+                                <i class="nav-icon fas fa-cog"></i>
                                 <p>
                                     Konfiguraasi Cut Off
                                 </p>
