@@ -160,10 +160,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/gallery.html" class="nav-link">
+                            <a href="/admin/cut-off" class="nav-link">
                                 <i class="nav-icon fas fa-cog"></i>
                                 <p>
-                                    Konfiguraasi Cut Off
+                                    Konfigurasi Cut Off
                                 </p>
                             </a>
                         </li>
