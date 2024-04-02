@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\isAdmin;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,9 @@ Route::prefix('admin')->middleware([isAdmin::class])->group(function () {
     Route::get('/area', [AreaController::class, 'index']);
     Route::get('/user', function () {
         return view('/admin/user');
+    });
+    Route::get('/product-category', function () {
+        return view('/admin/product-category');
     });
 });
 
@@ -34,6 +38,13 @@ Route::get('/user-fetch/{id}', [UserController::class, 'fetchDetail']);
 Route::put('/user-update/{id}', [UserController::class, 'updateData']);
 Route::delete('/user-delete/{id}', [UserController::class, 'deleteData']);
 Route::post('/registration', [UserController::class, 'register']);
+
+//category product
+Route::get('/pc-fetch', [ProductCategoryController::class, 'fetchData']);
+Route::post('/pc-store', [ProductCategoryController::class, 'store']);
+Route::post('/pc-update/{id}', [ProductCategoryController::class, 'updateData']);
+Route::delete('/pc-delete/{id}', [ProductCategoryController::class, 'deleteData']);
+Route::get('/pc-fetch/{id}', [ProductCategoryController::class, 'fetchDetail']);
 
 //auth
 Route::post('/login-action', [UserController::class, 'login']);
