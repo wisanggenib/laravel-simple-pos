@@ -63,3 +63,8 @@ Route::put('/cutoff-update/{id}', [CutOffController::class, 'updateData']);
 //auth
 Route::post('/login-action', [UserController::class, 'login']);
 Route::get('/logout', [UserController::class, 'logout']);
+
+//user
+Route::get('/home', function () {
+    return view('/home');
+});
