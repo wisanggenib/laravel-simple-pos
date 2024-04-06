@@ -19,6 +19,9 @@ Route::prefix('admin')->middleware([isAdmin::class])->group(function () {
     Route::get('/user', function () {
         return view('/admin/user');
     });
+    Route::get('/product', function () {
+        return view('/admin/product');
+    });
     Route::get('/product-category', function () {
         return view('/admin/product-category');
     });

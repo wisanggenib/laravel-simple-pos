@@ -129,7 +129,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/tables/simple.html" class="nav-link">
+                                    <a href="/admin/product" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>List Produk</p>
                                     </a>
@@ -153,7 +153,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="pages/gallery.html" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
+                                <i class="nav-icon far fa-file-alt"></i>
                                 <p>
                                     Pesanan
                                 </p>
