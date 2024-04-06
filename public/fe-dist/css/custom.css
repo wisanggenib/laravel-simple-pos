@@ -1,0 +1,79 @@
+/* your styles go here */
+.customheader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.custom-border-bottom {
+    border-top: 1px solid #E0E0E0;
+    border-bottom: 1px solid #E0E0E0;
+    margin-bottom: 0.5rem;
+}
+
+.searching {
+    display: flex;
+    flex: 1;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.searching>input {
+    width: 100%;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.user-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: black;
+    color: white;
+    font-weight: bold;
+    font-size: 0.6rem;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.user-wrapper {
+    display: flex;
+    font-size: 0.8rem;
+    flex-direction: row;
+    gap: 0.5rem;
+    font-weight: bold;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.second-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container-wallet {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: #8B96A5;
+    font-weight: 400;
+}
+
+.my-money {
+    color: #1C1C1C;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
