@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	/* ===============================================================
-    	 COUNTRY SELECT BOX FILLING
-  	=============================================================== */
+		 COUNTRY SELECT BOX FILLING
+		=============================================================== */
 	const request = new XMLHttpRequest();
 	request.open('GET', 'js/countries.json');
 	request.onload = function () {
@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		direction: 'horizontal',
 		slidesPerView: 5,
 		spaceBetween: 10,
+		allowTouchMove: false,
 		breakpoints: {
 			560: {
 				direction: 'vertical',
@@ -95,8 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	/* ===============================================================
-         PRODUCT QUNATITY
-      =============================================================== */
+		 PRODUCT QUNATITY
+	  =============================================================== */
 	document.querySelectorAll('.dec-btn').forEach((el) => {
 		el.addEventListener('click', () => {
 			var siblings = el.parentElement.querySelector('input');

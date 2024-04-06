@@ -68,3 +68,9 @@ Route::get('/logout', [UserController::class, 'logout']);
 Route::get('/home', function () {
     return view('/home');
 });
+Route::get('/detail-product', function () {
+    return view('/detail-product');
+});
+Route::get('/cart', function () {
+    return view('/cart');
+});
