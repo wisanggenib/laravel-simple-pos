@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Document</title>
     <meta name="robots" content="all,follow">
 
@@ -119,10 +120,10 @@
                         </div>
                     </nav>
                     <div class="custom-border-bottom">
-                        <div class="container second-nav">
+                        <div class="container second-nav" style="padding-top:0.5rem; padding-bottom:0.5rem">
                             <div class="left-side">
                                 <div class="dropdown">
-                                    <button class="btn dropdown-toggle" type="button" id="categoriesdropdown"
+                                    {{-- <button class="btn dropdown-toggle" type="button" id="categoriesdropdown"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         Semua Kategori
                                     </button>
@@ -130,14 +131,14 @@
                                         <li><a class="dropdown-item" href="#">Action</a></li>
                                         <li><a class="dropdown-item" href="#">Another action</a></li>
                                         <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
+                                    </ul> --}}
                                 </div>
                             </div>
                             <div class="right-side">
                                 <div class="container-wallet">
                                     <i class="fas fa-wallet" style="color: black"></i>
                                     <div>Saldo Dompet</div>
-                                    <div class="my-money">Rp. 2000.0000</div>
+                                    <div class="my-money">Rp. {{number_format(users_count(), 0, ",", ".")}}</div>
                                 </div>
                             </div>
                         </div>
@@ -233,7 +234,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-md-4 mb-3 mb-md-0">
+                        {{-- <div class="col-md-4 mb-3 mb-md-0">
                             <h6 class="text-uppercase mb-3">My Account</h6>
                             <ul class="list-unstyled mb-0">
                                 <li><a class="footer-link" href="#!">My Account</a></li>
@@ -241,7 +242,7 @@
                                 <li><a class="footer-link" href="#!">Keranjang Belanja</a></li>
                                 <li><a class="footer-link" href="#!">Notifikasi</a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <div class="col-md-4">
                             <h6 class="text-uppercase mb-3">Helps</h6>
                             <ul class="list-unstyled mb-0">

@@ -142,7 +142,7 @@
                         {{-- @csrf --}}
                         <div class="modal-body">
                             <div id="errList"></div>
-                            <input type="text" id="edit_data_id" aria-hidden="true">
+                            <input type="text" id="edit_data_id" aria-hidden="true" class="d-none">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Nama Pengguna</label>
                                 <input type="text" class="form-control" id="editFullname" name="editFullname"

@@ -119,6 +119,8 @@ class UserController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
             Auth::login($user);
+            $request->session()->regenerate();
+
 
             return redirect()->intended('/admin/area');
         }

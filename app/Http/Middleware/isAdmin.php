@@ -20,7 +20,6 @@ class isAdmin
         if (!$user) {
             return redirect('/');
         }
-
         if ($user->role === 'admin') {
             return $next($request);
         } else {

@@ -1,57 +1,6 @@
 @extends('template-admin.user')
 @section('content')
 
-<div class="modal fade" id="productView" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content overflow-hidden border-0">
-            <button class="btn-close p-4 position-absolute top-0 end-0 z-index-20 shadow-0" type="button"
-                data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="modal-body p-0">
-                <div class="row align-items-stretch">
-                    <div class="col-lg-6 p-lg-0"><a class="glightbox product-view d-block h-100 bg-cover bg-center"
-                            style="background: url(img/product-5.jpg)" href="img/product-5.jpg" data-gallery="gallery1"
-                            data-glightbox="Red digital smartwatch"></a><a class="glightbox d-none"
-                            href="img/product-5-alt-1.jpg" data-gallery="gallery1"
-                            data-glightbox="Red digital smartwatch"></a><a class="glightbox d-none"
-                            href="img/product-5-alt-2.jpg" data-gallery="gallery1"
-                            data-glightbox="Red digital smartwatch"></a></div>
-                    <div class="col-lg-6">
-                        <div class="p-4 my-md-4">
-                            <ul class="list-inline mb-2">
-                                <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-                                <li class="list-inline-item m-0 1"><i class="fas fa-star small text-warning"></i></li>
-                                <li class="list-inline-item m-0 2"><i class="fas fa-star small text-warning"></i></li>
-                                <li class="list-inline-item m-0 3"><i class="fas fa-star small text-warning"></i></li>
-                                <li class="list-inline-item m-0 4"><i class="fas fa-star small text-warning"></i></li>
-                            </ul>
-                            <h2 class="h4">Red digital smartwatch</h2>
-                            <p class="text-muted">$250</p>
-                            <p class="text-sm mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut
-                                ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis
-                                parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis.</p>
-                            <div class="row align-items-stretch mb-4 gx-0">
-                                <div class="col-sm-7">
-                                    <div class="border d-flex align-items-center justify-content-between py-1 px-3">
-                                        <span class="small text-uppercase text-gray mr-4 no-select">Quantity</span>
-                                        <div class="quantity">
-                                            <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                                            <input class="form-control border-0 shadow-0 p-0" type="text" value="1">
-                                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-5"><a
-                                        class="btn btn-dark btn-sm w-100 h-100 d-flex align-items-center justify-content-center px-0"
-                                        href="cart.html">Add to cart</a></div>
-                            </div><a class="btn btn-link text-dark text-decoration-none p-0" href="#!"><i
-                                    class="far fa-heart me-2"></i>Add to wish list</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <section class="py-5">
     <div class="container">
         <div class="row mb-5 custom-cards-tb">
@@ -61,25 +10,25 @@
                     <div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0 px-xl-2">
                         <div class="swiper product-slider-thumbs">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide h-auto swiper-thumb-item mb-3"><img class="w-100"
+                                {{-- <div class="swiper-slide h-auto swiper-thumb-item mb-3"><img class="w-100"
                                         src="{{ asset('fe-dist/img/product-detail-1.jpg') }}" alt="..."></div>
                                 <div class="swiper-slide h-auto swiper-thumb-item mb-3"><img class="w-100"
                                         src="{{ asset('fe-dist/img/product-detail-2.jpg') }}" alt="..."></div>
                                 <div class="swiper-slide h-auto swiper-thumb-item mb-3"><img class="w-100"
                                         src="{{ asset('fe-dist/img/product-detail-3.jpg') }}" alt="..."></div>
                                 <div class="swiper-slide h-auto swiper-thumb-item mb-3"><img class="w-100"
-                                        src="{{ asset('fe-dist/img/product-detail-4.jpg') }}" alt="..."></div>
+                                        src="{{ asset('fe-dist/img/product-detail-4.jpg') }}" alt="..."></div> --}}
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-10 order-1 order-sm-2">
+                    <div class="col-sm-12 order-1 order-sm-2">
                         <div class="swiper product-slider">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide h-auto"><a class="glightbox product-view"
-                                        href="{{ asset('fe-dist/img/product-detail-1.jpg') }}" data-gallery="gallery2"
+                                        href="/storage/images/{{$products->thumbnail}}" data-gallery="gallery2"
                                         data-glightbox="Product item 1"><img class="img-fluid"
-                                            src="{{ asset('fe-dist/img/product-detail-1.jpg') }}" alt="..."></a></div>
-                                <div class="swiper-slide h-auto"><a class="glightbox product-view"
+                                            src="/storage/images/{{$products->thumbnail}}" alt="..."></a></div>
+                                {{-- <div class="swiper-slide h-auto"><a class="glightbox product-view"
                                         href="{{ asset('fe-dist/img/product-detail-2.jpg') }}" data-gallery="gallery2"
                                         data-glightbox="Product item 2"><img class="img-fluid"
                                             src="{{ asset('fe-dist/img/product-detail-2.jpg') }}" alt="..."></a></div>
@@ -91,6 +40,7 @@
                                         href="{{ asset('fe-dist/img/product-detail-4.jpg') }}" data-gallery="gallery2"
                                         data-glightbox="Product item 4"><img class="img-fluid"
                                             src="{{ asset('fe-dist/img/product-detail-4.jpg') }}" alt="..."></a></div>
+                                --}}
                             </div>
                         </div>
                     </div>
@@ -98,33 +48,35 @@
             </div>
             <!-- PRODUCT DETAILS-->
             <div class="col-lg-6">
-                <h1>Red digital smartwatch</h1>
-                <p class="text-muted lead">$250</p>
-                <p class="text-sm mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo,
-                    eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus
-                    mus. Vestibulum ultricies aliquam convallis.</p>
+                <h1>{{$products->product_name}}</h1>
+                <p class="text-muted lead">Rp. {{number_format($products->product_price, 0, ",", ".")}}</p>
+                <p class="text-sm mb-4">{{$products->product_description}}</p>
                 <div class="row align-items-stretch mb-4">
                     <div class="col-sm-5 pr-sm-0">
+                        @csrf
                         <div
                             class="border d-flex align-items-center justify-content-between py-1 px-3 bg-white border-white">
                             <span class="small text-uppercase text-gray mr-4 no-select">Quantity</span>
                             <div class="quantity">
-                                <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                                <input class="form-control border-0 shadow-0 p-0" type="text" value="1">
-                                <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                                {{-- <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button> --}}
+                                <input id="productQTY" name="productQTY" class="form-control border-0 shadow-0 p-0"
+                                    type="number" min="0" value=1 max={{$products->product_stock}}>
+                                <input id="productID" name="productID" class="form-control" type="text"
+                                    value="{{$products->id}}">
+                                {{-- <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button> --}}
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3 pl-sm-0"><a
-                            class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0"
-                            href="cart.html">Add to cart</a></div>
+                    <div class="btn-add-cart col-sm-3 pl-sm-0"><a
+                            class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0">Add
+                            to cart</a></div>
                 </div>
                 <ul class="list-unstyled small d-inline-block">
                     <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">STOCK:</strong><span
-                            class="ms-2 text-muted">309</span></li>
+                            class="ms-2 text-muted">{{$products->product_stock}}</span></li>
                     <li class="px-3 py-2 mb-1 bg-white text-muted"><strong
                             class="text-uppercase text-dark">Category:</strong><a class="reset-anchor ms-2"
-                            href="#!">Demo Products</a></li>
+                            href="#!">{{$products->product_category_name}}</a></li>
                 </ul>
             </div>
         </div>
@@ -137,12 +89,7 @@
             <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                 <div class="p-4 p-lg-5 bg-white">
                     <h6 class="text-uppercase">Product description </h6>
-                    <p class="text-muted text-sm mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                        sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                        laborum.</p>
+                    <p class="text-muted text-sm mb-0">{{$products->product_description}}.</p>
                 </div>
             </div>
         </div>
@@ -151,11 +98,12 @@
             <h2 class="h5 text-uppercase mb-4">Related products</h2>
             <div class="row">
                 <!-- PRODUCT-->
+                @foreach($products2 as $user)
                 <div class="col-lg-3 col-sm-6">
                     <div class="product text-center skel-loader">
-                        <div class="d-block mb-3 position-relative"><a class="d-block" href="/detail-product"><img
-                                    class="img-fluid w-100" src="{{ asset('fe-dist/img/product-4.jpg') }}"
-                                    alt="..."></a>
+                        <div class="d-block mb-3 position-relative"><a class="d-block"
+                                href="/detail-product/{{$user->id}}"><img class="img-fluid w-100"
+                                    src="/storage/images/{{$user->thumbnail}}" alt="..."></a>
                             <div class="product-overlay">
                                 <ul class="mb-0 list-inline">
                                     <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="#!">Add to
@@ -166,28 +114,53 @@
                                 </ul>
                             </div>
                         </div>
-                        <h6> <a class="reset-anchor" href="/detail-product">Kui Ye Chen’s AirPods</a></h6>
-                        <p class="small text-muted">$250</p>
+                        <h6> <a class="reset-anchor" href="/detail-product">{{$user->product_name}}</a></h6>
+                        <p class="small text-muted">Rp. {{number_format($user->product_price, 0, ",", ".")}}</p>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
+        {{-- {{dd(session()->all())}} --}}
     </div>
 </section>
 
-{{-- @section('scripts')
+@section('scripts')
 <script>
-    var swiper = new Swiper(".mySwiper", {
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
-    pagination: {
-        el: ".swiper-pagination",
-    },
-    });
+    $(document).ready(function(){
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(document).on('click','.btn-add-cart', function(e){
+            e.preventDefault()
+            let data = {
+                'productQTY' : $('#productQTY').val(),
+                'productID' : $('#productID').val()
+            }
+
+            $.ajax({
+                type:"POST",
+                url:"/add-to-chart",
+                data:data,
+                success: function (res){
+                if(res){
+                    if(res.message == "error"){
+                        return(alert(res.data))
+                    }
+                    alert('success')
+                }else{
+                    //soon change with alert modals
+                    alert("Error")
+                }
+                }
+            })
+        })
+    })
 </script>
-@endsection --}}
+@endsection
 
 
 @endsection
