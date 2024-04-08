@@ -32,7 +32,7 @@
             <i class="fas fa-arrow-right"></i>
         </div>
     </header>
-    <div class="row gap-mobile-2">
+    <div class="row gap-mobile-2" id="product-categories-zone">
         <div class="col-md-2">
             <a class="category-item" href=""><img class="img-fluid" src="{{ asset('fe-dist/img/product-1.jpg') }}"
                     alt="" />
@@ -62,28 +62,9 @@
             <i class="fas fa-arrow-right"></i>
         </div>
     </header>
-    <div class="row">
+    <div class="row" id="product-zone">
         <!-- PRODUCT-->
-        <div class="col-xl-3 col-lg-4 col-sm-6">
-            <div class="product text-center">
-                <div class="position-relative mb-3">
-                    <div class="badge text-white bg-"></div><a class="d-block" href="detail.html"><img
-                            class="img-fluid w-100" src="{{ asset('fe-dist/img/product-2.jpg') }}" alt="..."></a>
-                    <div class="product-overlay">
-                        <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="cart.html">Add
-                                    to
-                                    cart</a></li>
-                            <li class="list-inline-item me-0"><a class="btn btn-sm btn-outline-dark" href="#productView"
-                                    data-bs-toggle="modal"><i class="fas fa-expand"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <h6> <a class="reset-anchor" href="detail.html">Kui Ye Chens AirPods</a></h6>
-                <p class="small text-muted">$250</p>
-            </div>
-        </div>
+
     </div>
 </section>
 <!-- SERVICES-->
@@ -165,7 +146,75 @@
     },
     });
 </script>
+<script>
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    
+    $(document).ready(function(){
+        fetchDataProductCategories()
+        fetchProduct()
+ 
+        function fetchDataProductCategories(){
+            $.ajax({
+                type:"GET",
+                url:"/pc-fetch",
+                dataType:"json",
+                success: function(respons){
+                    console.log(respons.product_categories)
+                    $('#product-categories-zone').html('')
+                    $.each(respons.product_categories.data, function(key, product){
+                        $('#product-categories-zone').append('<div class="col-md-2">\
+                            <a class="category-item" href=""><img class="img-fluid" src="/storage/images/'+product.images+'" alt="" />\
+                                <strong class="category-item-title">'+product.product_category_name+'</strong>\
+                            </a>\
+                        </div>\
+                        ')
+                    })
+                }
+            })
+        }
+
+        function fetchProduct() {
+            $.ajax({
+                type: "GET",
+                url: "/product-fetch",
+                dataType: "json",
+                success: function(respons) {
+                    console.log(respons.products)
+                    $('#product-zone').html('')
+                    $.each(respons.products.data, function(key, product) {
+                        $('#product-zone').append('<div class="col-xl-3 col-lg-4 col-sm-6">\
+                        <div class="product text-center">\
+                            <div class="position-relative mb-3">\
+                                <div class="badge text-white bg-"></div><a class="d-block" href="/detail-product/'+product.id+'"><img class="img-fluid w-100"\
+                                        src="/storage/images/'+product.thumbnail+'" alt="..."></a>\
+                                <div class="product-overlay">\
+                                    <ul class="mb-0 list-inline">\
+                                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="/cart">Add\
+                                                to\
+                                                cart</a></li>\
+                                        </li>\
+                                    </ul>\
+                                </div>\
+                            </div>\
+                            <h6> <a class="reset-anchor" href="detail.html">'+product.product_name+'</a></h6>\
+                            <p class="small text-muted">Rp. '+product.product_price+'</p>\
+                        </div>\
+                    </div>\
+                        ')
+                    })
+                }
+            })
+        }
+    })
+</script>
 @endsection
 
 
 @endsection
+
+{{-- <li class="list-inline-item me-0"><a class="btn btn-sm btn-outline-dark" href="#productView" \
+        data-bs-toggle="modal"><i class="fas fa-expand"></i></a>\ --}}

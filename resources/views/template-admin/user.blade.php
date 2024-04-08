@@ -47,7 +47,9 @@
                                 class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <div class="customheader container navbar-nav">
-                                <img class="img-fluid" src="{{ asset('assets/images/logo.svg') }}" alt="...">
+                                <a href="/">
+                                    <img class="img-fluid" src="{{ asset('assets/images/logo.svg') }}" alt="...">
+                                </a>
                                 <div class="searching">
                                     <input type="text" name="" id="">
                                 </div>
@@ -57,13 +59,21 @@
                                     </a>
                                     <a class="nav-link" href="/cart"> <i
                                             class="fas fa-shopping-bag me-1 text-gray"></i></a>
-                                    <div class="user-wrapper">
-                                        <div class="user-container">
-                                            BW
+                                    <div class="dropdown">
+                                        <div class="user-wrapper" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <div class="user-container text-uppercase">
+                                                {{ substr(Auth::user()->fullname,0,1) }}
+                                            </div>
+                                            <div class="username-text">
+                                                {{ Auth::user()->fullname }}
+                                            </div>
                                         </div>
-                                        <div class="username-text">
-                                            Bagus Wisanggeni
-                                        </div>
+                                        <ul class="dropdown-menu shadow-lg" aria-labelledby="dropdownMenuButton1"
+                                            style="border:1px solid #f7f7f7">
+                                            <li><a class="dropdown-item" style="color:red" href="/logout">Logout</a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +145,7 @@
                 </div>
             </header>
             <!--  Modal -->
-            <div class="modal fade" id="productView" tabindex="-1">
+            {{-- <div class="modal fade" id="productView" tabindex="-1">
                 <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content overflow-hidden border-0">
                         <button class="btn-close p-4 position-absolute top-0 end-0 z-index-20 shadow-0" type="button"
@@ -204,7 +214,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- HERO SECTION-->
             <div class="container" style="margin-bottom: 0.5rem;">
                 @yield('content')
@@ -258,6 +268,7 @@
             <script src="{{ asset('fe-dist/vendor/swiper/swiper-bundle.min.js') }}"></script>
             <script src="{{ asset('fe-dist/vendor/choices.js/public/assets/scripts/choices.min.js') }}"></script>
             <script src="{{ asset('fe-dist/js/front.js') }}"></script>
+            <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
             <script>
                 // ------------------------------------------------------- //
             //   Inject SVG Sprite - 
