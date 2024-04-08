@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignUuid('id_category')->references('id')->on('product_categories');
             $table->string('product_description');
             $table->string('thumbnail');
-            $table->boolean('is_vendor');
+            $table->string('is_vendor');
             $table->string('vendor_name');
             $table->timestamps();
         });

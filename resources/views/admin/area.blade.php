@@ -198,8 +198,8 @@
                         $('tbody').append('<tr>\
                         <td>'+area.area_name+'</td>\
                         <td>'+area.area_budget+'</td>\
-                        <td>'+area.updated_at+'</td>\
-                        <td>'+area.created_at+'</td>\
+                        <td>'+moment(area.updated_at).format("YYYY/MM/DD HH:mm")+'</td>\
+                        <td>'+moment(area.created_at).format("YYYY/MM/DD HH:mm")+'</td>\
                         <td>\
                         <button value="'+area.id+'" data-toggle="modal" data-target="#modalEditStudent" type="button" class="trigger_edit btn btn-warning">edit</button>\
                         <button value="'+area.id+'" type="button" class="trigger_delete btn btn-danger">delete</button>\

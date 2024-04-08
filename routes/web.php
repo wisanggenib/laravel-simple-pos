@@ -18,9 +18,9 @@ Route::middleware([isUser::class])->group(function () {
     Route::get('/home', function () {
         return view('/home');
     });
-    Route::get('/detail-product/{id}', function () {
-        return view('/detail-product');
-    });
+
+    Route::get('/detail-product/{id}', [ProductController::class, 'viewDetail']);
+
     Route::get('/cart', function () {
         return view('/cart');
     });
@@ -85,6 +85,10 @@ Route::delete('/product-delete/{id}', [ProductController::class, 'deleteData']);
 //auth
 Route::post('/login-action', [UserController::class, 'login']);
 Route::get('/logout', [UserController::class, 'logout']);
+
+//cart
+
+Route::post('/add-to-chart', [ProductController::class, 'addCart']);
 
 
 //login

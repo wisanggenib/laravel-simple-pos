@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,6 +26,7 @@ class ProductController extends Controller
 
     public function fetchDetail($id)
     {
+
         $products =
             DB::table('products')
             ->select('product_categories.id as id_category', 'product_categories.*', 'products.*')
@@ -141,5 +144,40 @@ class ProductController extends Controller
                 'data' => null
             ]);
         }
+    }
+
+    public function viewDetail($id)
+    {
+        // $users = User::paginate(10);
+        $products =
+            DB::table('products')
+            ->select('product_categories.id as id_category', 'product_categories.*', 'products.*')
+            ->join('product_categories', 'products.id_category', '=', 'product_categories.id')
+            ->where('products.id', $id)
+            ->first();
+
+        $id_category = $products->id_category;
+        $id = $products->id;
+
+        $products2 = DB::select('SELECT product_categories.id as id_category, product_categories.*, products.* FROM products JOIN product_categories ON products.id_category = product_categories.id WHERE products.id_category = ? AND products.id != ? LIMIT 4', [$id_category, $id]);
+
+        return view('detail-product', compact('products', 'products2'));
+    }
+
+    public function addCart(Request $request)
+    {
+        $productId = $request->input('productID');
+        $product = Product::find($productId);
+        $cart = session()->get('cart', []);
+        $cart[$productId] = [
+            'name' => $product->product_name,
+            'price' => $product->product_price,
+            'thumbnail' => $product->thumbnail,
+            'qty' => $request->input('productQTY'),
+        ];
+        // session('cart')->forget($cart[$productId]);
+        // session()->pull('cart', $cart[$productId]);
+
+        session()->put('cart', $cart);
     }
 }
