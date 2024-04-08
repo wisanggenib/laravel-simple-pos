@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class isAdmin
+class isUser
 {
     /**
      * Handle an incoming request.
@@ -18,13 +18,13 @@ class isAdmin
     {
         $user = Auth::user();
         if (!$user) {
-            return redirect('/');
+            return redirect('/login');
         }
 
-        if ($user->role === 'admin') {
+        if ($user->role === 'member') {
             return $next($request);
         } else {
-            return redirect('/home');
+            return redirect('/logout');
         }
     }
 }
