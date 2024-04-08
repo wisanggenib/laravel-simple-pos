@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Document</title>
     <meta name="robots" content="all,follow">
 
@@ -47,7 +48,9 @@
                                 class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <div class="customheader container navbar-nav">
-                                <img class="img-fluid" src="{{ asset('assets/images/logo.svg') }}" alt="...">
+                                <a href="/">
+                                    <img class="img-fluid" src="{{ asset('assets/images/logo.svg') }}" alt="...">
+                                </a>
                                 <div class="searching">
                                     <input type="text" name="" id="">
                                 </div>
@@ -57,13 +60,21 @@
                                     </a>
                                     <a class="nav-link" href="/cart"> <i
                                             class="fas fa-shopping-bag me-1 text-gray"></i></a>
-                                    <div class="user-wrapper">
-                                        <div class="user-container">
-                                            BW
+                                    <div class="dropdown">
+                                        <div class="user-wrapper" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <div class="user-container text-uppercase">
+                                                {{ substr(Auth::user()->fullname,0,1) }}
+                                            </div>
+                                            <div class="username-text">
+                                                {{ Auth::user()->fullname }}
+                                            </div>
                                         </div>
-                                        <div class="username-text">
-                                            Bagus Wisanggeni
-                                        </div>
+                                        <ul class="dropdown-menu shadow-lg" aria-labelledby="dropdownMenuButton1"
+                                            style="border:1px solid #f7f7f7">
+                                            <li><a class="dropdown-item" style="color:red" href="/logout">Logout</a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -109,10 +120,10 @@
                         </div>
                     </nav>
                     <div class="custom-border-bottom">
-                        <div class="container second-nav">
+                        <div class="container second-nav" style="padding-top:0.5rem; padding-bottom:0.5rem">
                             <div class="left-side">
                                 <div class="dropdown">
-                                    <button class="btn dropdown-toggle" type="button" id="categoriesdropdown"
+                                    {{-- <button class="btn dropdown-toggle" type="button" id="categoriesdropdown"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         Semua Kategori
                                     </button>
@@ -120,14 +131,14 @@
                                         <li><a class="dropdown-item" href="#">Action</a></li>
                                         <li><a class="dropdown-item" href="#">Another action</a></li>
                                         <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
+                                    </ul> --}}
                                 </div>
                             </div>
                             <div class="right-side">
                                 <div class="container-wallet">
                                     <i class="fas fa-wallet" style="color: black"></i>
                                     <div>Saldo Dompet</div>
-                                    <div class="my-money">Rp. 2000.0000</div>
+                                    <div class="my-money">Rp. {{number_format(users_count(), 0, ",", ".")}}</div>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +146,7 @@
                 </div>
             </header>
             <!--  Modal -->
-            <div class="modal fade" id="productView" tabindex="-1">
+            {{-- <div class="modal fade" id="productView" tabindex="-1">
                 <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content overflow-hidden border-0">
                         <button class="btn-close p-4 position-absolute top-0 end-0 z-index-20 shadow-0" type="button"
@@ -204,7 +215,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- HERO SECTION-->
             <div class="container" style="margin-bottom: 0.5rem;">
                 @yield('content')
@@ -223,7 +234,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-md-4 mb-3 mb-md-0">
+                        {{-- <div class="col-md-4 mb-3 mb-md-0">
                             <h6 class="text-uppercase mb-3">My Account</h6>
                             <ul class="list-unstyled mb-0">
                                 <li><a class="footer-link" href="#!">My Account</a></li>
@@ -231,7 +242,7 @@
                                 <li><a class="footer-link" href="#!">Keranjang Belanja</a></li>
                                 <li><a class="footer-link" href="#!">Notifikasi</a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <div class="col-md-4">
                             <h6 class="text-uppercase mb-3">Helps</h6>
                             <ul class="list-unstyled mb-0">
@@ -258,6 +269,7 @@
             <script src="{{ asset('fe-dist/vendor/swiper/swiper-bundle.min.js') }}"></script>
             <script src="{{ asset('fe-dist/vendor/choices.js/public/assets/scripts/choices.min.js') }}"></script>
             <script src="{{ asset('fe-dist/js/front.js') }}"></script>
+            <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
             <script>
                 // ------------------------------------------------------- //
             //   Inject SVG Sprite - 

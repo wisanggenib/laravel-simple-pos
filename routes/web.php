@@ -3,12 +3,27 @@
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CutOffController;
 use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\isAdmin;
+use App\Http\Middleware\isUser;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('login');
+
+Route::middleware([isUser::class])->group(function () {
+    Route::get('/', function () {
+        return view('home');
+    });
+
+    Route::get('/home', function () {
+        return view('/home');
+    });
+
+    Route::get('/detail-product/{id}', [ProductController::class, 'viewDetail']);
+
+    Route::get('/cart', function () {
+        return view('/cart');
+    });
 });
 
 Route::prefix('admin')->middleware([isAdmin::class])->group(function () {
@@ -60,17 +75,23 @@ Route::get('/cutoff-fetch/{id}', [CutOffController::class, 'fetchDetail']);
 Route::delete('/cutoff-delete/{id}', [CutOffController::class, 'deleteData']);
 Route::put('/cutoff-update/{id}', [CutOffController::class, 'updateData']);
 
+//product
+Route::get('/product-fetch', [ProductController::class, 'fetchData']);
+Route::get('/product-fetch/{id}', [ProductController::class, 'fetchDetail']);
+Route::post('/product-store', [ProductController::class, 'store']);
+Route::post('/product-update/{id}', [ProductController::class, 'updateData']);
+Route::delete('/product-delete/{id}', [ProductController::class, 'deleteData']);
+
 //auth
 Route::post('/login-action', [UserController::class, 'login']);
 Route::get('/logout', [UserController::class, 'logout']);
 
-//user
-Route::get('/home', function () {
-    return view('/home');
-});
-Route::get('/detail-product', function () {
-    return view('/detail-product');
-});
-Route::get('/cart', function () {
-    return view('/cart');
+//cart
+
+Route::post('/add-to-chart', [ProductController::class, 'addCart']);
+
+
+//login
+Route::get('/login', function () {
+    return view('login');
 });

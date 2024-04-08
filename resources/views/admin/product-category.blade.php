@@ -111,7 +111,7 @@
                         {{-- @csrf --}}
                         <div class="modal-body">
                             <div id="errList"></div>
-                            <input type="text" id="edit_data_id" aria-hidden="true">
+                            <input type="text" id="edit_data_id" aria-hidden="true" class="d-none">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Nama Kategori</label>
                                 <input type="text" class="form-control" id="editCategoryName" name="editCategoryName"
@@ -191,7 +191,7 @@
                     $.each(respons.product_categories.data, function(key, product){
                         $('tbody').append('<tr>\
                         <td> <img src="/storage/images/'+product.images+'" style="width:5rem; height:auto;margin-right:1rem" alt="img">'+product.product_category_name+'</td>\
-                        <td>'+product.created_at+'</td>\
+                        <td>'+moment(product.created_at).format("YYYY/MM/DD HH:mm")+'</td>\
                         <td>\
                         <button value="'+product.id+'" data-toggle="modal" data-target="#modalEditStudent" type="button" class="trigger_edit btn btn-warning">edit</button>\
                         <button value="'+product.id+'" type="button" class="trigger_delete btn btn-danger">delete</button>\

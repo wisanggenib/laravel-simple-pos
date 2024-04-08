@@ -227,8 +227,8 @@
                     $.each(respons.cutoffs.data, function(key, cf){
                         $('tbody').append('<tr>\
                         <td>'+cf.area_name+'</td>\
-                        <td>'+cf.startDate+' - '+cf.endDate+'</td>\
-                        <td>'+cf.created_at+'</td>\
+                        <td>'+moment(cf.startDate).format("YYYY/MM/DD")+' - '+moment(cf.endDate).format("YYYY/MM/DD")+'</td>\
+                        <td>'+moment(cf.created_at).format("YYYY/MM/DD HH:mm")+'</td>\
                         <td>\
                         <button value="'+cf.id+'" data-toggle="modal" data-target="#modalEditStudent" type="button" class="trigger_edit btn btn-warning">edit</button>\
                         <button value="'+cf.id+'" type="button" class="trigger_delete btn btn-danger">delete</button>\
