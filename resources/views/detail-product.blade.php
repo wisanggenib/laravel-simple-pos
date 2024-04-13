@@ -61,7 +61,7 @@
                                 {{-- <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button> --}}
                                 <input id="productQTY" name="productQTY" class="form-control border-0 shadow-0 p-0"
                                     type="number" min="0" value=1 max={{$products->product_stock}}>
-                                <input id="productID" name="productID" class="form-control" type="text"
+                                <input id="productID" name="productID" class="form-control d-none" type="text"
                                     value="{{$products->id}}">
                                 {{-- <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button> --}}
                             </div>

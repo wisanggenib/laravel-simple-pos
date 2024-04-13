@@ -168,16 +168,57 @@ class ProductController extends Controller
     {
         $productId = $request->input('productID');
         $product = Product::find($productId);
-        $cart = session()->get('cart', []);
-        $cart[$productId] = [
-            'name' => $product->product_name,
-            'price' => $product->product_price,
-            'thumbnail' => $product->thumbnail,
-            'qty' => $request->input('productQTY'),
-        ];
-        // session('cart')->forget($cart[$productId]);
-        // session()->pull('cart', $cart[$productId]);
 
+        $cart = $request->session()->get('cart', []);
+
+        if (isset($cart[$product->id])) {
+            $cart[$product->id]['quantity'] = $cart[$product->id]['quantity'] + $request->input('productQTY');
+        } else {
+            $cart[$productId] = [
+                "product_name" => $product->product_name,
+                "quantity" => $request->input('productQTY'),
+                "price" => $product->product_price,
+                "image" => $product->thumbnail,
+                "id" => $productId
+            ];
+        }
+
+        $AA = $request->session()->put('cart', $cart);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'data not found',
+            'data' => $AA
+        ]);
+    }
+
+    public function showCart()
+    {
+        $cart_products = collect(request()->session()->get('cart'));
+
+        $cart_total = 0;
+        if (session('cart')) {
+            foreach ($cart_products as $key => $product) {
+
+                $cart_total += $product['quantity'] * $product['price'];
+            }
+        }
+
+        /*dd($cart_total);*/
+        // $products = Product::has('images')->with('images')->latest()->limit(10)->get();
+        // $total_products_count = request()->session()->get('cart') ? count(request()->session()->get('cart')) : 0;
+        // return view('cart', compact('cart_products', 'cart_total', 'total_products_count'));
+        return view('cart', compact('cart_products', 'cart_total'));
+    }
+
+    public function deleteCart($id)
+    {
+        $cart = session()->get('cart');
+        if (isset($cart[$id])) {
+
+            unset($cart[$id]);
+        }
         session()->put('cart', $cart);
+        return redirect('/cart')->with('message', 'Area Berhasil dibuat');
     }
 }
