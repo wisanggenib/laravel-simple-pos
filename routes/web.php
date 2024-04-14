@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CutOffController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -24,6 +25,11 @@ Route::middleware([isUser::class])->group(function () {
     Route::get('/cart', function () {
         return view('/cart');
     });
+
+    Route::get('/history', function () {
+        return view('/history');
+    });
+    Route::get('/detail-order/{id}', [OrderController::class, 'viewDetail']);
 });
 
 Route::prefix('admin')->middleware([isAdmin::class])->group(function () {
@@ -43,6 +49,11 @@ Route::prefix('admin')->middleware([isAdmin::class])->group(function () {
     Route::get('/cut-off', function () {
         return view('/admin/cut-off');
     });
+
+    // Route::get('/order', function () {
+    //     return view('/admin/order');
+    // });
+    Route::get('/order-admin', [OrderController::class, 'fetchAdmin']);
 });
 
 // Route::resource('area', \App\Http\Controllers\AreaController::class);
@@ -90,6 +101,14 @@ Route::get('/logout', [UserController::class, 'logout']);
 Route::post('/add-to-chart', [ProductController::class, 'addCart']);
 Route::get('/cart', [ProductController::class, 'showCart']);
 Route::get('/delete-cart/{id}', [ProductController::class, 'deleteCart']);
+
+//order
+Route::post('/order', [OrderController::class, 'order']);
+Route::get('/order-fetch', [OrderController::class, 'fetch']);
+Route::get('/order-fetch/{id}', [OrderController::class, 'fetchDetail']);
+Route::post('/kirim-barang/{id}', [OrderController::class, 'kirimBarang']);
+Route::post('/tolak-barang/{id}', [OrderController::class, 'tolakBarang']);
+Route::post('/terima-barang/{id}', [OrderController::class, 'terimaBarang']);
 
 
 //login

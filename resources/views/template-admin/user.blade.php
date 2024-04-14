@@ -72,6 +72,8 @@
                                         </div>
                                         <ul class="dropdown-menu shadow-lg" aria-labelledby="dropdownMenuButton1"
                                             style="border:1px solid #f7f7f7">
+                                            <li><a class="dropdown-item" href="/history">Pemesanan</a>
+                                            </li>
                                             <li><a class="dropdown-item" style="color:red" href="/logout">Logout</a>
                                             </li>
                                         </ul>
@@ -269,7 +271,11 @@
             <script src="{{ asset('fe-dist/vendor/swiper/swiper-bundle.min.js') }}"></script>
             <script src="{{ asset('fe-dist/vendor/choices.js/public/assets/scripts/choices.min.js') }}"></script>
             <script src="{{ asset('fe-dist/js/front.js') }}"></script>
+            <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
             <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"
+                integrity="sha512-hUhvpC5f8cgc04OZb55j0KNGh4eh7dLxd/dPSJ5VyzqDWxsayYbojWyl5Tkcgrmb/RVKCRJI1jNlRbVP4WWC4w=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script>
                 // ------------------------------------------------------- //
             //   Inject SVG Sprite - 

@@ -152,7 +152,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/gallery.html" class="nav-link">
+                            <a href="/admin/order-admin" class="nav-link">
                                 <i class="nav-icon far fa-file-alt"></i>
                                 <p>
                                     Pesanan

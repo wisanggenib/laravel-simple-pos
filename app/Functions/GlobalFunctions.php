@@ -22,3 +22,21 @@ function format_date($data)
 {
     return date_format($data, "Y/m/d H:i");
 }
+
+
+function format_status($data)
+{
+    if ($data == 'order') {
+        return 'Sedang Dalam Proses';
+    } else if ($data == 'kirim') {
+        return 'Barang Sedang Dikirim';
+    } else if ($data == 'proses') {
+        return 'Menunggu Pengiriman';
+    } else if ($data == 'tolak') {
+        return 'PO Ditolak';
+    } else if ($data == 'selesai') {
+        return 'PO Selesai';
+    } else {
+        return 'Check Status';
+    }
+}

@@ -153,7 +153,7 @@
                     </div>
 
                     @if (users_count()>$cart_total)
-                    <div><button type="button" class="btn btn-primary"
+                    <div><button type="button" class="btn btn-primary btn-order" id="btn-order"
                             style="width: 100%;background:#1C86FF;border-radius:10px;border:none;margin-bottom:10px;color:white">Bayar</button>
                     </div>
                     @else
@@ -169,4 +169,39 @@
         </div>
     </div>
 </section>
+
+@section('scripts')
+<script>
+    $(document).ready(function(){
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(document).on('click','.btn-order', function(e){
+            e.preventDefault()
+            console.log("KERE")
+
+            $.ajax({
+                type:"POST",
+                url:"/order",
+                data:null,
+                success: function (res){
+                if(res){
+                    if(res.message == "error"){
+                        return(alert(res.data))
+                    }
+                    alert('success')
+                    window.location.reload();
+                }else{
+                    //soon change with alert modals
+                    alert("Error")
+                }
+                }
+            })
+        })
+    })
+</script>
+@endsection
 @endsection
