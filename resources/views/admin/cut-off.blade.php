@@ -109,7 +109,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header" style="border-bottom: 0px">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Area</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Cut off</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -156,7 +156,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header" style="border-bottom: 0px">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Area</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -165,7 +165,7 @@
                         <div id="errList"></div>
                         <input class="d-none" type="text" id="delete_data_id">
                         <div>
-                            Apakah kamu yakin ingin menghapus area ini ? data yang telah dihapus tidak dapat
+                            Apakah kamu yakin ingin menghapus data ini ? data yang telah dihapus tidak dapat
                             dikembalikan.
                         </div>
                     </div>

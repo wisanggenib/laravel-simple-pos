@@ -50,6 +50,16 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+
+        $validated = $request->validate([
+            'product_name' => 'required',
+            'product_stock' => 'required',
+            'product_type' => 'required',
+            'product_price' => 'required',
+            'product_description' => 'required',
+        ]);
+
+
         $ext = $request->file('thumbnail')->extension();
         $imgName = date("Ymdhis") . '.' . $ext;
         Storage::putFileAs('public/images', $request->file('thumbnail'), $imgName);

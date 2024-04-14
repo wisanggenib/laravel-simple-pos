@@ -124,7 +124,7 @@
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Deskripsi Produk</label>
                                 <textarea class="form-control" id="inputDeskripsi" name="inputDeskripsi" rows="3"
-                                    placeholder="Masukan alamat lengkap area" required></textarea>
+                                    placeholder="Masukan Deskripsi" required></textarea>
                             </div>
                             <div class="form-group">
                                 <input id="isVendor" name="isVendor" type="checkbox"
@@ -152,7 +152,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header" style="border-bottom: 0px">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Area</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Produk</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -161,7 +161,7 @@
                         {{-- @csrf --}}
                         <div class="modal-body">
                             <div id="errList"></div>
-                            <input type="text" id="edit_data_id" aria-hidden="true">
+                            <input type="text" id="edit_data_id" aria-hidden="true" class="d-none">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Nama Produk</label>
                                 <input type="text" class="form-control" id="editProductName" name="editProductName"
@@ -188,7 +188,7 @@
                                 <div class="form-group col-6">
                                     <label for="exampleFormControlTextarea1">Harga</label>
                                     <input type="number" class="form-control" id="editHarga" name="editHarga"
-                                        placeholder="Masukan Stok" required>
+                                        placeholder="Masukan Harga" required>
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="exampleInputPassword1">Kategori</label>
@@ -211,7 +211,7 @@
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Deskripsi Produk</label>
                                 <textarea class="form-control" id="editDeskripsi" name="editDeskripsi" rows="3"
-                                    placeholder="Masukan alamat lengkap area" required></textarea>
+                                    placeholder="Masukan Deskripsi" required></textarea>
                             </div>
                             <div class="form-group">
                                 <input id="isEditVendor" name="isEditVendor" type="checkbox"
@@ -241,7 +241,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header" style="border-bottom: 0px">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Area</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Produk</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -406,9 +406,17 @@
                         //soon change with alert modals
                         alert("Error")
                     }
+                },
+                error: function(res){
+                    Toast.fire({
+                    icon: 'error',
+                    title: 'Tolong Lengkapi Semua Data.'
+                    })
                 }
             })
         })
+
+        
 
         $(document).on('click', '.trigger_edit', function(e) {
             e.preventDefault()
@@ -519,7 +527,7 @@
             console.log(data_id)
             $.ajax({
                 type: "DELETE",
-                url: "/pc-delete/" + data_id,
+                url: "/product-delete/" + data_id,
                 success: function(res) {
                     if (res.data) {
                         $('#alert-success').removeClass("d-none")

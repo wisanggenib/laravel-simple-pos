@@ -19,6 +19,11 @@ class ProductCategoryController extends Controller
 
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'categoryName' => 'required',
+            'images' => 'required',
+        ]);
+
         $ext = $request->file('images')->extension();
         $imgName = date("Ymdhis") . '.' . $ext;
         Storage::putFileAs('public/images', $request->file('images'), $imgName);

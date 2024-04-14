@@ -149,7 +149,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header" style="border-bottom: 0px">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Area</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Hapus Area</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
