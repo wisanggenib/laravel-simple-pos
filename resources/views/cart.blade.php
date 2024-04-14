@@ -189,7 +189,11 @@
                 data:null,
                 success: function (res){
                 if(res){
-                    if(res.message == "error"){
+                    if(res.status === 400){
+                        alert("Stock Berubah");
+                        return window.location.reload();
+                    }
+                    else if(res.message == "error"){
                         return(alert(res.data))
                     }
                     alert('success')

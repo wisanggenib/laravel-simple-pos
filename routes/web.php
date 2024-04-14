@@ -109,6 +109,7 @@ Route::get('/order-fetch/{id}', [OrderController::class, 'fetchDetail']);
 Route::post('/kirim-barang/{id}', [OrderController::class, 'kirimBarang']);
 Route::post('/tolak-barang/{id}', [OrderController::class, 'tolakBarang']);
 Route::post('/terima-barang/{id}', [OrderController::class, 'terimaBarang']);
+Route::post('/proses-barang/{id}', [OrderController::class, 'prosesBarang']);
 
 
 //login

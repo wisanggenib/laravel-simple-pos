@@ -18,6 +18,7 @@ class ProductController extends Controller
             DB::table('products')
             ->select('product_categories.id as id_category', 'product_categories.*', 'products.*')
             ->join('product_categories', 'products.id_category', '=', 'product_categories.id')
+            ->where('product_stock', '>', 0)
             ->paginate(10);
         return response()->json([
             'products' => $products,
@@ -169,9 +170,21 @@ class ProductController extends Controller
         $id_category = $products->id_category;
         $id = $products->id;
 
-        $products2 = DB::select('SELECT product_categories.id as id_category, product_categories.*, products.* FROM products JOIN product_categories ON products.id_category = product_categories.id WHERE products.id_category = ? AND products.id != ? LIMIT 4', [$id_category, $id]);
+        $query_pending_stock = DB::select('SELECT sum(quantity) as available_stock 
+                            FROM order_details od 
+                            JOIN orders o 
+                            ON o.id = od.id_order 
+                            WHERE MONTH(o.created_at) = MONTH(CURRENT_DATE()) 
+                            AND YEAR(o.created_at) = YEAR(CURRENT_DATE()) 
+                            AND (o.status = "order"
+                                 OR o.status  = "proses" )
+                            AND od.id_product  = ?', [$id]);
+        $pending_stock = $query_pending_stock[0]->available_stock;
+        $avalable_stock = $products->product_stock - $query_pending_stock[0]->available_stock;
 
-        return view('detail-product', compact('products', 'products2'));
+        $products2 = DB::select('SELECT product_categories.id as id_category, product_categories.*, products.* FROM products JOIN product_categories ON products.id_category = product_categories.id WHERE products.id_category = ? AND products.id != ? AND products.product_stock > 0 LIMIT 4', [$id_category, $id]);
+
+        return view('detail-product', compact('products', 'products2', 'avalable_stock'));
     }
 
     public function addCart(Request $request)

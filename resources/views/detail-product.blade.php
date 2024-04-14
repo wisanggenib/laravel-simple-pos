@@ -60,7 +60,7 @@
                             <div class="quantity">
                                 {{-- <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button> --}}
                                 <input id="productQTY" name="productQTY" class="form-control border-0 shadow-0 p-0"
-                                    type="number" min="0" value=1 max={{$products->product_stock}}>
+                                    type="number" min="0" value=1 max={{$avalable_stock}}>
                                 <input id="productID" name="productID" class="form-control d-none" type="text"
                                     value="{{$products->id}}">
                                 {{-- <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button> --}}
@@ -73,7 +73,7 @@
                 </div>
                 <ul class="list-unstyled small d-inline-block">
                     <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">STOCK:</strong><span
-                            class="ms-2 text-muted">{{$products->product_stock}}</span></li>
+                            class="ms-2 text-muted">{{$avalable_stock}}</span></li>
                     <li class="px-3 py-2 mb-1 bg-white text-muted"><strong
                             class="text-uppercase text-dark">Category:</strong><a class="reset-anchor ms-2"
                             href="#!">{{$products->product_category_name}}</a></li>

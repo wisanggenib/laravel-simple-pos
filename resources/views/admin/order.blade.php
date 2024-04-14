@@ -206,12 +206,12 @@
                         if(res.data[0].status === 'order'){
                             $('#modalFooters').append('<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>\
                             <button type="submit" id="btn-tolak-data" class="btn-tolak-data btn-add-data btn btn-danger">Tolak</button>\
-                            <button type="submit" class="btn-add-data btn btn-primary">Proses</button>\
+                            <button type="submit" class="btn-proses-data btn btn-primary">Proses</button>\
                             ')
                         }
                         else if(res.data[0].status === 'proses'){
                             $('#modalFooters').append('<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>\
-                                <button type="submit" id="btn-kirim-data" class="btn-kirim-data btn-add-data btn btn-primary">Kirim</button>\
+                                <button id="btn-kirim-data" class="btn-kirim-data btn-add-data btn btn-primary">Kirim</button>\
                             ')
 
                             $('#warpproses').append('<div class="col-12 p-2 mx-2">\
@@ -277,6 +277,33 @@
                 type: "POST",
                 url: "/kirim-barang/" + selID,
                 data: formData,
+                enctype: 'multipart/form-data',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(res) {
+                    if (res.data) {
+                        $('#alert-success').removeClass("d-none")
+                        $('#alert-success').text("Success Edit")
+                        $('#exampleModal').modal('hide')
+                        window.location.reload()
+                    } else {
+                        //soon change with alert modals
+                        alert("Error")
+                    }
+                }
+            })
+        })
+
+        $(document).on('click', '.btn-proses-data', function(e) {
+            e.preventDefault()
+
+            let selID = $('#orderIDD').val();
+
+            $.ajax({
+                type: "POST",
+                url: "/proses-barang/" + selID,
+                data: null,
                 enctype: 'multipart/form-data',
                 cache: false,
                 contentType: false,

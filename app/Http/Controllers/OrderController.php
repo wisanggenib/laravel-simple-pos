@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\order_detail;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,39 @@ class OrderController extends Controller
     //order
     public function order(Request $request)
     {
+
+        //check avaibility stock
+        $cart_products = collect(request()->session()->get('cart'));
+        if (session('cart')) {
+            foreach ($cart_products as $key => $product) {
+                $cekData = Product::find($key);
+                $query_pending_stock = DB::select('SELECT sum(quantity) as available_stock 
+                            FROM order_details od 
+                            JOIN orders o 
+                            ON o.id = od.id_order 
+                            WHERE MONTH(o.created_at) = MONTH(CURRENT_DATE()) 
+                            AND YEAR(o.created_at) = YEAR(CURRENT_DATE()) 
+                            AND (o.status = "order"
+                                 OR o.status  = "proses" )
+                            AND od.id_product  = ?', [$key]);
+                $pending_stock = $query_pending_stock[0]->available_stock;
+                $avalable_stock = $cekData->product_stock - $pending_stock;
+
+                if ($avalable_stock < $product['quantity']) {
+                    $cart = session()->get('cart');
+                    if (isset($cart[$key])) {
+                        $cart[$key]['quantity'] = $avalable_stock;
+                        session()->put('cart', $cart);
+                    }
+                    return response()->json([
+                        'status' => 400,
+                        'message' => 'error',
+                        'data' => $cekData->product_stock
+                    ]);
+                }
+            }
+        }
+
 
         $cart_products = collect(request()->session()->get('cart'));
 
@@ -37,14 +71,16 @@ class OrderController extends Controller
             $cart_products = collect(request()->session()->get('cart'));
             if (session('cart')) {
                 foreach ($cart_products as $key => $product) {
-                    $detailOrders = new order_detail();
-                    $detailOrders->id_order = $orders->id;
-                    $detailOrders->id_product = $key;
-                    $detailOrders->product_name = $product['product_name'];
-                    $detailOrders->price = $product['price'];
-                    $detailOrders->quantity = $product['quantity'];
-                    $detailOrders->thumbnail = $product['image'];
-                    $detailOrders->save();
+                    if ($product['quantity'] > 0) {
+                        $detailOrders = new order_detail();
+                        $detailOrders->id_order = $orders->id;
+                        $detailOrders->id_product = $key;
+                        $detailOrders->product_name = $product['product_name'];
+                        $detailOrders->price = $product['price'];
+                        $detailOrders->quantity = $product['quantity'];
+                        $detailOrders->thumbnail = $product['image'];
+                        $detailOrders->save();
+                    }
                 }
             }
         }
@@ -142,8 +178,43 @@ class OrderController extends Controller
         return view('detail-order', compact('products', 'orders', 'user'));
     }
 
+    public function prosesBarang(Request $request, $id)
+    {
+
+        $cutOff = Order::find($id);
+        if ($cutOff) {
+            $cutOff->status = 'proses';
+            $cutOff->update();
+            if ($cutOff) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'success update',
+                    'data' => $cutOff
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'data not found',
+                'data' => null
+            ]);
+        }
+    }
+
     public function kirimBarang(Request $request, $id)
     {
+        $products =
+            DB::table('order_details')
+            ->select('orders.*', 'orders.id as id_order', 'order_details.*')
+            ->join('orders', 'orders.id', '=', 'order_details.id_order')
+            ->where('order_details.id_order', $id)
+            ->get();
+
+        foreach ($products as $key => $product) {
+            $currProduct = Product::find($product->id_product);
+            $currProduct->product_stock = $currProduct->product_stock - $product->quantity;
+            $currProduct->update();
+        }
 
         $cutOff = Order::find($id);
         if ($cutOff) {

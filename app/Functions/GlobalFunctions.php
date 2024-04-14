@@ -6,6 +6,12 @@ use Illuminate\Support\Facades\DB;
 
 function users_count()
 {
+    $currentExpenses = DB::select('SELECT sum(total) as total FROM orders
+                        WHERE MONTH(created_at) = MONTH(CURRENT_DATE())
+                        AND YEAR(created_at) = YEAR(CURRENT_DATE())
+                        AND id_user = ?
+                        AND status  != "tolak"', [Auth::user()->id]);
+
     $ID_USER = Auth::user()->id;
     $cutoff =
         DB::table('users')
@@ -14,7 +20,7 @@ function users_count()
         ->where('users.id', $ID_USER)
         ->first();
 
-    return $cutoff->area_budget;
+    return $cutoff->area_budget - (int)$currentExpenses[0]->total;
 }
 
 
@@ -27,7 +33,7 @@ function format_date($data)
 function format_status($data)
 {
     if ($data == 'order') {
-        return 'Sedang Dalam Proses';
+        return 'Menunggu diproses';
     } else if ($data == 'kirim') {
         return 'Barang Sedang Dikirim';
     } else if ($data == 'proses') {
