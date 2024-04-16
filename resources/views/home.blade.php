@@ -26,7 +26,7 @@
 <!-- CATEGORIES SECTION-->
 <section class="pt-5">
     <header class="header-section-custom">
-        <h2 class="h5 text-uppercase">Browse our categories</h2>
+        <h2 class="h5 text-uppercase">Kategori</h2>
         <div class="view-all-container">
             <div>Lihat Semua</div>
             <i class="fas fa-arrow-right"></i>
@@ -56,7 +56,7 @@
 <!-- TRENDING PRODUCTS-->
 <section class="py-5">
     <header class="header-section-custom">
-        <h2 class="h5 text-uppercase">Browse our categories</h2>
+        <h2 class="h5 text-uppercase">List Produk</h2>
         <div class="view-all-container">
             <div>Lihat Semua</div>
             <i class="fas fa-arrow-right"></i>
@@ -193,14 +193,14 @@
                                         src="/storage/images/'+product.thumbnail+'" alt="..."></a>\
                                 <div class="product-overlay">\
                                     <ul class="mb-0 list-inline">\
-                                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="/cart">Add\
+                                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="/detail-product/'+product.id+'">Add\
                                                 to\
                                                 cart</a></li>\
                                         </li>\
                                     </ul>\
                                 </div>\
                             </div>\
-                            <h6> <a class="reset-anchor" href="detail.html">'+product.product_name+'</a></h6>\
+                            <h6> <a class="reset-anchor" href="/detail-product/'+product.id+'">'+product.product_name+'</a></h6>\
                             <p class="small text-muted">Rp. '+product.product_price+'</p>\
                         </div>\
                     </div>\

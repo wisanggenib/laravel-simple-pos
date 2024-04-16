@@ -52,14 +52,30 @@
                                     <img class="img-fluid" src="{{ asset('assets/images/logo.svg') }}" alt="...">
                                 </a>
                                 <div class="searching">
-                                    <input type="text" name="" id="">
+                                    {{-- <input type="text" name="" id=""> --}}
                                 </div>
                                 <div class="profile-container">
-                                    <a class="nav-link" href="/cart"> <i class="fas fa-bell  me-1 text-gray"></i>
-                                        {{-- <small class="text-gray fw-normal">(2)</small> --}}
-                                    </a>
-                                    <a class="nav-link" href="/cart"> <i
-                                            class="fas fa-shopping-bag me-1 text-gray"></i></a>
+                                    {{-- <a class="nav-link" href="/cart"> <i class="fas fa-bell  me-1 text-gray"
+                                            style="position: relative;font-size:1rem">
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                style="font-size: 0.6rem">
+                                                5
+                                                <span class="visually-hidden">unread messages</span>
+                                            </span>
+                                        </i>
+                                    </a> --}}
+                                    <a class="nav-link" href="/cart"> <i class="fas fa-shopping-bag me-1 text-gray"
+                                            style="font-size:1rem; position: relative;">
+                                            @if (get_total_cart() > 0)
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                style="font-size: 0.6rem">
+                                                {{get_total_cart()}}
+                                                {{-- <span class="visually-hidden">unread messages</span> --}}
+                                            </span>
+                                            @endif
+                                        </i></a>
                                     <div class="dropdown">
                                         <div class="user-wrapper" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                                             aria-expanded="false">
@@ -72,6 +88,8 @@
                                         </div>
                                         <ul class="dropdown-menu shadow-lg" aria-labelledby="dropdownMenuButton1"
                                             style="border:1px solid #f7f7f7">
+                                            <li><a class="dropdown-item" href="/history">Pemesanan</a>
+                                            </li>
                                             <li><a class="dropdown-item" style="color:red" href="/logout">Logout</a>
                                             </li>
                                         </ul>
@@ -269,7 +287,11 @@
             <script src="{{ asset('fe-dist/vendor/swiper/swiper-bundle.min.js') }}"></script>
             <script src="{{ asset('fe-dist/vendor/choices.js/public/assets/scripts/choices.min.js') }}"></script>
             <script src="{{ asset('fe-dist/js/front.js') }}"></script>
+            <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
             <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"
+                integrity="sha512-hUhvpC5f8cgc04OZb55j0KNGh4eh7dLxd/dPSJ5VyzqDWxsayYbojWyl5Tkcgrmb/RVKCRJI1jNlRbVP4WWC4w=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script>
                 // ------------------------------------------------------- //
             //   Inject SVG Sprite - 

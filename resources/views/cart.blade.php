@@ -1,7 +1,7 @@
 @extends('template-admin.user')
 @section('content')
 <section class="py-5">
-    <h2 class="h5 text-uppercase mb-4">Shopping cart</h2>
+    <h2 class="h5 text-uppercase mb-4">Keranjang saya</h2>
     <div class="row gx-5">
         <div class="col-lg-8 mb-4 mb-lg-0">
             <div class="custom-cards">
@@ -11,9 +11,9 @@
                         <thead class="bg-light">
                             <tr>
                                 <th class="border-0 p-3" scope="col"> <strong
-                                        class="text-sm text-uppercase">Product</strong></th>
+                                        class="text-sm text-uppercase">Produk</strong></th>
                                 <th class="border-0 p-3" scope="col"> <strong
-                                        class="text-sm text-uppercase">Price</strong>
+                                        class="text-sm text-uppercase">Harga</strong>
                                 </th>
                                 <th class="border-0 p-3" scope="col"> <strong
                                         class="text-sm text-uppercase">Quantity</strong></th>
@@ -25,64 +25,41 @@
                             </tr>
                         </thead>
                         <tbody class="border-0">
+                            @foreach($cart_products as $p)
                             <tr>
                                 <th class="ps-0 py-3 border-light" scope="row">
                                     <div class="d-flex align-items-center"><a
                                             class="reset-anchor d-block animsition-link" href="detail.html"><img
-                                                src="img/product-detail-3.jpg" alt="..." width="70" /></a>
+                                                src="/storage/images/{{$p['image']}}" alt="..." width="70" /></a>
                                         <div class="ms-3"><strong class="h6"><a class="reset-anchor animsition-link"
-                                                    href="detail.html">Red digital smartwatch</a></strong></div>
+                                                    href="detail.html">{{($p['product_name'])}}</a></strong></div>
                                     </div>
                                 </th>
                                 <td class="p-3 align-middle border-light">
-                                    <p class="mb-0 small">$250</p>
+                                    <p class="mb-0 small">Rp.{{(number_format($p['price']))}}</p>
                                 </td>
                                 <td class="p-3 align-middle border-light">
                                     <div class="border d-flex align-items-center justify-content-between px-3"><span
                                             class="small text-uppercase text-gray headings-font-family">Quantity</span>
                                         <div class="quantity">
-                                            <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
+                                            {{-- <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
+                                            --}}
                                             <input class="form-control form-control-sm border-0 shadow-0 p-0"
-                                                type="text" value="1" />
-                                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                                                type="number" style="background: white" disabled
+                                                value={{($p['quantity'])}} />
+                                            {{-- <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                                            --}}
                                         </div>
                                     </div>
                                 </td>
                                 <td class="p-3 align-middle border-light">
-                                    <p class="mb-0 small">$250</p>
+                                    <p class="mb-0 small">Rp.{{number_format(($p['quantity']) * ($p['price']))}}</p>
                                 </td>
-                                <td class="p-3 align-middle border-light"><a class="reset-anchor" href="#!"><i
+                                <td class="p-3 align-middle border-light"><a class="reset-anchor"
+                                        href="/delete-cart/{{$p['id']}}"><i
                                             class="fas fa-trash-alt small text-muted"></i></a></td>
                             </tr>
-                            <tr>
-                                <th class="ps-0 py-3 border-0" scope="row">
-                                    <div class="d-flex align-items-center"><a
-                                            class="reset-anchor d-block animsition-link" href="detail.html"><img
-                                                src="img/product-detail-2.jpg" alt="..." width="70" /></a>
-                                        <div class="ms-3"><strong class="h6"><a class="reset-anchor animsition-link"
-                                                    href="detail.html">Apple watch</a></strong></div>
-                                    </div>
-                                </th>
-                                <td class="p-3 align-middle border-0">
-                                    <p class="mb-0 small">$250</p>
-                                </td>
-                                <td class="p-3 align-middle border-0">
-                                    <div class="border d-flex align-items-center justify-content-between px-3"><span
-                                            class="small text-uppercase text-gray headings-font-family">Quantity</span>
-                                        <div class="quantity">
-                                            <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                                            <input class="form-control form-control-sm border-0 shadow-0 p-0"
-                                                type="text" value="1" />
-                                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="p-3 align-middle border-0">
-                                    <p class="mb-0 small">$250</p>
-                                </td>
-                                <td class="p-3 align-middle border-0"><a class="reset-anchor" href="#!"><i
-                                            class="fas fa-trash-alt small text-muted"></i></a></td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -90,57 +67,130 @@
                 <div class="bg-light px-4 py-3">
                     <div class="row align-items-center text-center">
                         <div class="col-md-6 mb-3 mb-md-0 text-md-start"><a class="btn btn-link p-0 text-dark btn-sm"
-                                href="shop.html"><i class="fas fa-long-arrow-alt-left me-2"> </i>Continue shopping</a>
+                                href="/"><i class="fas fa-long-arrow-alt-left me-2"> </i>Lanjut Belanja</a>
                         </div>
-                        <div class="col-md-6 text-md-end"><a class="btn btn-outline-dark btn-sm"
+                        {{-- <div class="col-md-6 text-md-end"><a class="btn btn-outline-dark btn-sm"
                                 href="checkout.html">Procceed to
-                                checkout<i class="fas fa-long-arrow-alt-right ms-2"></i></a></div>
+                                checkout<i class="fas fa-long-arrow-alt-right ms-2"></i></a></div> --}}
                     </div>
                 </div>
             </div>
         </div>
         <!-- ORDER TOTAL-->
         <div class="col-lg-4">
-            <div class="custom-cards p-lg-4 bg-light mb-4">
-                <div class="card-body">
-                    <div class="text-uppercase mb-2">Have a coupon?</div>
-                    <ul class="list-unstyled mb-0">
-                        <li>
-                            <form action="#">
-                                <div class="input-group mb-0">
-                                    <input class="form-control mb-2" type="text" placeholder="Enter your coupon">
-                                    <button class="btn btn-dark btn-sm w-100" type="submit"> <i
-                                            class="fas fa-gift me-2"></i>Apply coupon</button>
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
             <div class="custom-cards p-lg-4 bg-light">
                 <div class="card-body">
                     <h5 class="text-uppercase mb-4">Cart total</h5>
                     <ul class="list-unstyled mb-0">
                         <li class="d-flex align-items-center justify-content-between"><strong
                                 class="text-uppercase small font-weight-bold">Subtotal</strong><span
-                                class="text-muted small">$250</span></li>
+                                class="text-muted small">Rp.{{number_format($cart_total)}}</span></li>
                         <li class="border-bottom my-2"></li>
                         <li class="d-flex align-items-center justify-content-between mb-4"><strong
-                                class="text-uppercase small font-weight-bold">Total</strong><span>$250</span></li>
+                                class="text-uppercase small font-weight-bold">Total</strong><span>Rp.
+                                {{number_format($cart_total)}}</span>
+                        </li>
                         <li>
-                            <form action="#">
+                            {{-- <form action="#"> --}}
+
+                                @if (count($cart_products) > 0)
                                 <div class="input-group mb-0">
-                                    <input class="form-control" type="text" placeholder="Enter your coupon">
-                                    <button class="btn btn-dark btn-sm w-100" type="submit"> <i
-                                            class="fas fa-gift me-2"></i>Apply
-                                        coupon</button>
+                                    <button class="btn btn-dark btn-sm w-100" data-bs-toggle="modal"
+                                        data-bs-target="#modalPayment">Bayar
+                                        Sekarang</button>
                                 </div>
-                            </form>
+                                @else
+                                <div class="input-group mb-0">
+                                    <button class="btn btn-dark btn-sm w-100" data-bs-toggle="modal"
+                                        data-bs-target="#modalPayment" disabled>Bayar
+                                        Sekarang</button>
+                                </div>
+                                @endif
+
+                                {{--
+                            </form> --}}
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentLabel" aria-hidden="true">
+        <div class="modal-dialog" style="color: #3B4963">
+            <div class="modal-content" style="border-radius:12px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPaymentLabel">Payment Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"
+                    style="padding-left:1rem; padding-right:1rem; display flex; flex-direction:column;">
+                    <div
+                        style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;border-bottom:1px solid gray; margin-bottom:10px;padding-bottom: 10px">
+                        <div class="payment-title">Saldo Dompet</div>
+                        <div class="payment-content1">Rp. {{number_format(users_count(), 0, ",", ".")}}</div>
+                    </div>
+                    <div
+                        style="display:flex;flex-direction:row;justify-content:space-between;align-items:center; margin-bottom:5rem">
+                        <div class="payment-title" style="font-size:18px;">Total Pembayaran</div>
+                        <div class="payment-content1" style="font-weight: bold">Rp. {{number_format($cart_total, 0, ",",
+                            ".")}}</div>
+                    </div>
+
+                    @if (users_count()>=$cart_total)
+                    <div><button type="button" class="btn btn-primary btn-order" id="btn-order"
+                            style="width: 100%;background:#1C86FF;border-radius:10px;border:none;margin-bottom:10px;color:white">Bayar</button>
+                    </div>
+                    @else
+                    <div><button type="button" class="btn btn-primary" disabled
+                            style="width: 100%;background:#1C86FF;border-radius:10px;border:none;margin-bottom:1rem;color:white">Bayar</button>
+                    </div>
+                    @endif
+                    <div><button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            style="width: 100%;margin-bottom:10px;border-radius:10px;border:1px solid gray; background:white;color:gray">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
+@section('scripts')
+<script>
+    $(document).ready(function(){
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(document).on('click','.btn-order', function(e){
+            e.preventDefault()
+            console.log("KERE")
+
+            $.ajax({
+                type:"POST",
+                url:"/order",
+                data:null,
+                success: function (res){
+                if(res){
+                    if(res.status === 400){
+                        alert("Stock Berubah");
+                        return window.location.reload();
+                    }
+                    else if(res.message == "error"){
+                        return(alert(res.data))
+                    }
+                    alert('success')
+                    window.location.reload();
+                }else{
+                    //soon change with alert modals
+                    alert("Error")
+                }
+                }
+            })
+        })
+    })
+</script>
+@endsection
 @endsection

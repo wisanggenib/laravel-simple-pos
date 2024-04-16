@@ -34,13 +34,31 @@ class AreaController extends Controller
     public function store(Request $request)
     {
 
-        $userModel = new Areas;
-        $userModel->area_name = $request->inputAreaName;
-        $userModel->area_location = $request->inputAddress;
-        $userModel->area_budget =  $request->inputBudget;
-        $userModel->save();
+        $request->validate([
+            'area_name' => ['required', 'unique:areas'],
+        ]);
 
-        return redirect('/admin/area')->with('message', 'Area Berhasil dibuat');
+        $areaModel = new Areas;
+        $areaModel->area_name = $request->input('area_name');
+        $areaModel->area_budget = $request->input('area_budget');
+        $areaModel->area_location = $request->input('area_location');
+        $areaModel->save();
+
+        if ($areaModel) {
+            return response()->json([
+                'status' => 200,
+                'message' => 'success fetch',
+                'data' => $areaModel
+            ]);
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'failed',
+                'data' => $areaModel
+            ]);
+        }
+
+
 
         // return redirect()
         //     ->route('area.index')

@@ -77,3 +77,13 @@
 .mt-100 {
     margin-top: 100px;
 }
+
+.payment-title {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.payment-content1 {
+    font-size: 18px;
+    font-weight: bold !important;
+}
