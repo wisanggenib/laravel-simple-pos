@@ -180,6 +180,18 @@ class OrderController extends Controller
 
     public function prosesBarang(Request $request, $id)
     {
+        $products =
+            DB::table('order_details')
+            ->select('orders.*', 'orders.id as id_order', 'order_details.*')
+            ->join('orders', 'orders.id', '=', 'order_details.id_order')
+            ->where('order_details.id_order', $id)
+            ->get();
+
+        foreach ($products as $key => $product) {
+            $currProduct = Product::find($product->id_product);
+            $currProduct->product_stock = $currProduct->product_stock - $product->quantity;
+            $currProduct->update();
+        }
 
         $cutOff = Order::find($id);
         if ($cutOff) {
@@ -203,19 +215,6 @@ class OrderController extends Controller
 
     public function kirimBarang(Request $request, $id)
     {
-        $products =
-            DB::table('order_details')
-            ->select('orders.*', 'orders.id as id_order', 'order_details.*')
-            ->join('orders', 'orders.id', '=', 'order_details.id_order')
-            ->where('order_details.id_order', $id)
-            ->get();
-
-        foreach ($products as $key => $product) {
-            $currProduct = Product::find($product->id_product);
-            $currProduct->product_stock = $currProduct->product_stock - $product->quantity;
-            $currProduct->update();
-        }
-
         $cutOff = Order::find($id);
         if ($cutOff) {
 

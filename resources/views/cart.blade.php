@@ -78,22 +78,6 @@
         </div>
         <!-- ORDER TOTAL-->
         <div class="col-lg-4">
-            <div class="custom-cards p-lg-4 bg-light mb-4">
-                <div class="card-body">
-                    <div class="text-uppercase mb-2">Have a coupon?</div>
-                    <ul class="list-unstyled mb-0">
-                        <li>
-                            <form action="#">
-                                <div class="input-group mb-0">
-                                    <input class="form-control mb-2" type="text" placeholder="Enter your coupon">
-                                    <button class="btn btn-dark btn-sm w-100" type="submit"> <i
-                                            class="fas fa-gift me-2"></i>Apply coupon</button>
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
             <div class="custom-cards p-lg-4 bg-light">
                 <div class="card-body">
                     <h5 class="text-uppercase mb-4">Cart total</h5>
@@ -152,7 +136,7 @@
                         <div>Rp. {{number_format($cart_total, 0, ",", ".")}}</div>
                     </div>
 
-                    @if (users_count()>$cart_total)
+                    @if (users_count()>=$cart_total)
                     <div><button type="button" class="btn btn-primary btn-order" id="btn-order"
                             style="width: 100%;background:#1C86FF;border-radius:10px;border:none;margin-bottom:10px;color:white">Bayar</button>
                     </div>

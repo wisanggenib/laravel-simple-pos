@@ -52,14 +52,30 @@
                                     <img class="img-fluid" src="{{ asset('assets/images/logo.svg') }}" alt="...">
                                 </a>
                                 <div class="searching">
-                                    <input type="text" name="" id="">
+                                    {{-- <input type="text" name="" id=""> --}}
                                 </div>
                                 <div class="profile-container">
-                                    <a class="nav-link" href="/cart"> <i class="fas fa-bell  me-1 text-gray"></i>
-                                        {{-- <small class="text-gray fw-normal">(2)</small> --}}
-                                    </a>
-                                    <a class="nav-link" href="/cart"> <i
-                                            class="fas fa-shopping-bag me-1 text-gray"></i></a>
+                                    {{-- <a class="nav-link" href="/cart"> <i class="fas fa-bell  me-1 text-gray"
+                                            style="position: relative;font-size:1rem">
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                style="font-size: 0.6rem">
+                                                5
+                                                <span class="visually-hidden">unread messages</span>
+                                            </span>
+                                        </i>
+                                    </a> --}}
+                                    <a class="nav-link" href="/cart"> <i class="fas fa-shopping-bag me-1 text-gray"
+                                            style="font-size:1rem; position: relative;">
+                                            @if (get_total_cart() > 0)
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                                style="font-size: 0.6rem">
+                                                {{get_total_cart()}}
+                                                {{-- <span class="visually-hidden">unread messages</span> --}}
+                                            </span>
+                                            @endif
+                                        </i></a>
                                     <div class="dropdown">
                                         <div class="user-wrapper" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                                             aria-expanded="false">

@@ -151,6 +151,7 @@
                         return(alert(res.data))
                     }
                     alert('success')
+                    window.location.reload()
                 }else{
                     //soon change with alert modals
                     alert("Error")

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('areas', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
-            $table->string('area_name');
+            $table->string('area_name')->unique();
             $table->string('area_budget');
             $table->string('area_location');
             $table->timestamps();

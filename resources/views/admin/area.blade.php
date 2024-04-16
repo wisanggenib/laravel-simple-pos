@@ -93,7 +93,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn-add-data btn btn-primary">Save changes</button>
                         </div>
                     </form>
                 </div>
@@ -210,6 +210,49 @@
                 }
             })
         }
+
+        function resetForm(){
+            $('#inputAreaName').val("")
+            $('#inputAddress').val("")
+            $('#inputBudget').val("")
+        }
+
+         $(document).on('click','.btn-add-data', function(e){
+            e.preventDefault()
+
+            let data = {
+                'area_name': $('#inputAreaName').val(),
+                'area_location': $('#inputAddress').val(),
+                'area_budget': $('#inputBudget').val(),
+            }
+
+            $.ajax({
+                type:"POST",
+                url:"/area-store",
+                data:data,
+                success: function (res){
+                if(res){
+                    if(res.message == "error"){
+                        return(alert(res.data))
+                    }
+                    $('#alert-success').removeClass("d-none")
+                    $('#alert-success').text("Success Create Area")
+                    $('#exampleModal').modal('hide')
+                    fetchData()
+                    resetForm()
+                }else{
+                    //soon change with alert modals
+                    alert("Error")
+                }
+                },
+                error: function(res){
+                    Toast.fire({
+                    icon: 'error',
+                    title: res.responseJSON.message
+                })
+                }
+            })
+        })
 
         $(document).on('click','.trigger_edit', function(e){
             e.preventDefault()

@@ -7,10 +7,12 @@ use Illuminate\Support\Facades\DB;
 function users_count()
 {
     $currentExpenses = DB::select('SELECT sum(total) as total FROM orders
-                        WHERE MONTH(created_at) = MONTH(CURRENT_DATE())
-                        AND YEAR(created_at) = YEAR(CURRENT_DATE())
-                        AND id_user = ?
-                        AND status  != "tolak"', [Auth::user()->id]);
+                        JOIN users u
+                        ON u.id = orders.id_user 
+                        WHERE MONTH(orders.created_at) = MONTH(CURRENT_DATE())
+                        AND YEAR(orders.created_at) = YEAR(CURRENT_DATE())
+                        AND u.id_area  = ?
+                        AND orders.status  != "tolak"', [Auth::user()->id_area]);
 
     $ID_USER = Auth::user()->id;
     $cutoff =
@@ -45,4 +47,11 @@ function format_status($data)
     } else {
         return 'Check Status';
     }
+}
+
+
+function get_total_cart()
+{
+    $cart_products = collect(request()->session()->get('cart'));
+    return count($cart_products);
 }
