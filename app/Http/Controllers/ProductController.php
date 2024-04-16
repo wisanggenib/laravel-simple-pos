@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use stdClass;
 
 class ProductController extends Controller
 {
@@ -243,5 +244,218 @@ class ProductController extends Controller
         }
         session()->put('cart', $cart);
         return redirect('/cart')->with('message', 'Area Berhasil dibuat');
+    }
+
+    public function dashboardProduct()
+    {
+        $products2 = DB::select('select p.product_name,p.id,
+                                (select sum(quantity) 
+                                    FROM order_details od2 
+                                    JOIN orders o 
+                                    ON od2.id_order = o.id  
+                                    where od2.id_product = p.id
+                                    AND (o.status != "tolak" OR o.status = "order")
+                                    ) as items_total
+                                from products p 
+                                JOIN order_details od
+                                ON p.id = od.id_product 
+                                GROUP BY p.id
+                                ORDER BY items_total DESC
+                                ');
+        if ($products2) {
+            if ($products2) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'success fetch',
+                    'data' => $products2
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'data not found',
+                'data' => null
+            ]);
+        }
+    }
+
+    public function dashboardVendor()
+    {
+        $products = DB::select('select p.product_name,p.id as id_product,p.product_price,p.vendor_name,
+                                (select sum(quantity) 
+                                    FROM order_details od2 
+                                    JOIN orders o 
+                                    ON od2.id_order = o.id  
+                                    where od2.id_product = p.id
+                                    AND o.status = "proses"
+                                    ) as items_total
+                                from products p 
+                                JOIN order_details od
+                                ON p.id = od.id_product 
+                                GROUP BY p.id
+                                ORDER BY items_total DESC');
+
+        $vendors = DB::select('select DISTINCT(p.vendor_name) from products p');
+
+        foreach ($vendors as $key => $v) {
+            $result = collect($products)->where('vendor_name', $v->vendor_name);
+            $totals = 0;
+            foreach ($result as $key => $value) {
+                $totals = $totals + (int)$value->product_price * (int)$value->items_total;
+            }
+            $object = new stdClass();
+            $object->vendor_name = $v->vendor_name;
+            $object->totals = $totals;
+            $myArray[] = $object;
+        }
+
+        if ($vendors) {
+            if ($vendors) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'success fetch',
+                    'data' => $myArray
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'data not found',
+                'data' => null
+            ]);
+        }
+    }
+
+    public function dashboardBudget()
+    {
+        $products2 = DB::select('select a.area_name, a.area_budget,
+                                (SELECT sum(total) as total FROM orders
+                                JOIN users u
+                                ON u.id = orders.id_user 
+                                WHERE MONTH(orders.created_at) = MONTH(CURRENT_DATE())
+                                AND YEAR(orders.created_at) = YEAR(CURRENT_DATE())
+                                AND u.id_area  = a.id
+                                AND (orders.status != "tolak" OR orders.status = "order")) as expenses
+                                FROM areas a 
+                                ORDER BY expenses ASC
+                                ');
+
+        if ($products2) {
+            if ($products2) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'success fetch',
+                    'data' => $products2
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'data not found',
+                'data' => null
+            ]);
+        }
+    }
+
+    public function cartVendor()
+    {
+        $products = DB::select('select p.product_name,p.id as id_product,p.product_price,p.vendor_name,
+                                (select sum(quantity) 
+                                    FROM order_details od2 
+                                    JOIN orders o 
+                                    ON od2.id_order = o.id  
+                                    where od2.id_product = p.id
+                                    AND o.status = "proses"
+                                    ) as items_total
+                                from products p 
+                                JOIN order_details od
+                                ON p.id = od.id_product 
+                                GROUP BY p.id
+                                ORDER BY items_total DESC');
+
+        $vendors = DB::select('select DISTINCT(p.vendor_name) from products p');
+
+        $datas = array();
+        $labels = array();
+        $background = array();
+
+        foreach ($vendors as $key => $v) {
+            $result = collect($products)->where('vendor_name', $v->vendor_name);
+            $totals = 0;
+            foreach ($result as $key => $value) {
+                $totals = $totals + (int)$value->product_price * (int)$value->items_total;
+            }
+            array_push($labels, $v->vendor_name);
+            array_push($datas, $totals);
+            array_push($background, random_color());
+        }
+
+        $object = new stdClass();
+        $object->labels = $labels;
+        $object->data = $datas;
+        $object->background = $background;
+
+        if ($vendors) {
+            if ($vendors) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'success fetch',
+                    'data' => $object
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'data not found',
+                'data' => null
+            ]);
+        }
+    }
+
+    public function cartBudget()
+    {
+        $products2 = DB::select('select a.area_name, a.area_budget,
+                                (SELECT sum(total) as total FROM orders
+                                JOIN users u
+                                ON u.id = orders.id_user 
+                                WHERE MONTH(orders.created_at) = MONTH(CURRENT_DATE())
+                                AND YEAR(orders.created_at) = YEAR(CURRENT_DATE())
+                                AND u.id_area  = a.id
+                                AND (orders.status != "tolak" OR orders.status = "order")) as expenses
+                                FROM areas a 
+                                ORDER BY expenses ASC
+                                ');
+        $datas = array();
+        $labels = array();
+        $expenses = array();
+        $leftover = array();
+        foreach ($products2 as $key => $value) {
+            array_push($labels, $value->area_name);
+            array_push($datas, (int)$value->area_budget);
+            array_push($expenses, (int)$value->expenses);
+            array_push($leftover, (int)$value->area_budget - (int)$value->expenses);
+        }
+
+        $object = new stdClass();
+        $object->labels = $labels;
+        $object->datas = $datas;
+        $object->expenses = $expenses;
+        $object->leftover = $leftover;
+
+        if ($products2) {
+            if ($products2) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'success fetch',
+                    'data' => $object
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'data not found',
+                'data' => null
+            ]);
+        }
     }
 }

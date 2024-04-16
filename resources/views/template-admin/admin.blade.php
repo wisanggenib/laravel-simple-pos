@@ -113,6 +113,43 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
+                            <a href="/admin/home" class="nav-link">
+                                <i class="nav-icon fas fa-chart-area"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Laporan
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/admin/laporan-penjualan-barang" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Penjualan Barang</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/admin/laporan-vendor" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Vendor</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/admin/laporan-penggunaan-budget" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Penggunaan Budget</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
                             <a href="/admin/user" class="nav-link">
                                 <i class="nav-icon far fa-user-circle"></i>
                                 <p>
@@ -264,6 +301,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"
         integrity="sha512-hUhvpC5f8cgc04OZb55j0KNGh4eh7dLxd/dPSJ5VyzqDWxsayYbojWyl5Tkcgrmb/RVKCRJI1jNlRbVP4WWC4w=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script>
     <script>
         var Toast = Swal.mixin({
       toast: true,

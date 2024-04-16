@@ -55,3 +55,14 @@ function get_total_cart()
     $cart_products = collect(request()->session()->get('cart'));
     return count($cart_products);
 }
+
+function random_color()
+{
+    mt_srand((float)microtime() * 1000000);
+    $c = '';
+    while (strlen($c) < 6) {
+        $c .= sprintf("%02X", mt_rand(0, 255));
+    }
+    $A = '#';
+    return $A . $c;
+}

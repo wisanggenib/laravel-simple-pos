@@ -36,6 +36,9 @@ Route::prefix('admin')->middleware([isAdmin::class])->group(function () {
     Route::get('/', function () {
         return view('/admin/home');
     });
+    Route::get('/home', function () {
+        return view('/admin/home');
+    });
     Route::get('/area', [AreaController::class, 'index']);
     Route::get('/user', function () {
         return view('/admin/user');
@@ -48,6 +51,15 @@ Route::prefix('admin')->middleware([isAdmin::class])->group(function () {
     });
     Route::get('/cut-off', function () {
         return view('/admin/cut-off');
+    });
+    Route::get('/laporan-penggunaan-budget', function () {
+        return view('/admin/laporan-budget');
+    });
+    Route::get('/laporan-vendor', function () {
+        return view('/admin/laporan-vendor');
+    });
+    Route::get('/laporan-penjualan-barang', function () {
+        return view('/admin/laporan-barang');
     });
 
     // Route::get('/order', function () {
@@ -111,6 +123,13 @@ Route::post('/tolak-barang/{id}', [OrderController::class, 'tolakBarang']);
 Route::post('/terima-barang/{id}', [OrderController::class, 'terimaBarang']);
 Route::post('/proses-barang/{id}', [OrderController::class, 'prosesBarang']);
 
+
+//dashboard
+Route::get('/dashboard-fetch-product', [ProductController::class, 'dashboardProduct']);
+Route::get('/dashboard-fetch-vendor', [ProductController::class, 'dashboardVendor']);
+Route::get('/dashboard-fetch-budget', [ProductController::class, 'dashboardBudget']);
+Route::get('/cart-fetch-vendor', [ProductController::class, 'cartVendor']);
+Route::get('/cart-fetch-budget', [ProductController::class, 'cartBudget']);
 
 //login
 Route::get('/login', function () {
