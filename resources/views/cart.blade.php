@@ -117,8 +117,8 @@
     </div>
 
     <div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+        <div class="modal-dialog" style="color: #3B4963">
+            <div class="modal-content" style="border-radius:12px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalPaymentLabel">Payment Confirmation</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -126,14 +126,15 @@
                 <div class="modal-body"
                     style="padding-left:1rem; padding-right:1rem; display flex; flex-direction:column;">
                     <div
-                        style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;border-bottom:1px solid gray; margin-bottom:10px">
-                        <div>Saldo Dompet</div>
-                        <div>Rp. {{number_format(users_count(), 0, ",", ".")}}</div>
+                        style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;border-bottom:1px solid gray; margin-bottom:10px;padding-bottom: 10px">
+                        <div class="payment-title">Saldo Dompet</div>
+                        <div class="payment-content1">Rp. {{number_format(users_count(), 0, ",", ".")}}</div>
                     </div>
                     <div
-                        style="display:flex;flex-direction:row;justify-content:space-between;align-items:center; margin-bottom:30px">
-                        <div>Total Pembayaran</div>
-                        <div>Rp. {{number_format($cart_total, 0, ",", ".")}}</div>
+                        style="display:flex;flex-direction:row;justify-content:space-between;align-items:center; margin-bottom:5rem">
+                        <div class="payment-title" style="font-size:18px;">Total Pembayaran</div>
+                        <div class="payment-content1" style="font-weight: bold">Rp. {{number_format($cart_total, 0, ",",
+                            ".")}}</div>
                     </div>
 
                     @if (users_count()>=$cart_total)
@@ -142,7 +143,7 @@
                     </div>
                     @else
                     <div><button type="button" class="btn btn-primary" disabled
-                            style="width: 100%;background:#1C86FF;border-radius:10px;border:none;margin-bottom:10px;color:white">Bayar</button>
+                            style="width: 100%;background:#1C86FF;border-radius:10px;border:none;margin-bottom:1rem;color:white">Bayar</button>
                     </div>
                     @endif
                     <div><button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
