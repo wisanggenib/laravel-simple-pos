@@ -54,7 +54,7 @@
         function fetchData(){
             $.ajax({
                 type:"GET",
-                url:"/dashboard-fetch-product",
+                url:"/dashboard-fetch-product/all",
                 dataType:"json",
                 success: function(respons){
                     // console.log(respons.areas)

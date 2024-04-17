@@ -246,9 +246,10 @@ class ProductController extends Controller
         return redirect('/cart')->with('message', 'Area Berhasil dibuat');
     }
 
-    public function dashboardProduct()
+    public function dashboardProduct($filter)
     {
-        $products2 = DB::select('select p.product_name,p.id,
+        if ($filter == 'all') {
+            $products2 = DB::select('select p.product_name,p.id,
                                 (select sum(quantity) 
                                     FROM order_details od2 
                                     JOIN orders o 
@@ -259,9 +260,27 @@ class ProductController extends Controller
                                 from products p 
                                 JOIN order_details od
                                 ON p.id = od.id_product 
-                                GROUP BY p.id
+                                GROUP BY p.id,p.product_name
                                 ORDER BY items_total DESC
                                 ');
+        } else {
+            $products2 = DB::select('select p.product_name,p.id,
+                                (select sum(quantity) 
+                                    FROM order_details od2 
+                                    JOIN orders o 
+                                    ON od2.id_order = o.id  
+                                    where od2.id_product = p.id
+                                    AND (o.status != "tolak" OR o.status = "order")
+                                    ) as items_total
+                                from products p 
+                                JOIN order_details od
+                                ON p.id = od.id_product 
+                                GROUP BY p.id,p.product_name
+                                ORDER BY items_total DESC
+                                LIMIT ?
+                                ', [(int)$filter]);
+        }
+
         if ($products2) {
             if ($products2) {
                 return response()->json([
@@ -287,7 +306,7 @@ class ProductController extends Controller
                                     JOIN orders o 
                                     ON od2.id_order = o.id  
                                     where od2.id_product = p.id
-                                    AND o.status = "proses"
+                                    AND (o.status != "tolak" OR o.status = "order")
                                     ) as items_total
                                 from products p 
                                 JOIN order_details od
@@ -295,7 +314,7 @@ class ProductController extends Controller
                                 GROUP BY p.id
                                 ORDER BY items_total DESC');
 
-        $vendors = DB::select('select DISTINCT(p.vendor_name) from products p');
+        $vendors = DB::select('select DISTINCT(p.vendor_name) from products p WHERE p.vendor_name != "-"');
 
         foreach ($vendors as $key => $v) {
             $result = collect($products)->where('vendor_name', $v->vendor_name);
@@ -365,7 +384,7 @@ class ProductController extends Controller
                                     JOIN orders o 
                                     ON od2.id_order = o.id  
                                     where od2.id_product = p.id
-                                    AND o.status = "proses"
+                                    AND (o.status != "tolak" OR o.status = "order")
                                     ) as items_total
                                 from products p 
                                 JOIN order_details od
@@ -373,7 +392,7 @@ class ProductController extends Controller
                                 GROUP BY p.id
                                 ORDER BY items_total DESC');
 
-        $vendors = DB::select('select DISTINCT(p.vendor_name) from products p');
+        $vendors = DB::select('select DISTINCT(p.vendor_name) from products p WHERE p.vendor_name != "-"');
 
         $datas = array();
         $labels = array();

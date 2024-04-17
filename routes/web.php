@@ -125,7 +125,7 @@ Route::post('/proses-barang/{id}', [OrderController::class, 'prosesBarang']);
 
 
 //dashboard
-Route::get('/dashboard-fetch-product', [ProductController::class, 'dashboardProduct']);
+Route::get('/dashboard-fetch-product/{filter}', [ProductController::class, 'dashboardProduct']);
 Route::get('/dashboard-fetch-vendor', [ProductController::class, 'dashboardVendor']);
 Route::get('/dashboard-fetch-budget', [ProductController::class, 'dashboardBudget']);
 Route::get('/cart-fetch-vendor', [ProductController::class, 'cartVendor']);
