@@ -116,4 +116,12 @@ class ProductCategoryController extends Controller
             ]);
         }
     }
+
+    public function fetchAllData()
+    {
+        $productCategory = ProductCategory::latest()->get();
+        return response()->json([
+            'product_categories' => $productCategory,
+        ]);
+    }
 }

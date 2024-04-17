@@ -477,4 +477,51 @@ class ProductController extends Controller
             ]);
         }
     }
+
+    public function priceRange()
+    {
+        $products2 = DB::select('select min(product_price) as min_price, max(product_price) as max_price from products p');
+        if ($products2) {
+            if ($products2) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'success fetch',
+                    'data' => $products2
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'data not found',
+                'data' => null
+            ]);
+        }
+    }
+
+    public function getAllProductFilter($data)
+    {
+        $decodeData = json_decode(urldecode($data));
+        $filterByID = "";
+        if ($decodeData->id_category != 'All') {
+            $filterByID = 'AND p.id_category = "' . $decodeData->id_category . '"';
+        }
+
+        $query = "select * from products p WHERE p.product_price  BETWEEN $decodeData->min_price AND $decodeData->max_price $filterByID";
+        $products2 = DB::select($query);
+        if ($products2) {
+            if ($products2) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'success fetch',
+                    'data' => $products2
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'data not found',
+                'data' => null
+            ]);
+        }
+    }
 }

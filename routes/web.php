@@ -16,6 +16,13 @@ Route::middleware([isUser::class])->group(function () {
         return view('home');
     });
 
+    Route::get('/shop', function () {
+        return view('/shop');
+    });
+    Route::get('/shop/{id}', function () {
+        return view('/shop');
+    });
+
     Route::get('/home', function () {
         return view('/home');
     });
@@ -90,6 +97,7 @@ Route::post('/pc-store', [ProductCategoryController::class, 'store']);
 Route::post('/pc-update/{id}', [ProductCategoryController::class, 'updateData']);
 Route::delete('/pc-delete/{id}', [ProductCategoryController::class, 'deleteData']);
 Route::get('/pc-fetch/{id}', [ProductCategoryController::class, 'fetchDetail']);
+Route::get('/pc-fetch-all', [ProductCategoryController::class, 'fetchAllData']);
 
 //cut off
 Route::get('/cutoff-fetch', [CutOffController::class, 'fetchData']);
@@ -104,6 +112,8 @@ Route::get('/product-fetch/{id}', [ProductController::class, 'fetchDetail']);
 Route::post('/product-store', [ProductController::class, 'store']);
 Route::post('/product-update/{id}', [ProductController::class, 'updateData']);
 Route::delete('/product-delete/{id}', [ProductController::class, 'deleteData']);
+Route::get('/price-range', [ProductController::class, 'priceRange']);
+Route::get('/product-filter/{data}', [ProductController::class, 'getAllProductFilter']);
 
 //auth
 Route::post('/login-action', [UserController::class, 'login']);

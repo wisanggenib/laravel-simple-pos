@@ -27,10 +27,12 @@
 <section class="pt-5">
     <header class="header-section-custom">
         <h2 class="h5 text-uppercase">Kategori</h2>
-        <div class="view-all-container">
-            <div>Lihat Semua</div>
-            <i class="fas fa-arrow-right"></i>
-        </div>
+        <a href="/shop">
+            <div class="view-all-container">
+                <div>Lihat Semua</div>
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </a>
     </header>
     <div class="row gap-mobile-2" id="product-categories-zone">
         <div class="col-md-2">
@@ -57,10 +59,12 @@
 <section class="py-5">
     <header class="header-section-custom">
         <h2 class="h5 text-uppercase">List Produk</h2>
-        <div class="view-all-container">
-            <div>Lihat Semua</div>
-            <i class="fas fa-arrow-right"></i>
-        </div>
+        <a href="/shop">
+            <div class="view-all-container">
+                <div>Lihat Semua</div>
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </a>
     </header>
     <div class="row" id="product-zone">
         <!-- PRODUCT-->
@@ -167,7 +171,7 @@
                     $('#product-categories-zone').html('')
                     $.each(respons.product_categories.data, function(key, product){
                         $('#product-categories-zone').append('<div class="col-md-2">\
-                            <a class="category-item" href=""><img class="img-fluid" src="/storage/images/'+product.images+'" alt="" />\
+                            <a class="category-item" href="shop?id_cat='+product.id+'"><img class="img-fluid" src="/storage/images/'+product.images+'" alt="" />\
                                 <strong class="category-item-title">'+product.product_category_name+'</strong>\
                             </a>\
                         </div>\
