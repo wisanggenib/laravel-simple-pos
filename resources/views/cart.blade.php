@@ -42,13 +42,16 @@
                                     <div class="border d-flex align-items-center justify-content-between px-3"><span
                                             class="small text-uppercase text-gray headings-font-family">Quantity</span>
                                         <div class="quantity">
-                                            {{-- <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                                            --}}
+                                            <button value={{$p['id']}} class="btn-update-cart dec-btn p-0"
+                                                onclick="handleDecreaseQTY(this.value)"><i
+                                                    class="fas fa-caret-left"></i></button>
                                             <input class="form-control form-control-sm border-0 shadow-0 p-0"
-                                                type="number" style="background: white" disabled
+                                                type="number" min="0" style="background: white" disabled
                                                 value={{($p['quantity'])}} />
-                                            {{-- <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
-                                            --}}
+                                            <button value={{$p['id']}} onclick="handleAddQTY(this.value)"
+                                                class="btn-update-cart inc-btn p-0"><i
+                                                    class="fas fa-caret-right"></i></button>
+
                                         </div>
                                     </div>
                                 </td>
@@ -157,6 +160,56 @@
 
 @section('scripts')
 <script>
+    function handleAddQTY(id){
+        let data = {
+            'status' : 'inc',
+            'productID' : id
+        }
+        console.log(data)
+        $.ajax({
+                type:"POST",
+                url:"/update-to-chart",
+                data:data,
+                success: function (res){
+                if(res){
+                    
+                    if(res.message == "error"){
+                        alert(res.data)
+                        return window.location.reload()
+                    }
+                    window.location.reload()
+                }else{
+                    //soon change with alert modals
+                    alert("Error")
+                }
+                }
+            })
+    }
+
+    function handleDecreaseQTY(id){
+        let data = {
+            'status' : 'dec',
+            'productID' : id
+        }
+        $.ajax({
+                type:"POST",
+                url:"/update-to-chart",
+                data:data,
+                success: function (res){
+                if(res){
+                    if(res.message == "error"){
+                        alert(res.data)
+                        return window.location.reload()
+                    }
+                    window.location.reload()
+                }else{
+                    //soon change with alert modals
+                    alert("Error")
+                }
+                }
+            })
+    }
+
     $(document).ready(function(){
         $.ajaxSetup({
             headers: {
@@ -166,7 +219,6 @@
 
         $(document).on('click','.btn-order', function(e){
             e.preventDefault()
-            console.log("KERE")
 
             $.ajax({
                 type:"POST",

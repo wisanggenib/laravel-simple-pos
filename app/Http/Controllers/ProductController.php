@@ -216,6 +216,61 @@ class ProductController extends Controller
         ]);
     }
 
+    public function updateCart(Request $request)
+    {
+        $productId = $request->input('productID');
+        $product = Product::find($productId);
+
+        $cart = $request->session()->get('cart', []);
+
+        $cekData = Product::find($request->input('productID'));
+        $query_pending_stock = DB::select('SELECT sum(quantity) as available_stock 
+                            FROM order_details od 
+                            JOIN orders o 
+                            ON o.id = od.id_order 
+                            WHERE MONTH(o.created_at) = MONTH(CURRENT_DATE()) 
+                            AND YEAR(o.created_at) = YEAR(CURRENT_DATE()) 
+                            AND (o.status = "order"
+                                 OR o.status  = "proses" )
+                            AND od.id_product  = ?', [$request->input('productID')]);
+        $pending_stock = $query_pending_stock[0]->available_stock;
+        $avalable_stock = $cekData->product_stock - $pending_stock;
+
+
+        if (isset($cart[$product->id])) {
+            if ($request->input('status') == 'inc') {
+                if ((int)$avalable_stock < ($cart[$product->id]['quantity'] + 1)) {
+                    return response()->json([
+                        'status' => 200,
+                        'message' => 'error',
+                        'status' => 'error',
+                        'data' => 'Quantity Melebihi Ketersediaan stock'
+                    ]);
+                }
+                $cart[$product->id]['quantity'] = $cart[$product->id]['quantity'] + 1;
+            } else {
+                if (($cart[$product->id]['quantity'] - 1) < 0) {
+                    return response()->json([
+                        'status' => 200,
+                        'message' => 'error',
+                        'status' => 'error',
+                        'data' => 'Minimum Quantity 0, silahkan hapus data'
+                    ]);
+                }
+                $cart[$product->id]['quantity'] = $cart[$product->id]['quantity'] - 1;
+            }
+        }
+
+        $AA = $request->session()->put('cart', $cart);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'success',
+            'status' => 'success',
+            'data' => $AA
+        ]);
+    }
+
     public function showCart()
     {
         $cart_products = collect(request()->session()->get('cart'));

@@ -18,6 +18,7 @@ class OrderController extends Controller
 
         //check avaibility stock
         $cart_products = collect(request()->session()->get('cart'));
+        $os = array();
         if (session('cart')) {
             foreach ($cart_products as $key => $product) {
                 $cekData = Product::find($key);
@@ -39,12 +40,20 @@ class OrderController extends Controller
                         $cart[$key]['quantity'] = $avalable_stock;
                         session()->put('cart', $cart);
                     }
-                    return response()->json([
-                        'status' => 400,
-                        'message' => 'error',
-                        'data' => $cekData->product_stock
-                    ]);
+                    array_push($os, "error");
+                    // return response()->json([
+                    //     'status' => 400,
+                    //     'message' => 'error',
+                    //     'data' => $cekData->product_stock
+                    // ]);
                 }
+            }
+            if (in_array("error", $os)) {
+                return response()->json([
+                    'status' => 400,
+                    'message' => 'error',
+                    'data' => $cekData->product_stock
+                ]);
             }
         }
 

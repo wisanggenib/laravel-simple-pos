@@ -121,6 +121,7 @@ Route::get('/logout', [UserController::class, 'logout']);
 
 //cart
 Route::post('/add-to-chart', [ProductController::class, 'addCart']);
+Route::post('/update-to-chart', [ProductController::class, 'updateCart']);
 Route::get('/cart', [ProductController::class, 'showCart']);
 Route::get('/delete-cart/{id}', [ProductController::class, 'deleteCart']);
 
