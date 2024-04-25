@@ -11,7 +11,7 @@ class ProductCategoryController extends Controller
     //
     public function fetchData()
     {
-        $productCategory = ProductCategory::latest()->paginate(5);
+        $productCategory = ProductCategory::latest()->paginate(100);
         return response()->json([
             'product_categories' => $productCategory,
         ]);

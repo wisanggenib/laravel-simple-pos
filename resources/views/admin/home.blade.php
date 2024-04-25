@@ -6,6 +6,35 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Stock Barang Menipis (Non Vendor)</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Barang</th>
+                                    <th>Sisa Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody id="barang-minus">
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
@@ -121,6 +150,7 @@
         fetchData()
         fetchDataVendor()
         fetchDataBudget()
+        fetchMinus()
         var vendorData = null;
         
         function fetchData(){
@@ -138,6 +168,29 @@
                         <td>'+a+'.</td>\
                         <td>'+d.product_name+'</td>\
                         <td>'+d.items_total+' Terjual</td>\
+                        <tr>\
+                        ')
+                    })
+                }
+            })
+        }
+
+        function fetchMinus(){
+            $.ajax({
+                type:"GET",
+                url:"/dashboard-fetch-product-minus",
+                dataType:"json",
+                success: function(respons){
+                    // console.log(respons.areas)
+                    console.log(respons,"INI")
+                    const sort = respons.products.sort((a,b) => a.available_stock - b.available_stock);
+                    $('#barang-minus').html('')
+                    $.each(sort, function(key, d){
+                        let a = parseInt(key) + 1
+                        $('#barang-minus').append('<tr>\
+                        <td>'+a+'.</td>\
+                        <td>'+d.product_name+'</td>\
+                        <td>'+d.available_stock+' Terjual</td>\
                         <tr>\
                         ')
                     })

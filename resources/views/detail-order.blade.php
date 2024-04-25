@@ -69,6 +69,7 @@
                             <th scope="col">Price</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Total</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody id="#product-categories-zone">
@@ -93,23 +94,92 @@
                             </td>
                             <td>{{$p->quantity}}</td>
                             <td>Rp. {{number_format(((int)$p->quantity * (int)$p->price))}}</td>
+                            @if ($orders->status != 'kirim')
+                            <td>
+                                <div>{{ format_status($orders->status) }}</div>
+                            </td>
+                            @endif
+
+                            @if ($p->status_barang == "proses" && $orders->status == 'kirim')
+                            <td>
+                                <button value={{$p->id}} type="button" class="upload_bukti btn btn-primary"
+                                    data-bs-toggle="modal" data-bs-target="#modalOrder">
+                                    Upload Bukti Terima
+                                </button>
+                            </td>
+                            @endif
+                            @if ($p->status_barang == "reject" && $orders->status == 'kirim')
+                            <td style="width:30%">
+                                <div style=" color:red">Ditolak user
+                                </div>
+                                <div style="font-size:0.8rem;color:gray">**{{ $p->deskripsi }}</div>
+                            </td>
+                            @endif
+                            @if ($p->status_barang == "terima" && $orders->status == 'kirim')
+                            <td>
+                                <div style=" color:green">Barang Telah Diterima
+                                </div>
+                            </td>
+                            @endif
+                            @if ($p->status_barang == "ulang" && $orders->status == 'kirim')
+                            <td>
+                                <button value={{$p->id}} type="button" class="upload_bukti btn btn-primary"
+                                    data-bs-toggle="modal" data-bs-target="#modalOrder">
+                                    Upload Bukti Terima
+                                </button>
+                                <div style="color:gray; font-size:0.8rem;margin-top:0.5rem">**Sudah dikirm ulang</div>
+                            </td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            @if ($orders->status == 'kirim')
+            @if ($isCompletedAll && $orders->status == 'kirim')
             <div class="row">
                 <div class="col-8">
-                    <div>Masukan Bukti Terima</div>
-                    <input name="inputImages" id="inputImages" type="file">
-                    <button class="btn btn-primary btn-kirim-data" id="btn-kirim-data">Kirim Bukti Terima</button>
+                    {{-- <div>Masukan Bukti Terima</div> --}}
+                    {{-- <input name="inputImages" id="inputImages" type="file"> --}}
+                    <button class="btn btn-primary btn-kirim-data" id="btn-kirim-data">Selesaikan Pemesanan</button>
                     <input id="orderIDD" type="text" class="d-none" value={{$orders->id}}>
                 </div>
             </div>
             @endif
         </div>
         {{-- {{dd(session()->all())}} --}}
+    </div>
+    <div class="modal fade" id="modalOrder" tabindex="-1" aria-labelledby="modalOrder" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upload Bukti</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Bukti Terima</label>
+                        <input class="form-control" type="file" id="formFile">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Status Barang</label>
+                        <select class="form-select" id="statusTerima" aria-label="Default select example">
+                            <option selected disabled>Pilih status</option>
+                            <option value="terima">Terima</option>
+                            <option value="reject">Tolak</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Deskripsi / Alasan</label>
+                        <textarea class="form-control" id="alasanTerima" rows="3"></textarea>
+                    </div>
+                    <input type="text" id="idOrderDetails" style="display: none">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="kirimStatus btn btn-primary">Kirim</button>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -148,26 +218,36 @@
             })
         }
 
-         $(document).on('click', '.btn-kirim-data', function(e) {
+        function resetForm(){
+            $("#modalOrder").hide();
+            $('#statusTerima').val("")
+            $('#alasanTerima').val("")
+            $('#idOrderDetails').val("")
+            window.location.reload()
+        }
+
+        $(document).on('click', '.btn-kirim-data', function(e) {
             e.preventDefault()
 
-            let data = {
-            'thumbnail': $('#inputImages').prop('files')[0],
-            }
+            // let data = {
+            // 'thumbnail': $('#inputImages').prop('files')[0],
+            // }
+
+            console.log("hjere")
             
-            let formData = new FormData();
-            formData.append('thumbnail', $('#inputImages').prop('files')[0]);
+            // let formData = new FormData();
+            // formData.append('thumbnail', $('#inputImages').prop('files')[0]);
 
             let selID = $('#orderIDD').val();
 
             $.ajax({
                 type: "POST",
                 url: "/terima-barang/" + selID,
-                data: formData,
-                enctype: 'multipart/form-data',
-                cache: false,
-                contentType: false,
-                processData: false,
+                // data: formData,
+                // enctype: 'multipart/form-data',
+                // cache: false,
+                // contentType: false,
+                // processData: false,
                 success: function(res) {
                     if (res.data) {
                         $('#alert-success').removeClass("d-none")
@@ -177,6 +257,53 @@
                     } else {
                         //soon change with alert modals
                         alert("Error")
+                    }
+                }
+            })
+        })
+
+        $(document).on('click','.upload_bukti', function(e){
+            e.preventDefault()
+            let data_id = $(this).val()
+            $('#idOrderDetails').val(data_id)
+            
+            $("#modalOrder").show();
+            // $.ajax({
+            //     type:"GET",
+            //     url:"/order-fetch/"+data_id,
+            //     success: function (res){
+            //         if(res.data){
+                        
+            //         }else{
+            //             alert("Error - Something Went woring")
+            //         }
+            //     }
+            // })
+        })
+
+        $(document).on('click','.kirimStatus', function(e){
+            // e.preventDefault()            
+
+            let formData = new FormData();
+            formData.append('bukti', $('#formFile').prop('files')[0]);
+            formData.append('status', $('#statusTerima').val());
+            formData.append('deskripsi', $('#alasanTerima').val());
+            formData.append('idOrderDetails', $('#idOrderDetails').val());
+            const idDetails = $('#idOrderDetails').val();
+            $.ajax({
+                type: "POST",
+                url: "/update-status-barang/"+idDetails,
+                data: formData,
+                enctype: 'multipart/form-data',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (res){
+                    if(res.data){
+                        console.log(res)
+                        resetForm()
+                    }else{
+                        alert("Error - Something Went woring")
                     }
                 }
             })

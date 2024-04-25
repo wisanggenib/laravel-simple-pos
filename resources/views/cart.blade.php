@@ -39,14 +39,16 @@
                                     <p class="mb-0 small">Rp.{{(number_format($p['price']))}}</p>
                                 </td>
                                 <td class="p-3 align-middle border-light">
-                                    <div class="border d-flex align-items-center justify-content-between px-3"><span
+                                    <div class="border d-flex align-items-center justify-content-between px-3">
+                                        {{-- <span
                                             class="small text-uppercase text-gray headings-font-family">Quantity</span>
+                                        --}}
                                         <div class="quantity">
                                             <button value={{$p['id']}} class="btn-update-cart dec-btn p-0"
                                                 onclick="handleDecreaseQTY(this.value)"><i
                                                     class="fas fa-caret-left"></i></button>
                                             <input class="form-control form-control-sm border-0 shadow-0 p-0"
-                                                type="number" min="0" style="background: white" disabled
+                                                type="number" min="0" style="background: white; width:100%" disabled
                                                 value={{($p['quantity'])}} />
                                             <button value={{$p['id']}} onclick="handleAddQTY(this.value)"
                                                 class="btn-update-cart inc-btn p-0"><i

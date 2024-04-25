@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('price');
             $table->string('quantity');
             $table->string('thumbnail');
+            $table->string('bukti');
+            $table->string('deskripsi');
+            $table->enum('status', ['proses', 'terima', 'reject', 'ulang']);
             $table->timestamps();
         });
     }

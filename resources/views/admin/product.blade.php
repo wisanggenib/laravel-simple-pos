@@ -46,6 +46,7 @@
                                     <th>Kategori Produk</th>
                                     <th>Harga Produk</th>
                                     <th>Nama Vendor/Suplier</th>
+                                    <th>Stok Tersedia</th>
                                     <th>Stok</th>
                                     <th>Tanggal dibuat</th>
                                     <th>#</th>
@@ -292,6 +293,7 @@
                         <td>' + product.product_category_name + '</td>\
                         <td>' + formatRupiah(product.product_price) + '</td>\
                         <td>' + product.vendor_name + '</td>\
+                        <td> <div class="badge text-white bg-green">' + product.available_stock + '</div></td>\
                         <td>' + product.product_stock + '</td>\
                         <td>' + product.created_at + '</td>\
                         <td>\

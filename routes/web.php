@@ -133,10 +133,13 @@ Route::post('/kirim-barang/{id}', [OrderController::class, 'kirimBarang']);
 Route::post('/tolak-barang/{id}', [OrderController::class, 'tolakBarang']);
 Route::post('/terima-barang/{id}', [OrderController::class, 'terimaBarang']);
 Route::post('/proses-barang/{id}', [OrderController::class, 'prosesBarang']);
+Route::post('/update-status-barang/{id}', [OrderController::class, 'updateStatusBarang']);
+Route::post('/kirim-ulang/{id}', [OrderController::class, 'kirimUlang']);
 
 
 //dashboard
 Route::get('/dashboard-fetch-product/{filter}', [ProductController::class, 'dashboardProduct']);
+Route::get('/dashboard-fetch-product-minus', [ProductController::class, 'fetchMinus']);
 Route::get('/dashboard-fetch-vendor', [ProductController::class, 'dashboardVendor']);
 Route::get('/dashboard-fetch-budget', [ProductController::class, 'dashboardBudget']);
 Route::get('/cart-fetch-vendor', [ProductController::class, 'cartVendor']);

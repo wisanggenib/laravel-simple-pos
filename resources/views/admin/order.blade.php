@@ -194,6 +194,7 @@
                 type:"GET",
                 url:"/order-fetch/"+data_id,
                 success: function (res){
+                    console.log(res.data)
                     if(res.data){
                         $('#exampleModal').modal('show')
                         $('#orderIDD').val(res.data[0].id)
@@ -232,6 +233,20 @@
                         //reset produk
                         $('#detaill-produk').html('')
                         $.each(res.data, function(key, cf){
+                            let status = ""
+                            if(cf.product_status === "reject"){
+                                status = "<div style='display:flex;flex-direction:column;margin-top:0.5rem'><div style='color:red'>DITOLAK</div><div>"+cf.deskripsi_product+"</div><button value="+cf.id_orders+" type='button' class='btn-kirim-ulang btn btn-sm btn-primary'>Kirim Ulang</button></div>"
+                            }else if(cf.product_status === "terima"){
+                                status = "<div><div style='color:green;margin-top:0.5rem' >DITERIMA</div></div>"
+                            }else if(cf.product_status === "ulang"){
+                                status = "<div><div>SUDAH DI KIRIM ULANG</div></div>"
+                            }
+
+                            let jumlah_order = ""
+                            if(cf.status !== "selesai"){
+                                jumlah_order = "<div style='margin-top:0.5rem'><div>Stock Barang: <strong>"+cf.product_stock+"</strong></div><div>Sisa Stock Barang: <strong>"+cf.available_stock+"</strong></div></div>"
+                            }
+                            
                         $('#detaill-produk').append('\
                         <div class="col-12 p-2 mx-2" style="border:1px solid gray;border-radius:8px;margin-top:0.5rem;">\
                             <div class="row">\
@@ -241,6 +256,8 @@
                                         <div>\
                                             <div>'+cf.product_name+'</div>\
                                             <div>'+cf.quantity+' x '+formatRupiah(cf.price)+'</div>\
+                                            '+jumlah_order+'\
+                                            '+status+'\
                                         </div>\
                                     </div>\
                                 </div>\
@@ -340,6 +357,26 @@
                         $('#alert-success').removeClass("d-none")
                         $('#alert-success').text("Success Edit")
                         $('#exampleModal').modal('hide')
+                        window.location.reload()
+                    } else {
+                        //soon change with alert modals
+                        alert("Error")
+                    }
+                }
+            })
+        })
+
+        $(document).on('click', '.btn-kirim-ulang', function(e) {
+            e.preventDefault()
+            let data_id = $(this).val()
+
+            $.ajax({
+                type: "POST",
+                url: "/kirim-ulang/" + data_id,
+                success: function(res) {
+                    if (res.data) {
+                        $('#alert-success').removeClass("d-none")
+                        $('#alert-success').text("Success Kirim Ulang")
                         window.location.reload()
                     } else {
                         //soon change with alert modals

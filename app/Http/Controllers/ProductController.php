@@ -19,8 +19,53 @@ class ProductController extends Controller
             DB::table('products')
             ->select('product_categories.id as id_category', 'product_categories.*', 'products.*')
             ->join('product_categories', 'products.id_category', '=', 'product_categories.id')
-            ->where('product_stock', '>', 0)
-            ->paginate(10);
+            // ->where('product_stock', '>', 0)
+            ->paginate(100);
+
+        foreach ($products as $key => $value) {
+            $query_pending_stock = DB::select('SELECT sum(quantity) as available_stock 
+                            FROM order_details od 
+                            JOIN orders o 
+                            ON o.id = od.id_order 
+                            WHERE MONTH(o.created_at) = MONTH(CURRENT_DATE()) 
+                            AND YEAR(o.created_at) = YEAR(CURRENT_DATE()) 
+                            AND (o.status = "order"
+                                 OR o.status  = "proses" )
+                            AND od.id_product  = ?', [$value->id]);
+            $pending_stock = $query_pending_stock[0]->available_stock;
+            $avalable_stock = $value->product_stock - $pending_stock;
+            $value->available_stock = $avalable_stock;
+        }
+
+        return response()->json([
+            'products' => $products,
+        ]);
+    }
+
+    public function fetchMinus()
+    {
+        $products =
+            DB::table('products')
+            ->select('product_categories.id as id_category', 'product_categories.*', 'products.*')
+            ->join('product_categories', 'products.id_category', '=', 'product_categories.id')
+            ->where('is_vendor', '=', 'false')
+            ->get();
+
+        foreach ($products as $key => $value) {
+            $query_pending_stock = DB::select('SELECT sum(quantity) as available_stock 
+                            FROM order_details od 
+                            JOIN orders o 
+                            ON o.id = od.id_order 
+                            WHERE MONTH(o.created_at) = MONTH(CURRENT_DATE()) 
+                            AND YEAR(o.created_at) = YEAR(CURRENT_DATE()) 
+                            AND (o.status = "order"
+                                 OR o.status  = "proses" )
+                            AND od.id_product  = ?', [$value->id]);
+            $pending_stock = $query_pending_stock[0]->available_stock;
+            $avalable_stock = $value->product_stock - $pending_stock;
+            $value->available_stock = (int)$avalable_stock;
+        }
+
         return response()->json([
             'products' => $products,
         ]);
@@ -53,13 +98,24 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-        $validated = $request->validate([
-            'product_name' => 'required',
-            'product_stock' => 'required',
-            'product_type' => 'required',
-            'product_price' => 'required',
-            'product_description' => 'required',
-        ]);
+        if ($request->input('is_vendor') === "true") {
+            $validated = $request->validate([
+                'product_name' => 'required',
+                'product_type' => 'required',
+                'product_price' => 'required',
+                'product_description' => 'required',
+            ]);
+        } else {
+            $validated = $request->validate([
+                'product_name' => 'required',
+                'product_stock' => 'required',
+                'product_type' => 'required',
+                'product_price' => 'required',
+                'product_description' => 'required',
+            ]);
+        }
+
+
 
 
         $ext = $request->file('thumbnail')->extension();
@@ -77,8 +133,10 @@ class ProductController extends Controller
         $cutOff->is_vendor = $request->input('is_vendor');
         if ($request->input('is_vendor') === "true") {
             $cutOff->vendor_name = $request->input('vendor_name');
+            $cutOff->product_stock = 0;
         } else {
             $cutOff->vendor_name = "-";
+            $cutOff->product_stock = $request->input('product_stock');
         }
         $cutOff->save();
 
@@ -223,30 +281,30 @@ class ProductController extends Controller
 
         $cart = $request->session()->get('cart', []);
 
-        $cekData = Product::find($request->input('productID'));
-        $query_pending_stock = DB::select('SELECT sum(quantity) as available_stock 
-                            FROM order_details od 
-                            JOIN orders o 
-                            ON o.id = od.id_order 
-                            WHERE MONTH(o.created_at) = MONTH(CURRENT_DATE()) 
-                            AND YEAR(o.created_at) = YEAR(CURRENT_DATE()) 
-                            AND (o.status = "order"
-                                 OR o.status  = "proses" )
-                            AND od.id_product  = ?', [$request->input('productID')]);
-        $pending_stock = $query_pending_stock[0]->available_stock;
-        $avalable_stock = $cekData->product_stock - $pending_stock;
+        // $cekData = Product::find($request->input('productID'));
+        // $query_pending_stock = DB::select('SELECT sum(quantity) as available_stock 
+        //                     FROM order_details od 
+        //                     JOIN orders o 
+        //                     ON o.id = od.id_order 
+        //                     WHERE MONTH(o.created_at) = MONTH(CURRENT_DATE()) 
+        //                     AND YEAR(o.created_at) = YEAR(CURRENT_DATE()) 
+        //                     AND (o.status = "order"
+        //                          OR o.status  = "proses" )
+        //                     AND od.id_product  = ?', [$request->input('productID')]);
+        // $pending_stock = $query_pending_stock[0]->available_stock;
+        // $avalable_stock = $cekData->product_stock - $pending_stock;
 
 
         if (isset($cart[$product->id])) {
             if ($request->input('status') == 'inc') {
-                if ((int)$avalable_stock < ($cart[$product->id]['quantity'] + 1)) {
-                    return response()->json([
-                        'status' => 200,
-                        'message' => 'error',
-                        'status' => 'error',
-                        'data' => 'Quantity Melebihi Ketersediaan stock'
-                    ]);
-                }
+                // if ((int)$avalable_stock < ($cart[$product->id]['quantity'] + 1)) {
+                //     return response()->json([
+                //         'status' => 200,
+                //         'message' => 'error',
+                //         'status' => 'error',
+                //         'data' => 'Quantity Melebihi Ketersediaan stock'
+                //     ]);
+                // }
                 $cart[$product->id]['quantity'] = $cart[$product->id]['quantity'] + 1;
             } else {
                 if (($cart[$product->id]['quantity'] - 1) < 0) {

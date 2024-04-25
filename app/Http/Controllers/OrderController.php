@@ -34,19 +34,19 @@ class OrderController extends Controller
                 $pending_stock = $query_pending_stock[0]->available_stock;
                 $avalable_stock = $cekData->product_stock - $pending_stock;
 
-                if ($avalable_stock < $product['quantity']) {
-                    $cart = session()->get('cart');
-                    if (isset($cart[$key])) {
-                        $cart[$key]['quantity'] = $avalable_stock;
-                        session()->put('cart', $cart);
-                    }
-                    array_push($os, "error");
-                    // return response()->json([
-                    //     'status' => 400,
-                    //     'message' => 'error',
-                    //     'data' => $cekData->product_stock
-                    // ]);
-                }
+                // if ($avalable_stock < $product['quantity']) {
+                //     $cart = session()->get('cart');
+                //     if (isset($cart[$key])) {
+                //         $cart[$key]['quantity'] = $avalable_stock;
+                //         session()->put('cart', $cart);
+                //     }
+                //     array_push($os, "error");
+                //     // return response()->json([
+                //     //     'status' => 400,
+                //     //     'message' => 'error',
+                //     //     'data' => $cekData->product_stock
+                //     // ]);
+                // }
             }
             if (in_array("error", $os)) {
                 return response()->json([
@@ -88,6 +88,9 @@ class OrderController extends Controller
                         $detailOrders->price = $product['price'];
                         $detailOrders->quantity = $product['quantity'];
                         $detailOrders->thumbnail = $product['image'];
+                        $detailOrders->bukti = "-";
+                        $detailOrders->status = "proses";
+                        $detailOrders->deskripsi = "-";
                         $detailOrders->save();
                     }
                 }
@@ -127,10 +130,33 @@ class OrderController extends Controller
     {
         $product =
             DB::table('orders')
-            ->select('order_details.*', 'orders.*', 'orders.id as id')
+            ->select('order_details.*', 'order_details.status as product_status', 'order_details.id as id_orders', 'order_details.deskripsi as deskripsi_product', 'orders.*', 'orders.id as id')
             ->join('order_details', 'order_details.id_order', '=', 'orders.id')
             ->where('orders.id', $id)
             ->get();
+
+        foreach ($product as $key => $value) {
+            $eachP =
+                DB::table('products')
+                ->select('product_categories.id as id_category', 'product_categories.*', 'products.*')
+                ->join('product_categories', 'products.id_category', '=', 'product_categories.id')
+                ->where('products.id', $value->id_product)
+                ->first();
+
+            $query_pending_stock = DB::select('SELECT sum(quantity) as available_stock 
+                            FROM order_details od 
+                            JOIN orders o 
+                            ON o.id = od.id_order 
+                            WHERE MONTH(o.created_at) = MONTH(CURRENT_DATE()) 
+                            AND YEAR(o.created_at) = YEAR(CURRENT_DATE()) 
+                            AND (o.status = "order"
+                                 OR o.status  = "proses" )
+                            AND od.id_product  = ?', [$value->id_product]);
+            $pending_stock = $query_pending_stock[0]->available_stock;
+            $avalable_stock = $eachP->product_stock - $pending_stock;
+            $value->available_stock = $avalable_stock;
+            $value->product_stock = $eachP->product_stock;
+        }
 
         if ($product) {
             return response()->json([
@@ -179,12 +205,24 @@ class OrderController extends Controller
 
         $products =
             DB::table('order_details')
-            ->select('orders.*', 'orders.id as id_order', 'order_details.*')
+            ->select('orders.*', 'orders.id as id_order', 'orders.status as status', 'order_details.*', 'order_details.status as status_barang')
             ->join('orders', 'orders.id', '=', 'order_details.id_order')
             ->where('order_details.id_order', $id)
             ->get();
 
-        return view('detail-order', compact('products', 'orders', 'user'));
+        $isCompletedAll = true;
+        $a = array();
+        foreach ($products as $key => $value) {
+            if ($value->status_barang != "terima") {
+                array_push($a, "gagal");
+            }
+        }
+
+        if (count($a) > 0) {
+            $isCompletedAll = false;
+        }
+
+        return view('detail-order', compact('products', 'orders', 'user', 'isCompletedAll'));
     }
 
     public function prosesBarang(Request $request, $id)
@@ -211,6 +249,58 @@ class OrderController extends Controller
                     'status' => 200,
                     'message' => 'success update',
                     'data' => $cutOff
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'data not found',
+                'data' => null
+            ]);
+        }
+    }
+
+    public function updateStatusBarang(Request $request, $id)
+    {
+        $detailOrders = order_detail::find($id);
+
+        if ($detailOrders) {
+            if ($request->file('bukti')) {
+                $ext = $request->file('bukti')->extension();
+                $imgName = date("Ymdhis") . '.' . $ext;
+                Storage::putFileAs('public/images', $request->file('bukti'), $imgName);
+                $detailOrders->bukti = $imgName;
+            }
+            $detailOrders->status = $request->input('status');
+            $detailOrders->deskripsi = $request->input('deskripsi');
+            $detailOrders->update();
+            if ($detailOrders) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'success update',
+                    'data' => $detailOrders
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'data not found',
+                'data' => null
+            ]);
+        }
+    }
+
+    public function kirimUlang($id)
+    {
+        $detailOrders = order_detail::find($id);
+        if ($detailOrders) {
+            $detailOrders->status = 'ulang';
+            $detailOrders->update();
+            if ($detailOrders) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'success update',
+                    'data' => $detailOrders
                 ]);
             }
         } else {
@@ -281,12 +371,12 @@ class OrderController extends Controller
         $cutOff = Order::find($id);
         if ($cutOff) {
 
-            if ($request->file('thumbnail')) {
-                $ext = $request->file('thumbnail')->extension();
-                $imgName = date("Ymdhis") . '.' . $ext;
-                Storage::putFileAs('public/images', $request->file('thumbnail'), $imgName);
-                $cutOff->bukti_terima = $imgName;
-            }
+            // if ($request->file('thumbnail')) {
+            //     $ext = $request->file('thumbnail')->extension();
+            //     $imgName = date("Ymdhis") . '.' . $ext;
+            //     Storage::putFileAs('public/images', $request->file('thumbnail'), $imgName);
+            //     $cutOff->bukti_terima = $imgName;
+            // }
             $cutOff->tgl_diterima = now();
             $cutOff->status = 'selesai';
             $cutOff->update();
