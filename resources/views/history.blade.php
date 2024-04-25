@@ -73,7 +73,7 @@
                         $('tbody').append('<tr>\
                         <td>'+data.id+'</td>\
                         <td>'+moment(data.created_at).format("YYYY/MM/DD HH:mm")+'</td>\
-                        <td>'+data.total+'</td>\
+                        <td>'+formatRupiah(data.total)+'</td>\
                         <td>'+format_status(data.status)+'</td>\
                         <td>\
                         <a href="/detail-order/'+data.id+'"><button value="'+data.id+'" data-toggle="modal" data-target="#modalEditStudent" type="button" class="trigger_edit btn btn-primary" style="background:#0013340A;border:none;border-radius:8px;"><i class="fas fa-eye" style="font-size:1rem;color:#3B4963"></i></button></a>\

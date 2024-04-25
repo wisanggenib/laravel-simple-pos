@@ -234,7 +234,8 @@
                         return(alert(res.data))
                     }
                     alert('success')
-                    window.location.reload();
+                    // window.location.reload();
+                    window.location.href = '/history';
                 }else{
                     //soon change with alert modals
                     alert("Error")

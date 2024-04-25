@@ -240,14 +240,14 @@
                                         <div><img src="/storage/images/' + cf.thumbnail + '" style="width:5rem; height:auto;margin-right:1rem" alt="img"></div>\
                                         <div>\
                                             <div>'+cf.product_name+'</div>\
-                                            <div>'+cf.quantity+' x '+cf.price+'</div>\
+                                            <div>'+cf.quantity+' x '+formatRupiah(cf.price)+'</div>\
                                         </div>\
                                     </div>\
                                 </div>\
                                 <div class="col-4">\
                                     <div class="d-flex flex-column" style="align-items: center">\
                                         <div class="">Total</div>\
-                                        <div class="">Rp '+parseInt(cf.price)*parseInt(cf.quantity)+'</div>\
+                                        <div class="">'+formatRupiah(parseInt(cf.price)*parseInt(cf.quantity))+'</div>\
                                     </div>\
                                 </div>\
                             </div>\

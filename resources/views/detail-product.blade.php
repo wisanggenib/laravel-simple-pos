@@ -49,7 +49,7 @@
             <!-- PRODUCT DETAILS-->
             <div class="col-lg-6">
                 <h1>{{$products->product_name}}</h1>
-                <p class="text-muted lead">Rp. {{number_format($products->product_price, 0, ",", ".")}}</p>
+                <p class="text-muted lead">Rp. {{number_format($products->product_price, 0, ",", ",")}}</p>
                 <p class="text-sm mb-4">{{$products->product_description}}</p>
                 <div class="row align-items-stretch mb-4">
                     <div class="col-sm-5 pr-sm-0">
@@ -157,7 +157,8 @@
                         return(alert(res.data))
                     }
                     alert('success')
-                    window.location.reload()
+                    // window.location.reload()
+                    window.location.href = '/cart';
                 }else{
                     //soon change with alert modals
                     alert("Error")

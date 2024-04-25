@@ -87,7 +87,7 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    {{number_format($p->price)}}
+                                    Rp. {{number_format($p->price)}}
                                 </div>
 
                             </td>

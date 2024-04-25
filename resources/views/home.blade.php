@@ -36,10 +36,13 @@
     </header>
     <div class="row gap-mobile-2" id="product-categories-zone">
         <div class="col-md-2">
-            <a class="category-item" href=""><img class="img-fluid" src="{{ asset('fe-dist/img/product-1.jpg') }}"
+            <a class="category-item" href=""><img class="img-fluid w-100" src="{{ asset('fe-dist/img/product-1.jpg') }}"
                     alt="" />
-                <strong class="category-item-title">Clothes</strong>
+                <div
+                    style="position: absolute;bottom:5%;width:100%;display:flex;align-items:center;justify-content:center;font-weight:bold">
+                    Helloow</div>
             </a>
+
         </div>
         <div class="col-md-2">
             <a class="category-item" href=""><img class="img-fluid" src="{{ asset('fe-dist/img/product-1.jpg') }}"
@@ -172,7 +175,7 @@
                     $.each(respons.product_categories.data, function(key, product){
                         $('#product-categories-zone').append('<div class="col-md-2">\
                             <a class="category-item" href="shop?id_cat='+product.id+'"><img class="img-fluid" src="/storage/images/'+product.images+'" alt="" />\
-                                <strong class="category-item-title">'+product.product_category_name+'</strong>\
+                                <div style="position: absolute;bottom:0%;width:100%;background:white;display:flex;align-items:center;justify-content:center;font-weight:bold">'+product.product_category_name+'</div>\
                             </a>\
                         </div>\
                         ')
@@ -205,7 +208,7 @@
                                 </div>\
                             </div>\
                             <h6> <a class="reset-anchor" href="/detail-product/'+product.id+'">'+product.product_name+'</a></h6>\
-                            <p class="small text-muted">Rp. '+product.product_price+'</p>\
+                            <p class="small text-muted">'+formatRupiah(product.product_price)+'</p>\
                         </div>\
                     </div>\
                         ')

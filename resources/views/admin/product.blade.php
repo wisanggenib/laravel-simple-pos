@@ -290,7 +290,7 @@
                         <td> <div style="display:flex; flex-direction:row; align-items:start"><img src="/storage/images/' + product.thumbnail + '" style="width:5rem; height:auto;margin-right:1rem" alt="img">' +
                         product.product_name + '</div></td>\
                         <td>' + product.product_category_name + '</td>\
-                        <td>' + product.product_price + '</td>\
+                        <td>' + formatRupiah(product.product_price) + '</td>\
                         <td>' + product.vendor_name + '</td>\
                         <td>' + product.product_stock + '</td>\
                         <td>' + product.created_at + '</td>\

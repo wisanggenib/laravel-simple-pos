@@ -45,8 +45,8 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('assets/images/logo-colored.png') }}" alt="AdminLTELogo"
-                height="60" width="auto">
+            <img class="animation__shake" src="{{ asset('assets/images/logo.svg') }}" alt="AdminLTELogo" height="60"
+                width="auto">
         </div>
 
         <!-- Navbar -->
@@ -103,7 +103,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="mt-3 pb-3 mb-3 d-flex">
                     {{-- <a href="index3.html"> --}}
-                        <img src="{{ asset('assets/images/logo-colored.png') }}" alt="AdminLTE Logo"
+                        <img src="{{ asset('assets/images/logo.svg') }}" alt="AdminLTE Logo"
                             style="opacity: .8; width: 100%">
                         {{-- </a> --}}
                 </div>
@@ -326,6 +326,12 @@
           "responsive": true,
         });
       });
+    </script>
+    <script>
+        function formatRupiah(data){
+            let rupiahFormat = data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return 'Rp. '+rupiahFormat
+        }
     </script>
 
     @yield('scripts')

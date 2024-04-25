@@ -156,7 +156,7 @@
                                 <div class="container-wallet">
                                     <i class="fas fa-wallet" style="color: black"></i>
                                     <div>Saldo Dompet</div>
-                                    <div class="my-money">Rp. {{number_format(users_count(), 0, ",", ".")}}</div>
+                                    <div class="my-money">Rp. {{number_format(users_count(), 0, ",", ",")}}</div>
                                 </div>
                             </div>
                         </div>
@@ -316,6 +316,12 @@
             // pls don't forget to change to your domain :)
             injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg'); 
             
+            </script>
+            <script>
+                function formatRupiah(data){
+                    let rupiahFormat = data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    return 'Rp. '+rupiahFormat
+                }
             </script>
             <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"

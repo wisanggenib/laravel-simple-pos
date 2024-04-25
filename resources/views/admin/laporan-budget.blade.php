@@ -70,9 +70,9 @@
                         $('#dashboard-budget').append('<tr>\
                         <td>'+a+'.</td>\
                         <td>'+d.area_name+'</td>\
-                        <td><span class="badge bg-secondary">'+d.area_budget+'</span></td>\
-                        <td><span class="badge bg-secondary">'+expenses+'</span></td>\
-                        <td><span class="badge bg-success">'+curBal+'</span></td>\
+                        <td><span class="badge">'+formatRupiah(d.area_budget)+'</span></td>\
+                        <td><span class="badge">'+formatRupiah(expenses)+'</span></td>\
+                        <td><span class="badge bg-success">'+formatRupiah(curBal)+'</span></td>\
                         <tr>\
                         ')
                     })

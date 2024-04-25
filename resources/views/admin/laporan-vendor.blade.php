@@ -65,7 +65,7 @@
                         $('#barang-vendor').append('<tr>\
                         <td>'+a+'.</td>\
                         <td>'+d.vendor_name+'</td>\
-                        <td><span class="badge bg-secondary">'+d.totals+'</span></td>\
+                        <td><span class="badge">'+formatRupiah(d.totals)+'</span></td>\
                         <tr>\
                         ')
                     })
