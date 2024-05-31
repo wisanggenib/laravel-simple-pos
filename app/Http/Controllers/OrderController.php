@@ -262,6 +262,28 @@ class OrderController extends Controller
 
     public function updateStatusBarang(Request $request, $id)
     {
+        $validated = $request->validate([
+            'bukti' => 'required',
+            'status' => 'required',
+            'deskripsi' => 'required'
+        ]);
+
+        if ($validated['bukti'] === "undefined") {
+            return response()->json([
+                'status' => 401,
+                'message' => 'Tolong Masukan Bukti',
+                'data' => null
+            ]);
+        }
+
+        if ($validated['status'] === "null") {
+            return response()->json([
+                'status' => 401,
+                'message' => 'Tolong Pilih Status',
+                'data' => null
+            ]);
+        }
+        
         $detailOrders = order_detail::find($id);
 
         if ($detailOrders) {
@@ -314,6 +336,18 @@ class OrderController extends Controller
 
     public function kirimBarang(Request $request, $id)
     {
+         $validated = $request->validate([
+            'thumbnail' => 'required',
+        ]);
+        
+        if ($validated['thumbnail'] === "undefined") {
+            return response()->json([
+                'status' => 401,
+                'message' => 'Please Input Image Resi',
+                'data' => null
+            ]);
+        }
+        
         $cutOff = Order::find($id);
         if ($cutOff) {
 

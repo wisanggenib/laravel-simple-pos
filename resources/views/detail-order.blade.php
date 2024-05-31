@@ -61,6 +61,14 @@
                     </div>
                 </div>
             </div>
+             @if ($orders->resi)
+            <div class="row">
+                <div>
+                    <a style="font-size:1.5rem;font-weight:bold;" href="https://sales.wisanggenib.net/storage/images/{{ $orders->resi }}" target="_blank">Lihat Bukti
+                        Kirim</a>
+                </div>
+            </div>
+            @endif
             <div class="row">
                 <table class="table table-detail">
                     <thead>
@@ -302,9 +310,14 @@
                     if(res.data){
                         console.log(res)
                         resetForm()
+                        window.location.reload()
                     }else{
-                        alert("Error - Something Went woring")
+                        alert("Tolong Lengkapi Semua Input")
                     }
+                },
+                error: function(res){
+                    alert("Tolong Lengkapi Semua Input")
+
                 }
             })
         })

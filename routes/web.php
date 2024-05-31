@@ -145,6 +145,13 @@ Route::get('/dashboard-fetch-budget', [ProductController::class, 'dashboardBudge
 Route::get('/cart-fetch-vendor', [ProductController::class, 'cartVendor']);
 Route::get('/cart-fetch-budget', [ProductController::class, 'cartBudget']);
 
+//export excel
+Route::get('/export-excel', [ProductController::class, 'exportExcel']);
+Route::get('/export-excel-product', [ProductController::class, 'exportExcelProduct']);
+Route::get('/export-excel-vendor', [ProductController::class, 'exportExcelVendor']);
+Route::get('/export-excel-budget', [ProductController::class, 'exportExcelBudget']);
+Route::get('/export-excel-home', [ProductController::class, 'exportExcelHome']);
+
 //login
 Route::get('/login', function () {
     return view('login');
