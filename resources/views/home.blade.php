@@ -60,7 +60,7 @@
 </section>
 
 <div class="py-5"></div>
-<hr/>
+<hr />
 <!-- TRENDING PRODUCTS-->
 <section class="py-5">
     <header class="header-section-custom">
@@ -177,7 +177,7 @@
                     $('#product-categories-zone').html('')
                     $.each(AA, function(key, product){
                         $('#product-categories-zone').append('<div class="col-md-2">\
-                            <a class="category-item" href="shop?id_cat='+product.id+'"><img class="img-fluid" src="/storage/images/'+product.images+'" alt="" />\
+                            <a class="category-item" href="shop?id_cat='+product.id+'"><img class="img-fluid" src="/storage/'+product.images+'" alt="" />\
                                 <div style="position: absolute;bottom:0%;width:100%;background:white;display:flex;align-items:center;justify-content:center;font-weight:bold">'+product.product_category_name+'</div>\
                             </a>\
                         </div>\
@@ -200,7 +200,7 @@
                         <div class="product text-center">\
                             <div class="position-relative mb-3">\
                                 <div class="badge text-white bg-"></div><a class="d-block" href="/detail-product/'+product.id+'"><img class="img-fluid w-100"\
-                                        src="/storage/images/'+product.thumbnail+'" alt="..."></a>\
+                                        src="/storage/'+product.thumbnail+'" alt="..."></a>\
                                 <div class="product-overlay">\
                                     <ul class="mb-0 list-inline">\
                                         <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="/detail-product/'+product.id+'">Add\

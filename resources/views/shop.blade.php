@@ -106,7 +106,7 @@
                             <div class="product text-center">\
                                 <div class="mb-3 position-relative">\
                                     <div class="badge text-white bg-"></div><a class="d-block" href="/detail-product/'+product.id+'"><img class="img-fluid w-100"\
-                                            src="/storage/images/'+product.thumbnail+'" alt="..."></a>\
+                                            src="/storage/'+product.thumbnail+'" alt="..."></a>\
                                     <div class="product-overlay">\
                                         <ul class="mb-0 list-inline">\
                                             <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="/detail-product/'+product.id+'">Add\

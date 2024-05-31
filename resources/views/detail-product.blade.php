@@ -25,9 +25,9 @@
                         <div class="swiper product-slider">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide h-auto"><a class="glightbox product-view"
-                                        href="/storage/images/{{$products->thumbnail}}" data-gallery="gallery2"
+                                        href="/storage/{{$products->thumbnail}}" data-gallery="gallery2"
                                         data-glightbox="Product item 1"><img class="img-fluid"
-                                            src="/storage/images/{{$products->thumbnail}}" alt="..."></a></div>
+                                            src="/storage/{{$products->thumbnail}}" alt="..."></a></div>
                                 {{-- <div class="swiper-slide h-auto"><a class="glightbox product-view"
                                         href="{{ asset('fe-dist/img/product-detail-2.jpg') }}" data-gallery="gallery2"
                                         data-glightbox="Product item 2"><img class="img-fluid"
@@ -112,7 +112,7 @@
                     <div class="product text-center skel-loader">
                         <div class="d-block mb-3 position-relative"><a class="d-block"
                                 href="/detail-product/{{$user->id}}"><img class="img-fluid w-100"
-                                    src="/storage/images/{{$user->thumbnail}}" alt="..."></a>
+                                    src="/storage/{{$user->thumbnail}}" alt="..."></a>
                             <div class="product-overlay">
                                 <ul class="mb-0 list-inline">
                                     <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="#!">Add to

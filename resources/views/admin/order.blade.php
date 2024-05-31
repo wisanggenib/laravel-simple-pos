@@ -235,9 +235,9 @@
                         $.each(res.data, function(key, cf){
                             let status = ""
                             if(cf.product_status === "reject"){
-                                status = "<div style='display:flex;flex-direction:column;margin-top:0.5rem'><div style='color:red'>DITOLAK</div><div>"+cf.deskripsi_product+"</div><a style='font-size:1rem;color:green;font-weight:bold;' href='https://sales.wisanggenib.net/storage/images/"+cf.bukti+"'target='_blank'>Lihat Bukti</a><button value="+cf.id_orders+" type='button' class='btn-kirim-ulang btn btn-sm btn-primary'>Kirim Ulang</button></div>"
+                                status = "<div style='display:flex;flex-direction:column;margin-top:0.5rem'><div style='color:red'>DITOLAK</div><div>"+cf.deskripsi_product+"</div><a style='font-size:1rem;color:green;font-weight:bold;' href='https://sales.wisanggenib.net/storage/"+cf.bukti+"'target='_blank'>Lihat Bukti</a><button value="+cf.id_orders+" type='button' class='btn-kirim-ulang btn btn-sm btn-primary'>Kirim Ulang</button></div>"
                             }else if(cf.product_status === "terima"){
-                                status = "<div><div style='color:green;margin-top:0.5rem' >DITERIMA</div><a style='font-size:1rem;color:green;font-weight:bold;' href='https://sales.wisanggenib.net/storage/images/"+cf.bukti+"'target='_blank'>Lihat Bukti</a></div>"
+                                status = "<div><div style='color:green;margin-top:0.5rem' >DITERIMA</div><a style='font-size:1rem;color:green;font-weight:bold;' href='https://sales.wisanggenib.net/storage/"+cf.bukti+"'target='_blank'>Lihat Bukti</a></div>"
                             }else if(cf.product_status === "ulang"){
                                 status = "<div><div>SUDAH DI KIRIM ULANG</div></div>"
                             }
@@ -252,7 +252,7 @@
                             <div class="row">\
                                 <div class="col-8">\
                                     <div class="d-flex flex-row">\
-                                        <div><img src="/storage/images/' + cf.thumbnail + '" style="width:5rem; height:auto;margin-right:1rem" alt="img"></div>\
+                                        <div><img src="/storage/' + cf.thumbnail + '" style="width:5rem; height:auto;margin-right:1rem" alt="img"></div>\
                                         <div>\
                                             <div>'+cf.product_name+'</div>\
                                             <div>'+cf.quantity+' x '+formatRupiah(cf.price)+'</div>\

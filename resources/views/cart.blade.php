@@ -30,7 +30,7 @@
                                 <th class="ps-0 py-3 border-light" scope="row">
                                     <div class="d-flex align-items-center"><a
                                             class="reset-anchor d-block animsition-link" href="detail.html"><img
-                                                src="/storage/images/{{$p['image']}}" alt="..." width="70" /></a>
+                                                src="/storage/{{$p['image']}}" alt="..." width="70" /></a>
                                         <div class="ms-3"><strong class="h6"><a class="reset-anchor animsition-link"
                                                     href="detail.html">{{($p['product_name'])}}</a></strong></div>
                                     </div>

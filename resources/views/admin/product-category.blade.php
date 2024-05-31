@@ -190,7 +190,7 @@
                     $('tbody').html('')
                     $.each(respons.product_categories.data, function(key, product){
                         $('tbody').append('<tr>\
-                        <td> <img src="/storage/images/'+product.images+'" style="width:5rem; height:auto;margin-right:1rem" alt="img">'+product.product_category_name+'</td>\
+                        <td> <img src="/storage/'+product.images+'" style="width:5rem; height:auto;margin-right:1rem" alt="img">'+product.product_category_name+'</td>\
                         <td>'+moment(product.created_at).format("YYYY/MM/DD HH:mm")+'</td>\
                         <td>\
                         <button value="'+product.id+'" data-toggle="modal" data-target="#modalEditStudent" type="button" class="trigger_edit btn btn-warning">edit</button>\

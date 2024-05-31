@@ -61,10 +61,12 @@
                     </div>
                 </div>
             </div>
-             @if ($orders->resi)
+            @if ($orders->resi)
             <div class="row">
                 <div>
-                    <a style="font-size:1.5rem;font-weight:bold;" href="https://sales.wisanggenib.net/storage/images/{{ $orders->resi }}" target="_blank">Lihat Bukti
+                    <a style="font-size:1.5rem;font-weight:bold;"
+                        href="https://sales.wisanggenib.net/storage/{{ $orders->resi }}" target="_blank">Lihat
+                        Bukti
                         Kirim</a>
                 </div>
             </div>
@@ -85,8 +87,7 @@
                         <tr>
                             <td>
                                 <div class="d-flex flex-row">
-                                    <div class="d-flex"><img src="/storage/images/{{$p->thumbnail}}" alt="..."
-                                            width="70" />
+                                    <div class="d-flex"><img src="/storage/{{$p->thumbnail}}" alt="..." width="70" />
                                         <div class="ms-3" style="display:flex; align-items:center">
                                             <strong class="h6"><a class="reset-anchor animsition-link"
                                                     href="#">{{($p->product_name)}}</a></strong>
