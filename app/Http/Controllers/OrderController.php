@@ -120,6 +120,7 @@ class OrderController extends Controller
             ->select('orders.*', 'users.id as id_users')
             ->join('users', 'orders.id_user', '=', 'users.id')
             ->where('orders.id_user', Auth::user()->id)
+            ->orderBy('orders.created_at', 'desc')
             ->get();
         return response()->json([
             'cutoffs' => $cutoff,
@@ -180,6 +181,7 @@ class OrderController extends Controller
             ->select('users.*', 'users.id as id_users', 'areas.*', 'areas.id as id_area', 'orders.*', 'orders.id as id')
             ->join('orders', 'orders.id_user', '=', 'users.id')
             ->join('areas', 'areas.id', '=', 'users.id_area')
+            ->orderBy('orders.updated_at', 'desc')
             // ->where('orders.id_user', Auth::user()->id)
             ->get();
 
