@@ -184,13 +184,14 @@
                     // console.log(respons.areas)
                     console.log(respons,"INI")
                     const sort = respons.products.sort((a,b) => a.available_stock - b.available_stock);
+                    const sortSlice = sort.slice(0,10)
                     $('#barang-minus').html('')
-                    $.each(sort, function(key, d){
+                    $.each(sortSlice, function(key, d){
                         let a = parseInt(key) + 1
                         $('#barang-minus').append('<tr>\
                         <td>'+a+'.</td>\
                         <td>'+d.product_name+'</td>\
-                        <td>'+d.available_stock+' Terjual</td>\
+                        <td>'+d.available_stock+' Tersedia</td>\
                         <tr>\
                         ')
                     })

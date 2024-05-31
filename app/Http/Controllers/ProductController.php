@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Rap2hpoutre\FastExcel\FastExcel;
 use stdClass;
 
 class ProductController extends Controller
@@ -636,5 +637,156 @@ class ProductController extends Controller
                 'data' => null
             ]);
         }
+    }
+
+    public function exportExcel()
+    {
+        $users = DB::select('select p.product_name,p.id,
+                                (select sum(quantity) 
+                                    FROM order_details od2 
+                                    JOIN orders o 
+                                    ON od2.id_order = o.id  
+                                    where od2.id_product = p.id
+                                    AND (o.status != "tolak" OR o.status = "order")
+                                    ) as items_total
+                                from products p 
+                                JOIN order_details od
+                                ON p.id = od.id_product 
+                                GROUP BY p.id,p.product_name
+                                ORDER BY items_total DESC
+                                ');
+
+        $AA = date("Y_m_d_H_i");
+        // dd($AA);
+        return (new FastExcel($users))->download('file.xlsx' . $AA, function ($user) {
+            return [
+                'Nama Produk' => $user->product_name,
+                'Total Produk' => $user->items_total,
+            ];
+        });
+    }
+
+    public function exportExcelProduct()
+    {
+        $users = DB::select('select p.product_name,p.id,
+                                (select sum(quantity) 
+                                    FROM order_details od2 
+                                    JOIN orders o 
+                                    ON od2.id_order = o.id  
+                                    where od2.id_product = p.id
+                                    AND (o.status != "tolak" OR o.status = "order")
+                                    ) as items_total
+                                from products p 
+                                JOIN order_details od
+                                ON p.id = od.id_product 
+                                GROUP BY p.id,p.product_name
+                                ORDER BY items_total DESC
+                                ');
+
+        return (new FastExcel($users))->download('file.xlsx', function ($user) {
+            return [
+                'Nama Produk' => $user->product_name,
+                'Total Produk' => $user->items_total,
+            ];
+        });
+    }
+
+    public function exportExcelVendor()
+    {
+        $products = DB::select('select p.product_name,p.id as id_product,p.product_price,p.vendor_name,
+                                (select sum(quantity) 
+                                    FROM order_details od2 
+                                    JOIN orders o 
+                                    ON od2.id_order = o.id  
+                                    where od2.id_product = p.id
+                                    AND (o.status != "tolak" OR o.status = "order")
+                                    ) as items_total
+                                from products p 
+                                JOIN order_details od
+                                ON p.id = od.id_product 
+                                GROUP BY p.id
+                                ORDER BY items_total DESC');
+
+        $vendors = DB::select('select DISTINCT(p.vendor_name) from products p WHERE p.vendor_name != "-"');
+
+        foreach ($vendors as $key => $v) {
+            $result = collect($products)->where('vendor_name', $v->vendor_name);
+            $totals = 0;
+            foreach ($result as $key => $value) {
+                $totals = $totals + (int)$value->product_price * (int)$value->items_total;
+            }
+            $object = new stdClass();
+            $object->vendor_name = $v->vendor_name;
+            $object->totals = $totals;
+            $myArray[] = $object;
+        }
+
+        // dd($myArray);
+
+        return (new FastExcel($myArray))->download('file.xlsx', function ($user) {
+            return [
+                'Vendor Name' => $user->vendor_name,
+                'Total' => $user->totals,
+            ];
+        });
+    }
+
+    public function exportExcelBudget()
+    {
+        $products2 = DB::select('select a.area_name, a.area_budget,
+                                (SELECT sum(total) as total FROM orders
+                                JOIN users u
+                                ON u.id = orders.id_user 
+                                WHERE MONTH(orders.created_at) = MONTH(CURRENT_DATE())
+                                AND YEAR(orders.created_at) = YEAR(CURRENT_DATE())
+                                AND u.id_area  = a.id
+                                AND (orders.status != "tolak" OR orders.status = "order")) as expenses
+                                FROM areas a 
+                                ORDER BY expenses ASC
+                                ');
+
+        // dd($products2);
+
+        return (new FastExcel($products2))->download('file.xlsx', function ($user) {
+            return [
+                'Area' => $user->area_name,
+                'Budget' => $user->area_budget,
+                'Pengeluaran' => $user->expenses
+            ];
+        });
+    }
+
+    public function exportExcelHome()
+    {
+        $products =
+            DB::table('products')
+            ->select('product_categories.id as id_category', 'product_categories.*', 'products.*')
+            ->join('product_categories', 'products.id_category', '=', 'product_categories.id')
+            ->where('is_vendor', '=', 'false')
+            ->get();
+
+        foreach ($products as $key => $value) {
+            $query_pending_stock = DB::select('SELECT sum(quantity) as available_stock 
+                            FROM order_details od 
+                            JOIN orders o 
+                            ON o.id = od.id_order 
+                            WHERE MONTH(o.created_at) = MONTH(CURRENT_DATE()) 
+                            AND YEAR(o.created_at) = YEAR(CURRENT_DATE()) 
+                            AND (o.status = "order"
+                                 OR o.status  = "proses" )
+                            AND od.id_product  = ?', [$value->id]);
+            $pending_stock = $query_pending_stock[0]->available_stock;
+            $avalable_stock = $value->product_stock - $pending_stock;
+            $value->available_stock = (int)$avalable_stock;
+        }
+
+        // dd($products2);
+
+        return (new FastExcel($products))->download('file.xlsx', function ($user) {
+            return [
+                'Nama Produk' => $user->product_name,
+                'Stock Tersedia' => $user->available_stock
+            ];
+        });
     }
 }

@@ -96,7 +96,15 @@
                                         <option value="">--Pilih Salah Satu--</option>
                                         <option value="satuan">Satuan</option>
                                         <option value="kilo">Kilo</option>
-                                        <option value="liter">Liter</option>
+                                        <option value="botol">Botol</option>
+                                        <option value="can">Can</option>
+                                        <option value="liter">Liter (L)</option>
+                                        <option value="mililiter">Mili Liter (Ml)</option>
+                                        <option value="lusin">Lusin</option>
+                                        <option value="pack">Pack</option>
+                                        <option value="pcs">Pcs</option>
+                                        <option value="pouch">Pouch</option>
+                                        <option value="pasang">Pasang (psg)</option>
                                     </select>
                                 </div>
                             </div>
@@ -104,7 +112,7 @@
                                 <div class="form-group col-6">
                                     <label for="exampleFormControlTextarea1">Harga</label>
                                     <input type="number" class="form-control" id="inputHarga" name="inputHarga"
-                                        placeholder="Masukan Stok" required>
+                                        placeholder="Masukan Harga" required>
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="exampleInputPassword1">Kategori</label>
@@ -181,7 +189,15 @@
                                         <option value="">--Pilih Salah Satu--</option>
                                         <option value="satuan">Satuan</option>
                                         <option value="kilo">Kilo</option>
-                                        <option value="liter">Liter</option>
+                                        <option value="botol">Botol</option>
+                                        <option value="can">Can</option>
+                                        <option value="liter">Liter (L)</option>
+                                        <option value="mililiter">Mili Liter (Ml)</option>
+                                        <option value="lusin">Lusin</option>
+                                        <option value="pack">Pack</option>
+                                        <option value="pcs">Pcs</option>
+                                        <option value="pouch">Pouch</option>
+                                        <option value="pasang">Pasang (psg)</option>
                                     </select>
                                 </div>
                             </div>

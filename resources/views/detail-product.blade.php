@@ -4,7 +4,7 @@
 <section class="py-5">
     <div class="container">
         <div class="row mb-5 custom-cards-tb">
-            <div class="col-lg-6">
+            <div class="col-lg-2">
                 <!-- PRODUCT SLIDER-->
                 <div class="row m-sm-0">
                     <div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0 px-xl-2">
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <!-- PRODUCT DETAILS-->
-            <div class="col-lg-6">
+            <div class="col-lg-10">
                 <h1>{{$products->product_name}}</h1>
                 <p class="text-muted lead">Rp. {{number_format($products->product_price, 0, ",", ",")}}</p>
                 <p class="text-sm mb-4">{{$products->product_description}}</p>
@@ -67,8 +67,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="btn-add-cart col-sm-3 pl-sm-0"><a
+                            class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0">Add
+                            to cart</a></div>
                     <div class="col-sm-3 pl-sm-0"><a
                             class="btn btn-secondary btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0">Add
+                            to cart</a></div>
+                    <div class="btn-add-cart col-sm-3 pl-sm-0"><a
+                            class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0">Add
                             to cart</a></div>
                     {{-- @if ($avalable_stock > 0)
                     <div class="btn-add-cart col-sm-3 pl-sm-0"><a

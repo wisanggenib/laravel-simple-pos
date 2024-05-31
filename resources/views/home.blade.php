@@ -58,6 +58,9 @@
         </div>
     </div>
 </section>
+
+<div class="py-5"></div>
+<hr/>
 <!-- TRENDING PRODUCTS-->
 <section class="py-5">
     <header class="header-section-custom">
@@ -170,9 +173,9 @@
                 url:"/pc-fetch",
                 dataType:"json",
                 success: function(respons){
-                    console.log(respons.product_categories)
+                    const AA = respons.product_categories.data.slice(0,6)
                     $('#product-categories-zone').html('')
-                    $.each(respons.product_categories.data, function(key, product){
+                    $.each(AA, function(key, product){
                         $('#product-categories-zone').append('<div class="col-md-2">\
                             <a class="category-item" href="shop?id_cat='+product.id+'"><img class="img-fluid" src="/storage/images/'+product.images+'" alt="" />\
                                 <div style="position: absolute;bottom:0%;width:100%;background:white;display:flex;align-items:center;justify-content:center;font-weight:bold">'+product.product_category_name+'</div>\
