@@ -25,6 +25,57 @@ function users_count()
     return $cutoff->area_budget - (int)$currentExpenses[0]->total;
 }
 
+function getStatusCutOff()
+{
+    $ID_AREA = Auth::user()->id_area;
+    $cutoff =
+        DB::table('cut_offs')
+        ->select('cut_offs.*')
+        ->where('cut_offs.id_area', $ID_AREA)
+        ->orderBy('updated_at', 'desc')
+        ->first();
+
+
+    if (!$cutoff) {
+        $paymentDate = date('Y-m-d');
+        $paymentDate = date('Y-m-d', strtotime($paymentDate));
+
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $newStartDateString = "$currentYear-$currentMonth-25";
+        $newEndDateString = "$currentYear-$currentMonth-28";
+        if (($paymentDate >= $newStartDateString) && ($paymentDate <= $newEndDateString)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $paymentDate = date('Y-m-d');
+    $paymentDate = date('Y-m-d', strtotime($paymentDate));
+    //echo $paymentDate; // echos today! 
+    $contractDateBegin = date('Y-m-d', strtotime($cutoff->startDate));
+    $contractDateEnd = date('Y-m-d', strtotime($cutoff->endDate));
+
+    if (($paymentDate >= $contractDateBegin) && ($paymentDate <= $contractDateEnd)) {
+        return true;
+    } else {
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $currentDateStart = date('d', strtotime($cutoff->startDate));
+        $currentDateEnd = date('d', strtotime($cutoff->endDate));
+
+        $newStartDateString = "$currentYear-$currentMonth-$currentDateStart";
+        $newEndDateString = "$currentYear-$currentMonth-$currentDateEnd";
+
+        if (($paymentDate >= $newStartDateString) && ($paymentDate <= $newEndDateString)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
 
 function format_date($data)
 {

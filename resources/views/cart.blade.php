@@ -99,14 +99,22 @@
                             {{-- <form action="#"> --}}
 
                                 @if (count($cart_products) > 0)
+
+                                @if (getStatusCutOff())
                                 <div class="input-group mb-0">
                                     <button class="btn btn-dark btn-sm w-100" data-bs-toggle="modal"
                                         data-bs-target="#modalPayment">Bayar
                                         Sekarang</button>
                                 </div>
                                 @else
+                                <button class="btn btn-secondary btn-sm w-100" data-bs-toggle="modal"
+                                    data-bs-target="#modalPayment" disabled>Bayar
+                                    Sekarang</button>
+                                @endif
+
+                                @else
                                 <div class="input-group mb-0">
-                                    <button class="btn btn-dark btn-sm w-100" data-bs-toggle="modal"
+                                    <button class="btn btn-secondary btn-sm w-100" data-bs-toggle="modal"
                                         data-bs-target="#modalPayment" disabled>Bayar
                                         Sekarang</button>
                                 </div>
