@@ -121,7 +121,7 @@ class ProductController extends Controller
 
         $ext = $request->file('thumbnail')->extension();
         $imgName = date("Ymdhis") . '.' . $ext;
-        Storage::putFileAs('public/images', $request->file('thumbnail'), $imgName);
+        Storage::putFileAs('public', $request->file('thumbnail'), $imgName);
 
         $cutOff = new Product();
         $cutOff->product_name = $request->input('product_name');
@@ -176,7 +176,7 @@ class ProductController extends Controller
             if ($request->file('thumbnail')) {
                 $ext = $request->file('thumbnail')->extension();
                 $imgName = date("Ymdhis") . '.' . $ext;
-                Storage::putFileAs('public/images', $request->file('thumbnail'), $imgName);
+                Storage::putFileAs('public', $request->file('thumbnail'), $imgName);
                 $cutOff->thumbnail = $imgName;
             }
             $cutOff->update();
@@ -638,7 +638,7 @@ class ProductController extends Controller
             ]);
         }
     }
-    
+
     public function exportExcel()
     {
         $users = DB::select('select p.product_name,p.id,
@@ -682,7 +682,7 @@ class ProductController extends Controller
                                 ');
 
         $datexx = date("Y_m_d_H_i_s");
-        return (new FastExcel($users))->download("laporan-produk_"."$datexx".".xlsx", function ($user) {
+        return (new FastExcel($users))->download("laporan-produk_" . "$datexx" . ".xlsx", function ($user) {
             return [
                 'Nama Produk' => $user->product_name,
                 'Total Produk' => $user->items_total,
@@ -722,7 +722,7 @@ class ProductController extends Controller
 
         // dd($myArray);
         $datexx = date("Y_m_d_H_i_s");
-        return (new FastExcel($myArray))->download("laporan-vendor_"."$datexx".".xlsx", function ($user) {
+        return (new FastExcel($myArray))->download("laporan-vendor_" . "$datexx" . ".xlsx", function ($user) {
             return [
                 'Vendor Name' => $user->vendor_name,
                 'Total' => $user->totals,
@@ -745,9 +745,9 @@ class ProductController extends Controller
                                 ');
 
         // dd($products2);
-        
+
         $datexx = date("Y_m_d_H_i_s");
-        return (new FastExcel($products2))->download("laporan_budget_"."$datexx".".xlsx", function ($user) {
+        return (new FastExcel($products2))->download("laporan_budget_" . "$datexx" . ".xlsx", function ($user) {
             return [
                 'Area' => $user->area_name,
                 'Budget' => $user->area_budget,
@@ -755,7 +755,7 @@ class ProductController extends Controller
             ];
         });
     }
-    
+
     public function exportExcelHome()
     {
         $products = DB::table('products')
@@ -779,15 +779,13 @@ class ProductController extends Controller
             $value->available_stock = (int)$avalable_stock;
         }
 
-        
+
         $datexx = date("Y_m_d_H_i_s");
-        return (new FastExcel($products))->download("laporan_stok_barang_"."$datexx".".xlsx", function ($user) {
+        return (new FastExcel($products))->download("laporan_stok_barang_" . "$datexx" . ".xlsx", function ($user) {
             return [
                 'Nama Produk' => $user->product_name,
                 'Stock Tersedia' => $user->available_stock
             ];
         });
     }
-    
-    
 }

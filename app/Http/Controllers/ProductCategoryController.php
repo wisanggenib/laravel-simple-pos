@@ -26,7 +26,7 @@ class ProductCategoryController extends Controller
 
         $ext = $request->file('images')->extension();
         $imgName = date("Ymdhis") . '.' . $ext;
-        Storage::putFileAs('public/images', $request->file('images'), $imgName);
+        Storage::putFileAs('public', $request->file('images'), $imgName);
 
         $productCategories = new ProductCategory();
         $productCategories->product_category_name = $request->input('categoryName');
@@ -57,7 +57,7 @@ class ProductCategoryController extends Controller
             if ($request->file('images')) {
                 $ext = $request->file('images')->extension();
                 $imgName = date("Ymdhis") . '.' . $ext;
-                Storage::putFileAs('public/images', $request->file('images'), $imgName);
+                Storage::putFileAs('public', $request->file('images'), $imgName);
                 $productCategories->images = $imgName;
             }
             $productCategories->update();

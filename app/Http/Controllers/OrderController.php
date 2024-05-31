@@ -283,14 +283,14 @@ class OrderController extends Controller
                 'data' => null
             ]);
         }
-        
+
         $detailOrders = order_detail::find($id);
 
         if ($detailOrders) {
             if ($request->file('bukti')) {
                 $ext = $request->file('bukti')->extension();
                 $imgName = date("Ymdhis") . '.' . $ext;
-                Storage::putFileAs('public/images', $request->file('bukti'), $imgName);
+                Storage::putFileAs('public', $request->file('bukti'), $imgName);
                 $detailOrders->bukti = $imgName;
             }
             $detailOrders->status = $request->input('status');
@@ -336,10 +336,10 @@ class OrderController extends Controller
 
     public function kirimBarang(Request $request, $id)
     {
-         $validated = $request->validate([
+        $validated = $request->validate([
             'thumbnail' => 'required',
         ]);
-        
+
         if ($validated['thumbnail'] === "undefined") {
             return response()->json([
                 'status' => 401,
@@ -347,14 +347,14 @@ class OrderController extends Controller
                 'data' => null
             ]);
         }
-        
+
         $cutOff = Order::find($id);
         if ($cutOff) {
 
             if ($request->file('thumbnail')) {
                 $ext = $request->file('thumbnail')->extension();
                 $imgName = date("Ymdhis") . '.' . $ext;
-                Storage::putFileAs('public/images', $request->file('thumbnail'), $imgName);
+                Storage::putFileAs('public', $request->file('thumbnail'), $imgName);
                 $cutOff->resi = $imgName;
             }
             $cutOff->tgl_kirim = now();
