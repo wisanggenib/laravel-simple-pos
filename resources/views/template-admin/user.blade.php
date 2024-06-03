@@ -59,7 +59,8 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <div class="customheader container navbar-nav">
                                 <a href="/">
-                                    <img class="img-fluid" src="{{ asset('assets/images/logo.svg') }}" alt="...">
+                                    <img class="img-fluid" style="width:10%"
+                                        src="{{ asset('assets/images/new-logo.png') }}" alt="...">
                                 </a>
                                 <div class="searching">
                                     {{-- <input type="text" name="" id=""> --}}

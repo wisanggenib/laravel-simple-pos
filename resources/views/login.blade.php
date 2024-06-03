@@ -64,6 +64,11 @@
         </div>
     </section>
     <script>
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         function password_show_hide() {
             var x = document.getElementById("password");
             var show_eye = document.getElementById("show_eye");
