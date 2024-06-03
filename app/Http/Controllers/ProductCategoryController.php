@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Storage;
 class ProductCategoryController extends Controller
 {
     //
-    public function fetchData()
+    public function fetchData($name = "")
     {
-        $productCategory = ProductCategory::latest()->paginate(100);
+        $productCategory = ProductCategory::latest()->where('product_categories.product_category_name', 'LIKE', "%$name%")->paginate(10000);
         return response()->json([
             'product_categories' => $productCategory,
         ]);

@@ -339,7 +339,7 @@
         function fetchCategories(){
             $.ajax({
                 type:"GET",
-                url:"/pc-fetch",
+                url:"/pc-fetch-name",
                 dataType:"json",
                 success: function(respons){
                     // console.log(respons.areas)

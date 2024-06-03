@@ -170,7 +170,7 @@
         function fetchDataProductCategories(){
             $.ajax({
                 type:"GET",
-                url:"/pc-fetch",
+                url:"/pc-fetch-name",
                 dataType:"json",
                 success: function(respons){
                     const AA = respons.product_categories.data.slice(0,6)

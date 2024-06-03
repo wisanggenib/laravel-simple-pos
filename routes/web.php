@@ -92,7 +92,7 @@ Route::delete('/user-delete/{id}', [UserController::class, 'deleteData']);
 Route::post('/registration', [UserController::class, 'register']);
 
 //category product
-Route::get('/pc-fetch', [ProductCategoryController::class, 'fetchData']);
+Route::get('/pc-fetch-name/{name?}', [ProductCategoryController::class, 'fetchData']);
 Route::post('/pc-store', [ProductCategoryController::class, 'store']);
 Route::post('/pc-update/{id}', [ProductCategoryController::class, 'updateData']);
 Route::delete('/pc-delete/{id}', [ProductCategoryController::class, 'deleteData']);

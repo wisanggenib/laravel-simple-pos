@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		 COUNTRY SELECT BOX FILLING
 		=============================================================== */
 	const request = new XMLHttpRequest();
-	request.open('GET', 'js/countries.json');
 	request.onload = function () {
 		if (request.status >= 200 && request.status < 400) {
 			const response = JSON.parse(request.responseText);

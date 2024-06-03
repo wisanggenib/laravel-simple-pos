@@ -22,9 +22,8 @@
             <div class="col-lg-8 col-12">
                 <!-- small box -->
                 <div class="d-flex flex-row justify-content-end align-items-center" style=" gap:1rem;">
-                    {{-- <div class="hello">
-                        Hellooo
-                    </div> --}}
+                    <input type="text" class="form-control" value="" id="inputSearch" name="inputSearch"
+                        style="width:30%" placeholder="Cari Kategori Produk">
                     <button data-toggle="modal" data-target="#modalAddUser" type="button" class="btn"
                         style="background:#00B517; color:white">Tambah Kategori</button>
                 </div>
@@ -179,11 +178,21 @@
     
     $(document).ready(function(){
         fetchData()
+
+        $('input[name=inputSearch]').change(function() { 
+            const A = $('#inputSearch').val()
+            if(A.length <= 0){
+                fetchData("")
+            }else{
+                fetchData(A)
+            }
+        });
  
-        function fetchData(){
+        function fetchData(val){
+            let A = val ? val : ''
             $.ajax({
                 type:"GET",
-                url:"/pc-fetch",
+                url:"/pc-fetch-name/"+A,
                 dataType:"json",
                 success: function(respons){
                     console.log(respons.product_categories)
