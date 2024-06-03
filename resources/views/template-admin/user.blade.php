@@ -9,13 +9,23 @@
     <title>Document</title>
     <meta name="robots" content="all,follow">
 
-    <link rel="stylesheet" href=" {{ asset('fe-dist/vendor/glightbox/css/glightbox.min.css') }}">
+    {{--
+    <link rel="stylesheet" href=" {{ asset('fe-dist/vendor/glightbox/css/glightbox.min.css') }}"> --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
     <!-- Range slider-->
-    <link rel="stylesheet" href=" {{ asset('fe-dist/vendor/nouislider/nouislider.min.css') }}">
+    {{--
+    <link rel="stylesheet" href=" {{ asset('fe-dist/vendor/nouislider/nouislider.min.css') }}"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.2/nouislider.min.css"
+        integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Choices CSS-->
-    <link rel="stylesheet" href=" {{ asset('fe-dist/vendor/choices.js/public/assets/styles/choices.min.css') }}">
+    {{--
+    <link rel="stylesheet" href=" {{ asset('fe-dist/vendor/choices.js/public/assets/styles/choices.min.css') }}"> --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
     <!-- Swiper slider-->
-    <link rel="stylesheet" href=" {{ asset('fe-dist/vendor/swiper/swiper-bundle.min.css') }}">
+    {{--
+    <link rel="stylesheet" href=" {{ asset('fe-dist/vendor/swiper/swiper-bundle.min.css') }}"> --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <!-- Google fonts-->
     <link rel="stylesheet"
@@ -282,10 +292,15 @@
             <!-- JavaScript files-->
             {{-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> --}}
             <script src="{{ asset('fe-dist/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-            <script src="{{ asset('fe-dist/vendor/glightbox/js/glightbox.min.js') }}"></script>
-            <script src="{{ asset('fe-dist/vendor/nouislider/nouislider.min.js') }}"></script>
-            <script src="{{ asset('fe-dist/vendor/swiper/swiper-bundle.min.js') }}"></script>
-            <script src="{{ asset('fe-dist/vendor/choices.js/public/assets/scripts/choices.min.js') }}"></script>
+            <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+            {{-- <script src="{{ asset('fe-dist/vendor/glightbox/js/glightbox.min.js') }}"></script> --}}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.2/nouislider.min.mjs"></script>
+
+            {{-- <script src="{{ asset('fe-dist/vendor/swiper/swiper-bundle.min.js') }}"></script> --}}
+            <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+            {{-- <script src="{{ asset('fe-dist/vendor/choices.js/public/assets/scripts/choices.min.js') }}"></script>
+            --}}
+            <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
             <script src="{{ asset('fe-dist/js/front.js') }}"></script>
             <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
             <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
