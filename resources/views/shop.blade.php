@@ -5,7 +5,14 @@
     <div class="container p-0">
         <div class="row">
             <!-- SHOP SIDEBAR-->
+
             <div class="col-lg-3 order-2 order-lg-1">
+
+                <h6 class="text-uppercase mb-4">Cari Produk</h6>
+                <div class="price-range mb-5">
+                    <input type="text" class="form-control" value="" id="inputSearch" name="inputSearch"
+                        style="width:100%" placeholder="Cari Produk">
+                </div>
                 <h6 class="text-uppercase mb-4">Price range</h6>
                 <div class="price-range pt-4 mb-5">
                     <div id="range"></div>
@@ -91,13 +98,15 @@
                 id_category:id_category,
             }
             const dataEncode = encodeURIComponent(JSON.stringify(data))
-            fetchProduct(dataEncode)
+            const A = $('#inputSearch').val()
+            const AA  = A ? encodeURIComponent(JSON.stringify(A)) : ""
+            fetchProduct(dataEncode,AA)
         });  
 
-        function fetchProduct(data) {
+        function fetchProduct(data,name) {
             $.ajax({
                 type: "GET",
-                url: "/product-filter/"+data,
+                url: "/product-filter/"+data+"/"+name,
                 dataType: "json",
                 success: function(respons) {
                     $('.list-produk').html('')
@@ -164,7 +173,9 @@
                         id_category:x ? x : "All",
                     }
                     const dataEncode = encodeURIComponent(JSON.stringify(data))
-                    fetchProduct(dataEncode)
+                    const A = $('#inputSearch').val()
+                    const AA = A ? encodeURIComponent(JSON.stringify(A)) :""
+                    fetchProduct(dataEncode,AA)
                 }
             })
         }

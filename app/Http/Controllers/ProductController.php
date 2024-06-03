@@ -14,13 +14,13 @@ use stdClass;
 class ProductController extends Controller
 {
 
-    public function fetchData()
+    public function fetchData($value = "")
     {
         $products =
             DB::table('products')
             ->select('product_categories.id as id_category', 'product_categories.*', 'products.*')
             ->join('product_categories', 'products.id_category', '=', 'product_categories.id')
-            // ->where('product_stock', '>', 0)
+            ->where('products.product_name', 'LIKE', "%$value%")
             ->paginate(100);
 
         foreach ($products as $key => $value) {
@@ -612,15 +612,16 @@ class ProductController extends Controller
         }
     }
 
-    public function getAllProductFilter($data)
+    public function getAllProductFilter($data, $name = "")
     {
         $decodeData = json_decode(urldecode($data));
+        $names = json_decode($name);
         $filterByID = "";
         if ($decodeData->id_category != 'All') {
             $filterByID = 'AND p.id_category = "' . $decodeData->id_category . '"';
         }
 
-        $query = "select * from products p WHERE p.product_price  BETWEEN $decodeData->min_price AND $decodeData->max_price $filterByID";
+        $query = "select * from products p WHERE p.product_price  BETWEEN $decodeData->min_price AND $decodeData->max_price $filterByID AND p.product_name LIKE '%$names%'";
         $products2 = DB::select($query);
         if ($products2) {
             if ($products2) {

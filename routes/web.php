@@ -107,13 +107,13 @@ Route::delete('/cutoff-delete/{id}', [CutOffController::class, 'deleteData']);
 Route::put('/cutoff-update/{id}', [CutOffController::class, 'updateData']);
 
 //product
-Route::get('/product-fetch', [ProductController::class, 'fetchData']);
+Route::get('/product-fetch-name/{name?}', [ProductController::class, 'fetchData']);
 Route::get('/product-fetch/{id}', [ProductController::class, 'fetchDetail']);
 Route::post('/product-store', [ProductController::class, 'store']);
 Route::post('/product-update/{id}', [ProductController::class, 'updateData']);
 Route::delete('/product-delete/{id}', [ProductController::class, 'deleteData']);
 Route::get('/price-range', [ProductController::class, 'priceRange']);
-Route::get('/product-filter/{data}', [ProductController::class, 'getAllProductFilter']);
+Route::get('/product-filter/{data}/{name?}', [ProductController::class, 'getAllProductFilter']);
 
 //auth
 Route::post('/login-action', [UserController::class, 'login']);

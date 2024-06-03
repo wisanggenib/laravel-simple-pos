@@ -295,7 +295,7 @@
             <script src="{{ asset('fe-dist/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
             <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
             {{-- <script src="{{ asset('fe-dist/vendor/glightbox/js/glightbox.min.js') }}"></script> --}}
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.2/nouislider.min.mjs"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.2/nouislider.min.js"></script>
 
             {{-- <script src="{{ asset('fe-dist/vendor/swiper/swiper-bundle.min.js') }}"></script> --}}
             <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

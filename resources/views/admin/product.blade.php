@@ -25,6 +25,8 @@
                     {{-- <div class="hello">
                         Hellooo
                     </div> --}}
+                    <input type="text" class="form-control" value="" id="inputSearch" name="inputSearch"
+                        style="width:30%" placeholder="Cari Produk">
                     <button data-toggle="modal" data-target="#modalAddUser" type="button" class="btn"
                         style="background:#00B517; color:white">Tambah Produk</button>
                 </div>
@@ -291,13 +293,24 @@
     });
 
     $(document).ready(function() {
-        fetchData()
+        fetchData("")
         fetchCategories()
 
-        function fetchData() {
+        $('input[name=inputSearch]').change(function() { 
+            const A = $('#inputSearch').val()
+            if(A.length <= 0){
+                fetchData("")
+            }else{
+                fetchData(A)
+            }
+        });
+
+        function fetchData(val) {
+            let AA = val ? val : ''
+            const queries = `/product-fetch-name/${val}`
             $.ajax({
                 type: "GET",
-                url: "/product-fetch",
+                url: queries,
                 dataType: "json",
                 success: function(respons) {
                     console.log(respons.products)
@@ -418,7 +431,7 @@
                         $('#alert-success').removeClass("d-none")
                         $('#alert-success').text("Success Create Product")
                         $('#modalAddUser').modal('hide')
-                        fetchData()
+                        fetchData("")
                         resetForm()
                     } else {
                         //soon change with alert modals
@@ -510,7 +523,7 @@
                         $('#alert-success').removeClass("d-none")
                         $('#alert-success').text("Success Edit")
                         $('#modalEditArea').modal('hide')
-                        fetchData()
+                        fetchData("")
                         resetForm()
                     } else {
                         //soon change with alert modals
@@ -551,7 +564,7 @@
                         $('#alert-success').removeClass("d-none")
                         $('#alert-success').text("Success Delete")
                         $('#modalDeleteArea').modal('hide')
-                        fetchData()
+                        fetchData("")
                     } else {
                         //soon change with alert modals
                         alert("Error")
