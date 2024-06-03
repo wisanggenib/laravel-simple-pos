@@ -59,8 +59,8 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <div class="customheader container navbar-nav">
                                 <a href="/">
-                                    <img class="img-fluid" style="width:10%"
-                                        src="{{ asset('assets/images/new-logo.png') }}" alt="...">
+                                    <img class="img-fluid" style="width:30%"
+                                        src="{{ asset('assets/images/new-logos.png') }}" alt="...">
                                 </a>
                                 <div class="searching">
                                     {{-- <input type="text" name="" id=""> --}}
@@ -77,11 +77,11 @@
                                         </i>
                                     </a> --}}
                                     <a class="nav-link" href="/cart"> <i class="fas fa-shopping-bag me-1 text-gray"
-                                            style="font-size:1rem; position: relative;">
+                                            style="font-size:2rem; position: relative;">
                                             @if (get_total_cart() > 0)
                                             <span
                                                 class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                                                style="font-size: 0.6rem">
+                                                style="font-size: 0.8rem">
                                                 {{get_total_cart()}}
                                                 {{-- <span class="visually-hidden">unread messages</span> --}}
                                             </span>

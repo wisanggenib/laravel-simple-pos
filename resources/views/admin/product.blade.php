@@ -36,11 +36,11 @@
         <!-- /.row -->
 
         <!-- Main row -->
-        <div class="row" style="margin-top:1rem">
+        <div class="row" style="margin-top:1rem;">
             <div class="col-12">
                 <div class="card">
                     <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0">
+                    <div class="card-body table-responsive p-0" style="height: 80vh; overflow-y: visible">
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>
