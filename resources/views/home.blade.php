@@ -190,7 +190,7 @@
         function fetchProduct() {
             $.ajax({
                 type: "GET",
-                url: "/product-fetch",
+                url: "/product-fetch-name/",
                 dataType: "json",
                 success: function(respons) {
                     console.log(respons.products)
