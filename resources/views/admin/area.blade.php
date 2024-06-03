@@ -22,9 +22,8 @@
             <div class="col-lg-8 col-12">
                 <!-- small box -->
                 <div class="d-flex flex-row justify-content-end align-items-center" style=" gap:1rem;">
-                    {{-- <div class="hello">
-                        Hellooo
-                    </div> --}}
+                    <input type="text" class="form-control" value="" id="inputSearch" name="inputSearch"
+                        style="width:30%" placeholder="Cari Area">
                     <button data-toggle="modal" data-target="#exampleModal" type="button" class="btn"
                         style="background:#00B517; color:white">Tambah Area</button>
                 </div>
@@ -186,10 +185,20 @@
     $(document).ready(function(){
         fetchData()
         
-        function fetchData(){
+        $('input[name=inputSearch]').change(function() { 
+            const A = $('#inputSearch').val()
+            if(A.length <= 0){
+                fetchData("")
+            }else{
+                fetchData(A)
+            }
+        });
+
+        function fetchData(value){
+            const A = value ? value : ''
             $.ajax({
                 type:"GET",
-                url:"/area-fetch",
+                url:"/area-fetch-name/"+A,
                 dataType:"json",
                 success: function(respons){
                     // console.log(respons.areas)

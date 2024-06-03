@@ -12,12 +12,13 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
-    public function fetchData()
+    public function fetchData($name = "")
     {
         $users =
             DB::table('users')
             ->select('users.*', 'areas.area_name')
             ->join('areas', 'users.id_area', '=', 'areas.id')
+            ->where('users.username', 'LIKE', "%$name%")
             ->paginate(10);
         return response()->json([
             'users' => $users,

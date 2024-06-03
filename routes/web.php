@@ -79,13 +79,13 @@ Route::prefix('admin')->middleware([isAdmin::class])->group(function () {
 
 //area
 Route::post('/area-store', [AreaController::class, 'store']);
-Route::get('/area-fetch', [AreaController::class, 'fetchData']);
+Route::get('/area-fetch-name/{name?}', [AreaController::class, 'fetchData']);
 Route::get('/area-fetch/{id}', [AreaController::class, 'fetchDetail']);
 Route::put('/area-update/{id}', [AreaController::class, 'updateData']);
 Route::delete('/area-delete/{id}', [AreaController::class, 'deleteData']);
 
 //user 
-Route::get('/user-fetch', [UserController::class, 'fetchData']);
+Route::get('/user-fetch-name/{id?}', [UserController::class, 'fetchData']);
 Route::get('/user-fetch/{id}', [UserController::class, 'fetchDetail']);
 Route::put('/user-update/{id}', [UserController::class, 'updateData']);
 Route::delete('/user-delete/{id}', [UserController::class, 'deleteData']);

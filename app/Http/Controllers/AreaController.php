@@ -16,9 +16,9 @@ class AreaController extends Controller
         return view('admin.area', compact('areas'));
     }
 
-    public function fetchData()
+    public function fetchData($name = "")
     {
-        $areas = Areas::latest()->paginate(5);
+        $areas = Areas::latest()->where('areas.area_name', 'LIKE', "%$name%")->paginate(10000000);
         return response()->json([
             'areas' => $areas,
         ]);

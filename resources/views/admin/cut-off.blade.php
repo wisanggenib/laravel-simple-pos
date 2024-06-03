@@ -204,7 +204,7 @@
         function fetchArea(){
             $.ajax({
                 type:"GET",
-                url:"/area-fetch",
+                url:"/area-fetch-name",
                 dataType:"json",
                 success: function(respons){
                     // console.log(respons.areas)

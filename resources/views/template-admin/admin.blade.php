@@ -101,10 +101,10 @@
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
-                <div class="mt-3 pb-3 mb-3 d-flex">
+                <div class="mt-3 pb-3 mb-3 d-flex pl-4">
                     {{-- <a href="index3.html"> --}}
                         <img src="{{ asset('assets/images/new-logos.png') }}" alt="AdminLTE Logo"
-                            style="opacity: .8; width: 30%">
+                            style="opacity: .8; width: 50%">
                         {{-- </a> --}}
                 </div>
 
