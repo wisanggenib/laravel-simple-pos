@@ -26,7 +26,7 @@
                         Hellooo
                     </div> --}}
                     <button data-toggle="modal" data-target="#exampleModal" type="button" class="btn"
-                        style="background:#00B517; color:white">Tambah Area</button>
+                        style="background:#00B517; color:white">Tambah Carousels</button>
                 </div>
             </div>
             <!-- ./col -->
