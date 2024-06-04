@@ -47,6 +47,20 @@ INSERT INTO `areas` (`id`, `area_name`, `area_budget`, `area_location`, `created
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `carousels`
+--
+
+CREATE TABLE `carousels` (
+  `id` char(36) NOT NULL,
+  `gambar` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cut_offs`
 --
 
@@ -91,6 +105,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2024_04_02_121502_create_products_table', 1),
 (7, '2024_04_13_234854_create_orders_table', 1),
 (8, '2024_04_13_235721_create_order_details_table', 1);
+(9, '2024_06_04_004438_create_carousels_table', 2);
 
 -- --------------------------------------------------------
 
@@ -308,6 +323,12 @@ INSERT INTO `users` (`id`, `id_area`, `email`, `username`, `fullname`, `role`, `
 ALTER TABLE `areas`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `areas_area_name_unique` (`area_name`);
+
+--
+-- Indexes for table `carousesl`
+--
+ALTER TABLE `carousels`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `cut_offs`
