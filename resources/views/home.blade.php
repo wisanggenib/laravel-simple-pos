@@ -3,19 +3,8 @@
 
 <section>
     <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <img class="img-fluid" src="{{ asset('fe-dist/img/hero-banner-alt.jpg') }}" alt="...">
-            </div>
-            <div class="swiper-slide">
-                <img class="img-fluid" src="{{ asset('fe-dist/img/hero-banner-alt.jpg') }}" alt="...">
-            </div>
-            <div class="swiper-slide">
-                <img class="img-fluid" src="{{ asset('fe-dist/img/hero-banner-alt.jpg') }}" alt="...">
-            </div>
-            <div class="swiper-slide">
-                <img class="img-fluid" src="{{ asset('fe-dist/img/hero-banner-alt.jpg') }}" alt="...">
-            </div>
+        <div id="swiper-wrap" class="swiper-wrapper">
+
         </div>
         <div class="swiper-button-next"></div>
         <div class="swiper-pagination"></div>
@@ -166,6 +155,7 @@
     $(document).ready(function(){
         fetchDataProductCategories()
         fetchProduct()
+        fetchCarousesl()
  
         function fetchDataProductCategories(){
             $.ajax({
@@ -187,13 +177,30 @@
             })
         }
 
+        function fetchCarousesl(){
+            $.ajax({
+                type:"GET",
+                url:"/carousels-fetch",
+                dataType:"json",
+                success: function(respons){
+                    const BB  = respons?.carousels?.data
+                    $('#swiper-wrap').html('')
+                    $.each(BB, function(key, product){
+                        $('#swiper-wrap').append('<div class="swiper-slide">\
+                            <img class="img-fluid" src="/storage/'+product.gambar+'" alt="...">\
+                        </div>\
+                        ')
+                    })
+                }
+            })
+        }
+
         function fetchProduct() {
             $.ajax({
                 type: "GET",
                 url: "/product-fetch-name/",
                 dataType: "json",
                 success: function(respons) {
-                    console.log(respons.products)
                     $('#product-zone').html('')
                     $.each(respons.products.data, function(key, product) {
                         $('#product-zone').append('<div class="col-xl-3 col-lg-4 col-sm-6">\

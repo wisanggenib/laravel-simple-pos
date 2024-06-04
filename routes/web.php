@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\CutOffController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductCategoryController;
@@ -67,6 +68,9 @@ Route::prefix('admin')->middleware([isAdmin::class])->group(function () {
     });
     Route::get('/laporan-penjualan-barang', function () {
         return view('/admin/laporan-barang');
+    });
+    Route::get('/carousel', function () {
+        return view('/admin/carousels');
     });
 
     // Route::get('/order', function () {
@@ -136,6 +140,12 @@ Route::post('/proses-barang/{id}', [OrderController::class, 'prosesBarang']);
 Route::post('/update-status-barang/{id}', [OrderController::class, 'updateStatusBarang']);
 Route::post('/kirim-ulang/{id}', [OrderController::class, 'kirimUlang']);
 
+//carousels
+Route::get('/carousels-fetch', [CarouselController::class, 'fetchData']);
+Route::post('/carousels-store', [CarouselController::class, 'store']);
+Route::get('/carousels-fetch/{id}', [CarouselController::class, 'fetchID']);
+Route::post('/carousels-update/{id}', [CarouselController::class, 'updateData']);
+Route::get('/carousels-delete/{id}', [CarouselController::class, 'deleteData']);
 
 //dashboard
 Route::get('/dashboard-fetch-product/{filter}', [ProductController::class, 'dashboardProduct']);
