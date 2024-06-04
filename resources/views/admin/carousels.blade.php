@@ -176,6 +176,8 @@
             $('#editPeriod').val("")
             $('#inputArea').val("")
             $('#inputPeriod').val("")
+            $('#file-message').html("or drag and drop files here")
+            $('#file-message1').html("or drag and drop files here")
         }
 
         function fetchData() {
