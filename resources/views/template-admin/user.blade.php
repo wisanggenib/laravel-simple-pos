@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Document</title>
+    <title>Renno Store</title>
     <meta name="robots" content="all,follow">
 
     {{--
@@ -254,12 +254,14 @@
                     <div class="row py-5">
                         <div class="col-md-4 mb-3 mb-md-0">
                             <h6 class="text-uppercase mb-3">
-                                <img class="img-fluid" src="{{ asset('assets/images/logo-white.svg') }}" alt="...">
+                                <img class="img-fluid" src="{{ asset('assets/images/new-logos.png') }}"
+                                    style="width:30%" alt="...">
                             </h6>
                             <ul class="list-unstyled mb-0">
                                 <li class="footer-desc-new">
-                                    Morbi cursus porttitor enim lobortis molestie. Duis
-                                    gravida turpis dui, eget bibendum magna congue nec.
+                                    Beli aneka produk di Toko Reno Store Yuk secara online sekarang. Kamu bisa beli
+                                    produk dari Toko Reno Store Yuk dengan
+                                    aman & mudah.
                                 </li>
                             </ul>
                         </div>

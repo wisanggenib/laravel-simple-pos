@@ -17,7 +17,7 @@
         <div class="container-fluid">
             <div class="row d-flex justify-content-center align-items-center vh-100" style="max-height: 100vh;">
                 <div class="col-md-6 col-sm-12" style="padding-left: 3rem; padding-right: 3rem">
-                    <h3>Masuk Ke Megamart</h3>
+                    <h3>Masuk Ke Renno Store</h3>
                     <span>Masukkan kredensial Anda untuk masuk ke akun Anda</span>
                     <hr>
                     <form action="/login-action" method="POST" class="d-flex flex-grow-1 flex-column">
