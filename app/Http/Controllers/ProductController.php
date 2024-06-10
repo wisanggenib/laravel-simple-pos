@@ -708,7 +708,7 @@ class ProductController extends Controller
                                 ORDER BY items_total DESC');
 
         $vendors = DB::select('select DISTINCT(p.vendor_name) from products p WHERE p.vendor_name != "-"');
-
+        $myArray = array();
         foreach ($vendors as $key => $v) {
             $result = collect($products)->where('vendor_name', $v->vendor_name);
             $totals = 0;
