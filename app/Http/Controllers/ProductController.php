@@ -747,6 +747,8 @@ class ProductController extends Controller
 
         // dd($products2);
 
+        dd($products2);
+
         $datexx = date("Y_m_d_H_i_s");
         return (new FastExcel($products2))->download("laporan_budget_" . "$datexx" . ".xlsx", function ($user) {
             return [
