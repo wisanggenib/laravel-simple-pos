@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Stock Barang Menipis (Non Vendor)</h3>
-                        <a href="https://sales.wisanggenib.net/export-excel-home" target="_blank">Download Excel</a>
+                        <a href="https://rennostore.com/export-excel-home" target="_blank">Download Excel</a>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>

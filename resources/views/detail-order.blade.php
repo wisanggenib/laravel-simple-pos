@@ -65,7 +65,7 @@
             <div class="row">
                 <div>
                     <a style="font-size:1.5rem;font-weight:bold;"
-                        href="https://sales.wisanggenib.net/storage/{{ $orders->resi }}" target="_blank">Lihat
+                        href="https://rennostore.com/storage/{{ $orders->resi }}" target="_blank">Lihat
                         Bukti
                         Kirim</a>
                 </div>
