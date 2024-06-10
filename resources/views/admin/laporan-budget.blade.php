@@ -16,7 +16,7 @@
                         <h3 class="card-title">List Area</h3>
                     </div>
                     <div class="col-md-12">
-                        <a href="https://rennostore.com/export-excel-budget" target="_blank">Download Excel</a>
+                        <a href="/export-excel-budget" target="_blank">Download Excel</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body p-0">

@@ -64,8 +64,8 @@
             @if ($orders->resi)
             <div class="row">
                 <div>
-                    <a style="font-size:1.5rem;font-weight:bold;"
-                        href="https://rennostore.com/storage/{{ $orders->resi }}" target="_blank">Lihat
+                    <a style="font-size:1.5rem;font-weight:bold;" href="/storage/{{ $orders->resi }}"
+                        target="_blank">Lihat
                         Bukti
                         Kirim</a>
                 </div>
