@@ -104,7 +104,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2024_04_02_073948_create_cut_offs_table', 1),
 (6, '2024_04_02_121502_create_products_table', 1),
 (7, '2024_04_13_234854_create_orders_table', 1),
-(8, '2024_04_13_235721_create_order_details_table', 1);
+(8, '2024_04_13_235721_create_order_details_table', 1),
 (9, '2024_06_04_004438_create_carousels_table', 2);
 
 -- --------------------------------------------------------
