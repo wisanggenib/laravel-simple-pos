@@ -747,16 +747,17 @@ class ProductController extends Controller
 
         // dd($products2);
 
-        dd($products2);
-
         $datexx = date("Y_m_d_H_i_s");
-        return (new FastExcel($products2))->download("laporan_budget_" . "$datexx" . ".xlsx", function ($user) {
+        (new FastExcel($products2))->export(storage_path("laporan_budget_" . "$datexx" . ".xlsx"), function ($user) {
             return [
                 'Area' => $user->area_name,
                 'Budget' => $user->area_budget,
                 'Pengeluaran' => $user->expenses
             ];
         });
+        return response()->download(storage_path("laporan_budget_" . "$datexx" . ".xlsx"));
+
+        // return Storage::download(Storage::files("laporan_budget_" . "$datexx" . ".xlsx"));
     }
 
     public function exportExcelHome()
