@@ -227,7 +227,7 @@
                         }else{
                             $('#warpproses').append("<div class='col-12 p-2 mx-2'>\
                                 <div class='row'>\
-                                    <a style='font-size:1rem;font-weight:bold;' href='/storage/"+res.data[0].bukti_terima+"'\
+                                    <a style='font-size:1rem;font-weight:bold;' href='/storage/"+res.data[0].bukti_terima+"' target='_blank'\
                                     <div class='col-12' style='cursor:pointer; color:green;'>Lihat Bukti Terima</div>\
                                     </a>\
                                 </div>\
