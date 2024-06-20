@@ -48,6 +48,8 @@
                                 <div class="div" style="font-weight: bold; color:#00B517">#{{$o->id}}</div>
                                 <div class="div">/</div>
                                 <div class="div">{{$o->created_at}}</div>
+                                <div class="div">/</div>
+                                <div class="div" style="color:#00B517">{{$o->updated_at}} (updated)</div>
                             </div>
                         </div>
                         <div class="row" style="border-bottom:1px solid gray">
@@ -223,6 +225,14 @@
                                 </div>\
                             ')
                         }else{
+                            $('#warpproses').append("<div class='col-12 p-2 mx-2'>\
+                                <div class='row'>\
+                                    <a style='font-size:1rem;font-weight:bold;' href='/storage/"+res.data[0].bukti_terima+"'\
+                                    <div class='col-12' style='cursor:pointer; color:green;'>Lihat Bukti Terima</div>\
+                                    </a>\
+                                </div>\
+                            </div>\
+                            ")
                             $('#modalFooters').append('<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>\
                             ')
                         }

@@ -61,16 +61,24 @@
                     </div>
                 </div>
             </div>
-            @if ($orders->resi)
-            <div class="row">
-                <div>
-                    <a style="font-size:1.5rem;font-weight:bold;" href="/storage/{{ $orders->resi }}"
-                        target="_blank">Lihat
-                        Bukti
-                        Kirim</a>
+            <div style="display:flex; flex-direction:row;gap:1rem">
+                @if ($orders->resi)
+                <div class="row">
+                    <div>
+                        <a style="font-size:1rem;font-weight:bold;" href="/storage/{{ $orders->resi }}"
+                            target="_blank">Lihat Bukti Kirim</a>
+                    </div>
                 </div>
+                @endif
+                @if ($orders->bukti_terima)
+                <div class="row">
+                    <div>
+                        <a style="font-size:1rem;font-weight:bold;" href="/storage/{{ $orders->bukti_terima }}"
+                            target="_blank">Lihat Bukti Terima</a>
+                    </div>
+                </div>
+                @endif
             </div>
-            @endif
             <div class="row">
                 <table class="table table-detail">
                     <thead>
@@ -147,8 +155,8 @@
             @if ($isCompletedAll && $orders->status == 'kirim')
             <div class="row">
                 <div class="col-8">
-                    {{-- <div>Masukan Bukti Terima</div> --}}
-                    {{-- <input name="inputImages" id="inputImages" type="file"> --}}
+                    <div>Masukan Bukti Terima</div>
+                    <input name="inputImages" id="inputImages" type="file">
                     <button class="btn btn-primary btn-kirim-data" id="btn-kirim-data">Selesaikan Pemesanan</button>
                     <input id="orderIDD" type="text" class="d-none" value={{$orders->id}}>
                 </div>
@@ -238,25 +246,23 @@
         $(document).on('click', '.btn-kirim-data', function(e) {
             e.preventDefault()
 
-            // let data = {
-            // 'thumbnail': $('#inputImages').prop('files')[0],
-            // }
-
-            console.log("hjere")
+            let data = {
+            'thumbnail': $('#inputImages').prop('files')[0],
+            }
             
-            // let formData = new FormData();
-            // formData.append('thumbnail', $('#inputImages').prop('files')[0]);
+            let formData = new FormData();
+            formData.append('thumbnail', $('#inputImages').prop('files')[0]);
 
             let selID = $('#orderIDD').val();
 
             $.ajax({
                 type: "POST",
                 url: "/terima-barang/" + selID,
-                // data: formData,
-                // enctype: 'multipart/form-data',
-                // cache: false,
-                // contentType: false,
-                // processData: false,
+                data: formData,
+                enctype: 'multipart/form-data',
+                cache: false,
+                contentType: false,
+                processData: false,
                 success: function(res) {
                     if (res.data) {
                         $('#alert-success').removeClass("d-none")

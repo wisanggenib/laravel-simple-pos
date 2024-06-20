@@ -122,6 +122,7 @@ class OrderController extends Controller
             ->where('orders.id_user', Auth::user()->id)
             ->orderBy('orders.created_at', 'desc')
             ->get();
+
         return response()->json([
             'cutoffs' => $cutoff,
         ]);
@@ -158,7 +159,6 @@ class OrderController extends Controller
             $value->available_stock = $avalable_stock;
             $value->product_stock = $eachP->product_stock;
         }
-
         if ($product) {
             return response()->json([
                 'status' => 200,
@@ -407,12 +407,12 @@ class OrderController extends Controller
         $cutOff = Order::find($id);
         if ($cutOff) {
 
-            // if ($request->file('thumbnail')) {
-            //     $ext = $request->file('thumbnail')->extension();
-            //     $imgName = date("Ymdhis") . '.' . $ext;
-            //     Storage::putFileAs('public/images', $request->file('thumbnail'), $imgName);
-            //     $cutOff->bukti_terima = $imgName;
-            // }
+            if ($request->file('thumbnail')) {
+                $ext = $request->file('thumbnail')->extension();
+                $imgName = date("Ymdhis") . '.' . $ext;
+                Storage::putFileAs('public', $request->file('thumbnail'), $imgName);
+                $cutOff->bukti_terima = $imgName;
+            }
             $cutOff->tgl_diterima = now();
             $cutOff->status = 'selesai';
             $cutOff->update();
