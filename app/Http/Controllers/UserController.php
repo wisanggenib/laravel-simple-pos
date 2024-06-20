@@ -19,7 +19,7 @@ class UserController extends Controller
             ->select('users.*', 'areas.area_name')
             ->join('areas', 'users.id_area', '=', 'areas.id')
             ->where('users.username', 'LIKE', "%$name%")
-            ->paginate(10);
+            ->paginate(1000);
         return response()->json([
             'users' => $users,
         ]);
