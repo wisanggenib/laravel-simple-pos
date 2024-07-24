@@ -21,7 +21,7 @@ class ProductController extends Controller
             ->select('product_categories.id as id_category', 'product_categories.*', 'products.*')
             ->join('product_categories', 'products.id_category', '=', 'product_categories.id')
             ->where('products.product_name', 'LIKE', "%$value%")
-            ->paginate(100);
+            ->paginate(100000);
 
         foreach ($products as $key => $value) {
             $query_pending_stock = DB::select('SELECT sum(quantity) as available_stock 

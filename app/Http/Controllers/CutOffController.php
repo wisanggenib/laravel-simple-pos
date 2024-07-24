@@ -14,7 +14,7 @@ class CutOffController extends Controller
             DB::table('cut_offs')
             ->select('cut_offs.*', 'areas.area_name')
             ->join('areas', 'cut_offs.id_area', '=', 'areas.id')
-            ->paginate(10);
+            ->paginate(100000000);
         return response()->json([
             'cutoffs' => $cutoff,
         ]);
