@@ -224,7 +224,7 @@
                                     </div>\
                                 </div>\
                             ')
-                        }else{
+                        }else if(res.data[0].status === 'selesai'){
                             $('#warpproses').append("<div class='col-12 p-2 mx-2'>\
                                 <div class='row'>\
                                     <a style='font-size:1rem;font-weight:bold;' href='/storage/"+res.data[0].bukti_terima+"' target='_blank'\
