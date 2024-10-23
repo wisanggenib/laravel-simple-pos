@@ -57,8 +57,9 @@
                     </form>
                 </div>
                 <div class="col-md-6 prevent-select d-none d-md-block d-xl-block d-lg-block"
-                    style="background: #E5FAD8; padding:0">
-                    <img src="assets/images/bg-login.png" class="img-fluid" alt="Sample image" style="height: 100vh">
+                    style="background: #E5FAD8; padding:0; background-image: url(assets/images/bg-login1.png); height: 100vh;background-size: cover; background-position: center">
+                    {{-- <img src="assets/images/bg-login1.png" class="img-fluid" alt="Sample image"
+                        style="height: 100vh"> --}}
                 </div>
             </div>
         </div>
