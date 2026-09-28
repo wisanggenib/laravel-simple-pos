@@ -155,9 +155,11 @@ class OrderController extends Controller
                                  OR o.status  = "proses" )
                             AND od.id_product  = ?', [$value->id_product]);
             $pending_stock = $query_pending_stock[0]->available_stock;
-            $avalable_stock = $eachP->product_stock - $pending_stock;
+            // produk bisa sudah dihapus, sementara order_details lama masih menunjuk ke id-nya
+            $product_stock = $eachP ? $eachP->product_stock : 0;
+            $avalable_stock = $product_stock - $pending_stock;
             $value->available_stock = $avalable_stock;
-            $value->product_stock = $eachP->product_stock;
+            $value->product_stock = $product_stock;
         }
         if ($product) {
             return response()->json([
