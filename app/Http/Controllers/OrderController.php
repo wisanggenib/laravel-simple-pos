@@ -238,16 +238,32 @@ class OrderController extends Controller
             ->where('order_details.id_order', $id)
             ->get();
 
-        foreach ($products as $key => $product) {
-            $currProduct = Product::find($product->id_product);
-            $currProduct->product_stock = $currProduct->product_stock - $product->quantity;
-            $currProduct->update();
-        }
-
         $cutOff = Order::find($id);
         if ($cutOff) {
-            $cutOff->status = 'proses';
-            $cutOff->update();
+            // cegah stok terpotong dua kali kalau order sudah pernah diproses
+            if ($cutOff->status !== 'order') {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'order sudah diproses',
+                    'data' => $cutOff
+                ]);
+            }
+
+            // stok dan status berubah bersama, atau tidak sama sekali
+            DB::transaction(function () use ($products, $cutOff) {
+                foreach ($products as $key => $product) {
+                    $currProduct = Product::find($product->id_product);
+                    // produk bisa sudah dihapus, sementara order_details lama masih menunjuk ke id-nya
+                    if (!$currProduct) {
+                        continue;
+                    }
+                    $currProduct->product_stock = $currProduct->product_stock - $product->quantity;
+                    $currProduct->update();
+                }
+
+                $cutOff->status = 'proses';
+                $cutOff->update();
+            });
             if ($cutOff) {
                 return response()->json([
                     'status' => 200,
